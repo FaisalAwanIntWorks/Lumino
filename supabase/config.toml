@@ -1,0 +1,319 @@
+project_id = "wcfxtsyhrpephimyrpbx"
+
+# Ring/AI Functions
+[functions.ring-assistant]
+verify_jwt = false
+
+[functions.ring-chat]
+verify_jwt = false
+
+[functions.jewelx-help]
+verify_jwt = false
+
+# Shopify Integration
+[functions.shopify-add-to-cart]
+verify_jwt = false
+
+[functions.shopify-push-catalog]
+verify_jwt = false
+
+[functions.shopify-push-stones]
+verify_jwt = false
+
+[functions.shopify-push-diamond-presets]
+verify_jwt = false
+
+[functions.shopify-test-connection]
+verify_jwt = false
+
+[functions.shopify-oauth-callback]
+verify_jwt = false
+
+# Rate Limiting & Security
+[functions.rate-limiter]
+verify_jwt = false
+
+[functions.account-lockout-check]
+verify_jwt = false
+
+[functions.security-monitor]
+verify_jwt = false
+
+# Catalog Management
+[functions.generate-client-catalog]
+verify_jwt = false
+
+[functions.reset-client-catalog]
+verify_jwt = false
+
+[functions.import-master-db-data]
+verify_jwt = false
+
+# Document Parsing
+[functions.parse-pdf]
+verify_jwt = false
+
+# Staff Management
+[functions.create-staff-user]
+verify_jwt = false
+
+[functions.delete-staff-user]
+verify_jwt = false
+
+[functions.update-client-staff-member]
+verify_jwt = false
+
+[functions.update-staff-password]
+verify_jwt = false
+
+[functions.migrate-existing-staff]
+verify_jwt = false
+
+# Admin Staff Management
+[functions.create-admin-staff-user]
+verify_jwt = false
+
+[functions.delete-admin-staff-user]
+verify_jwt = false
+
+# Authentication & Login
+[functions.log-failed-login]
+verify_jwt = false
+
+[functions.create-client-user]
+verify_jwt = false
+
+[functions.send-verification-email]
+verify_jwt = false
+
+[functions.verify-email-token]
+verify_jwt = false
+
+[functions.request-password-reset]
+verify_jwt = false
+
+[functions.verify-reset-token]
+verify_jwt = false
+
+[functions.admin-reset-client-password]
+verify_jwt = false
+
+[functions.sync-client-passwords]
+verify_jwt = false
+
+# Email & Notifications
+[functions.send-email]
+verify_jwt = false
+
+[functions.notify-new-lead]
+verify_jwt = false
+
+[functions.notify-admins-client-status]
+verify_jwt = false
+
+[functions.notify-lead-deleted]
+verify_jwt = false
+
+[functions.notify-admins-new-client]
+verify_jwt = false
+
+# Logging & Errors
+[functions.log-system-error]
+verify_jwt = false
+
+# Client Data Edge Functions (for admin impersonation)
+[functions.get-client-saved-designs]
+verify_jwt = false
+
+[functions.get-staff-leads]
+verify_jwt = false
+
+[functions.get-client-activity-logs]
+verify_jwt = false
+
+[functions.get-client-staff-members]
+verify_jwt = false
+
+[functions.get-client-failed-logins]
+verify_jwt = false
+
+[functions.get-admin-failed-logins]
+verify_jwt = false
+
+# Usage & Health Monitoring
+[functions.usage-snapshot]
+verify_jwt = false
+
+[functions.usage-alerts-check]
+verify_jwt = false
+
+[functions.client-health-calculator]
+verify_jwt = false
+
+# GDPR Compliance
+[functions.gdpr-delete-user]
+verify_jwt = false
+
+[functions.gdpr-export-user]
+verify_jwt = false
+
+# Database & Backup
+[functions.database-backup]
+verify_jwt = false
+
+# Auth User Management
+[functions.delete-auth-user]
+verify_jwt = false
+
+# Status Endpoint
+[functions.status]
+verify_jwt = false
+
+[functions.heartbeat]
+verify_jwt = false
+
+[functions.platform-health-monitor]
+verify_jwt = false
+
+# Daily Leads Report — nightly per-client, per-form lead counts to super admins
+[functions.daily-leads-report]
+verify_jwt = false
+
+# Client Welcome Email
+[functions.send-client-welcome-email]
+verify_jwt = false
+
+# Backup Download
+[functions.backup-download]
+verify_jwt = false
+
+# Shopify Order Sync
+[functions.shopify-order-webhook]
+verify_jwt = false
+
+[functions.register-shopify-webhooks]
+verify_jwt = false
+
+# Table JSON Export
+[functions.export-table-json]
+verify_jwt = false
+
+# Stripe Checkout & Subscription
+[functions.create-checkout]
+verify_jwt = false
+
+[functions.check-subscription]
+verify_jwt = false
+
+[functions.stripe-webhook]
+verify_jwt = false
+
+# Form Deposit Shopify Integration
+[functions.shopify-push-form-product]
+verify_jwt = false
+
+[functions.shopify-form-checkout]
+verify_jwt = false
+
+# Appointment Booking
+[functions.notify-appointment-booking]
+verify_jwt = false
+
+# AI Grillz Preview
+[functions.generate-grillz-preview]
+verify_jwt = false
+
+# AI Ring Preview
+[functions.generate-ring-preview]
+verify_jwt = false
+
+# Unkey API Key Management
+[functions.unkey-create-key]
+verify_jwt = false
+
+[functions.unkey-list-keys]
+verify_jwt = false
+
+[functions.unkey-revoke-key]
+verify_jwt = false
+
+[functions.unkey-usage-analytics]
+verify_jwt = false
+
+# Form Lead Notifications
+[functions.notify-form-lead]
+verify_jwt = false
+
+# Customer Confirmation Emails
+[functions.notify-customer-confirmation]
+verify_jwt = false
+
+# AI Custom Enquiry Preview
+[functions.generate-enquiry-preview]
+verify_jwt = false
+
+# Lead Cost Estimation & Quoting
+[functions.estimate-lead-cost]
+verify_jwt = false
+
+[functions.send-quote-estimate]
+verify_jwt = false
+
+# AI Storage & Cache Cleanup
+[functions.cleanup-ai-storage]
+verify_jwt = false
+
+# CAD Resize Notification
+[functions.notify-cad-resize]
+verify_jwt = false
+
+# Live Metal Prices
+[functions.fetch-metal-prices]
+verify_jwt = false
+
+# Diamond FX: admin Sync Rates (checks admin write access itself)
+[functions.diamond-fx-sync-rates]
+verify_jwt = false
+
+# Lead Email Logs
+[functions.get-lead-email-logs]
+verify_jwt = false
+
+# Lead Follow-Up Email (client -> lead's customer)
+[functions.send-lead-followup-email]
+verify_jwt = false
+
+# CAD Request Notification
+[functions.notify-cad-request]
+verify_jwt = false
+
+# CAD Delivery Notification
+[functions.notify-cad-delivery]
+verify_jwt = false
+
+# Support Tickets — query/answer email workflow
+[functions.send-support-email]
+verify_jwt = false
+
+# Meta Conversions API (DTT only)
+[functions.meta-capi-track]
+verify_jwt = false
+
+# Quote Estimator claim step — records the confirmed mobile number
+[functions.claim-quote-credit]
+verify_jwt = false
+
+[functions.marketing-import-leads]
+verify_jwt = false
+
+[functions.marketing-campaign-action]
+verify_jwt = false
+
+[functions.marketing-campaign-tick]
+verify_jwt = false
+
+[functions.marketing-unsubscribe]
+verify_jwt = false
+
+[functions.marketing-resend-webhook]
+verify_jwt = false

@@ -1,0 +1,1 @@
+UPDATE public.lookup_shanks SET shank_name = 'Tapered' WHERE shank_id = 'unknown-1';

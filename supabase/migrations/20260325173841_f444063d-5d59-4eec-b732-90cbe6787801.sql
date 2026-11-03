@@ -1,0 +1,1 @@
+ALTER TABLE public.appointment_bookings ADD COLUMN IF NOT EXISTS customer_timezone TEXT;

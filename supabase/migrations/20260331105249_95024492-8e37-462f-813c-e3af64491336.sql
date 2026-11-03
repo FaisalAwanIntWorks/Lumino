@@ -1,0 +1,1 @@
+ALTER TABLE public.cad_requests ADD COLUMN IF NOT EXISTS client_feedback text;

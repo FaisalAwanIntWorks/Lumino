@@ -1,0 +1,15 @@
+export { SmartGLBModel, clearGLTFCache } from './SmartGLBModel';
+export type { SmartGLBModelProps, ModelInfo, LoaderProfile } from './SmartGLBModel';
+export { CameraController } from './CameraController';
+export { OrbitControlsWithDamping } from './OrbitControlsWithDamping';
+export { ViewerControls, type EnvironmentPreset as ViewerEnvironmentPreset } from './ViewerControls';
+export { LoadingSpinner, LoadingFallbackMesh } from './LoadingSpinner';
+export { GridHelper } from './GridHelper';
+export { ColorSelector, METAL_COLORS } from './ColorSelector';
+export type { MetalColor } from './ColorSelector';
+export { JEWELRY_MATERIAL_PRESETS, detectMaterialType, applyJewelryPreset } from './materialPresets';
+export type { JewelryMaterialSettings } from './materialPresets';
+export { JEWELRY_SCENE_CONFIG, DARK_SCENE_CONFIG, TRANSPARENT_SCENE_CONFIG, getSceneConfig, ENVIRONMENT_PRESETS } from './sceneConfig';
+export type { JewelrySceneConfig, EnvironmentPreset } from './sceneConfig';
+export { PostProcessingEffects } from './PostProcessingEffects';
+export { GroundShadow } from './GroundShadow';

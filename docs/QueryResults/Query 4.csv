@@ -1,0 +1,86 @@
+avg_price_per_image_usd;charged_usd;company_name;from_client_wallet_usd;from_free_credits_usd;images;model;month
+0.0720;2.30;Asteri Diamonds;0.00;2.30;32;google/gemini-3.1-flash-image-preview;2026-05
+0.0720;2.88;Asteri Diamonds;0.00;2.88;40;google/gemini-3.1-flash-image-preview;2026-06
+0.0720;1.66;Asteri Diamonds;0.00;1.66;23;google/gemini-3.1-flash-image-preview;2026-07
+0.0720;0.22;Asteri Diamonds;0.00;0.22;3;google/gemini-3.1-flash-image-preview;2026-08
+0.0720;0.50;Asteri Diamonds;0.00;0.50;7;google/gemini-3.1-flash-image-preview;2026-09
+0.0720;0.65;Asteri Diamonds;0.00;0.65;9;google/gemini-3.1-flash-image-preview;2026-10
+0.0720;0.43;Chrono 47;0.00;0.43;6;google/gemini-3.1-flash-image-preview;2026-07
+0.0720;0.65;Chrono 47;0.00;0.65;9;google/gemini-3.1-flash-image-preview;2026-08
+0.0720;0.07;Chrono 47;0.00;0.07;1;google/gemini-3.1-flash-image-preview;2026-09
+0.0720;13.32;Danny Diamonds & Co;0.00;13.32;185;google/gemini-3.1-flash-image-preview;2026-10
+0.0720;1.01;Dumoni;0.00;1.01;14;google/gemini-3.1-flash-image-preview;2026-08
+0.0720;0.65;Dumoni;0.00;0.65;9;google/gemini-3.1-flash-image-preview;2026-09
+0.0720;0.14;Dumoni;0.00;0.14;2;google/gemini-3.1-flash-image-preview;2026-10
+0.0872;2.53;fbe;0.43;2.10;29;google/gemini-3-pro-image-preview;2026-04
+0.0849;1.10;fbe;0.06;1.04;13;google/gemini-3.1-flash-image-preview;2026-04
+0.0720;0.86;fbe;0.00;0.86;12;google/gemini-3.1-flash-image-preview;2026-05
+0.0720;0.29;fbe;0.00;0.29;4;google/gemini-3.1-flash-image-preview;2026-08
+0.0720;0.79;fbe;0.00;0.79;11;google/gemini-3.1-flash-image-preview;2026-09
+0.0720;0.14;fbe;0.00;0.14;2;google/gemini-3.1-flash-image-preview;2026-10
+0.0720;3.46;GoldMoufDog Custom Grillz & Jewelry;0.00;3.46;48;google/gemini-3.1-flash-image-preview;2026-08
+0.0720;29.16;GoldMoufDog Custom Grillz & Jewelry;7.67;21.49;405;google/gemini-3.1-flash-image-preview;2026-09
+0.0720;1.15;GoldMoufDog Custom Grillz & Jewelry;0.22;0.94;16;cached;2026-09
+0.0720;73.37;GoldMoufDog Custom Grillz & Jewelry;51.45;21.92;1019;google/gemini-3.1-flash-image-preview;2026-10
+0.0720;2.52;GoldMoufDog Custom Grillz & Jewelry;2.02;0.50;35;cached;2026-10
+0.0720;0.14;GoldMoufDog Custom Grillz & Jewelry;0.07;0.07;2;google/gemini-3-pro-image-preview;2026-10
+0.0720;0.58;Gotham City Jewelers;0.00;0.58;8;google/gemini-3.1-flash-image-preview;2026-05
+0.0720;0.29;Gotham City Jewelers;0.00;0.29;4;google/gemini-3.1-flash-image-preview;2026-06
+0.0720;0.07;Gotham City Jewelers;0.00;0.07;1;google/gemini-3.1-flash-image-preview;2026-09
+0.0720;0.50;Gotham City Jewelers;0.00;0.50;7;google/gemini-3.1-flash-image-preview;2026-10
+0.0720;0.43;Henrys Jewelry;0.00;0.43;6;google/gemini-3.1-flash-image-preview;2026-05
+0.0720;1.15;Henrys Jewelry;0.00;1.15;16;google/gemini-3.1-flash-image-preview;2026-06
+0.0720;0.50;Henrys Jewelry;0.00;0.50;7;google/gemini-3.1-flash-image-preview;2026-07
+0.0720;0.43;Henrys Jewelry;0.00;0.43;6;google/gemini-3.1-flash-image-preview;2026-08
+0.0720;1.51;Henrys Jewelry;0.00;1.51;21;google/gemini-3.1-flash-image-preview;2026-09
+0.0720;1.01;Henrys Jewelry;0.00;1.01;14;google/gemini-3.1-flash-image-preview;2026-10
+0.0720;0.07;Intrigue Jewelers;0.00;0.07;1;google/gemini-3.1-flash-image-preview;2026-09
+0.0720;0.22;Intrigue Jewelers;0.00;0.22;3;google/gemini-3.1-flash-image-preview;2026-10
+0.0720;0.29;IRIS FINE JEWELS LTD.;0.00;0.29;4;google/gemini-3.1-flash-image-preview;2026-07
+0.0720;7.42;IRIS FINE JEWELS LTD.;0.00;7.42;103;google/gemini-3.1-flash-image-preview;2026-08
+0.0720;0.07;IRIS FINE JEWELS LTD.;0.00;0.07;1;google/gemini-3-pro-image-preview;2026-08
+0.0720;47.52;IRIS FINE JEWELS LTD.;25.02;22.50;660;google/gemini-3.1-flash-image-preview;2026-09
+0.0720;36.79;IRIS FINE JEWELS LTD.;14.44;22.36;511;google/gemini-3.1-flash-image-preview;2026-10
+0.0720;0.14;IRIS FINE JEWELS LTD.;0.07;0.07;2;cached;2026-10
+0.0720;0.07;IRIS FINE JEWELS LTD.;0.00;0.07;1;google/gemini-3-pro-image-preview;2026-10
+0.0720;0.36;Jesse the Jeweler;0.00;0.36;5;google/gemini-3.1-flash-image-preview;2026-06
+0.0720;0.07;Jesse the Jeweler;0.00;0.07;1;google/gemini-3-pro-image-preview;2026-06
+0.0720;0.43;Jesse the Jeweler;0.00;0.43;6;google/gemini-3.1-flash-image-preview;2026-08
+0.0720;0.07;Jesse the Jeweler;0.00;0.07;1;google/gemini-3.1-flash-image-preview;2026-09
+0.0720;0.36;Jesse the Jeweler;0.00;0.36;5;google/gemini-3.1-flash-image-preview;2026-10
+0.0720;6.70;Jewels of nyc;0.00;6.70;93;google/gemini-3.1-flash-image-preview;2026-08
+0.0720;8.71;Jewels of nyc;0.00;8.71;121;google/gemini-3.1-flash-image-preview;2026-09
+0.0720;10.66;Jewels of nyc;0.00;10.66;148;google/gemini-3.1-flash-image-preview;2026-10
+0.0300;1.08;JewlX;1.08;0.00;36;google/gemini-3.1-flash-image-preview;2026-03
+0.0300;0.06;JewlX;0.06;0.00;2;google/gemini-3-pro-image-preview;2026-03
+0.0300;0.03;JewlX;0.03;0.00;1;cached;2026-03
+0.0300;0.03;JewlX;0.03;0.00;1;google/gemini-2.5-flash-image;2026-03
+0.0676;8.92;JewlX;4.87;4.05;132;google/gemini-3.1-flash-image-preview;2026-04
+0.0589;1.77;JewlX;1.27;0.50;30;google/gemini-3-pro-image-preview;2026-04
+0.0300;0.15;JewlX;0.00;0.15;5;google/gemini-2.5-flash-image;2026-04
+0.0300;0.03;JewlX;0.00;0.03;1;cached;2026-04
+0.0720;5.26;JewlX;0.00;5.26;73;google/gemini-3.1-flash-image-preview;2026-05
+0.0720;0.07;JewlX;0.00;0.07;1;google/gemini-3-pro-image-preview;2026-05
+0.0720;2.66;JewlX;0.00;2.66;37;google/gemini-3.1-flash-image-preview;2026-06
+0.0720;5.69;JewlX;0.00;5.69;79;google/gemini-3.1-flash-image-preview;2026-07
+0.0720;2.23;JewlX;0.00;2.23;31;google/gemini-3.1-flash-image-preview;2026-08
+0.0720;2.52;JewlX;0.00;2.52;35;google/gemini-3.1-flash-image-preview;2026-09
+0.0720;2.30;JewlX;0.00;2.30;32;google/gemini-3.1-flash-image-preview;2026-10
+0.0720;12.24;Joey The Jeweller;0.00;12.24;170;google/gemini-3.1-flash-image-preview;2026-10
+0.0720;0.14;Lavora Diamonds;0.00;0.14;2;google/gemini-3.1-flash-image-preview;2026-09
+0.0720;0.14;Lavora Diamonds;0.00;0.14;2;google/gemini-3.1-flash-image-preview;2026-10
+0.1100;1.10;Lumière Fine Jewelry;0.00;1.10;10;google/gemini-3.1-flash-image-preview;2026-04
+0.0300;0.15;Ounce of Ice;0.15;0.00;5;google/gemini-3.1-flash-image-preview;2026-04
+0.0550;0.22;Ounce of Ice;0.22;0.00;4;google/gemini-3-pro-image-preview;2026-04
+0.0720;1.22;Ounce of Ice;0.00;1.22;17;google/gemini-3.1-flash-image-preview;2026-06
+0.0720;1.22;Ounce of Ice;0.00;1.22;17;google/gemini-3.1-flash-image-preview;2026-07
+0.0720;1.22;Ounce of Ice;0.00;1.22;17;google/gemini-3.1-flash-image-preview;2026-08
+0.0720;2.16;Ounce of Ice;0.00;2.16;30;google/gemini-3.1-flash-image-preview;2026-09
+0.0720;2.23;Ounce of Ice;0.00;2.23;31;google/gemini-3.1-flash-image-preview;2026-10
+0.0720;4.61;Vvs Jewelers;0.00;4.61;64;google/gemini-3.1-flash-image-preview;2026-05
+0.0720;0.07;Vvs Jewelers;0.00;0.07;1;cached;2026-05
+0.0720;3.67;Vvs Jewelers;0.00;3.67;51;google/gemini-3.1-flash-image-preview;2026-06
+0.0720;0.22;Vvs Jewelers;0.00;0.22;3;google/gemini-3.1-flash-image-preview;2026-07
+0.0720;1.44;Vvs Jewelers;0.00;1.44;20;google/gemini-3.1-flash-image-preview;2026-09
+0.0720;24.55;Vvs Jewelers;3.28;21.28;341;google/gemini-3.1-flash-image-preview;2026-10
+0.0720;1.22;Vvs Jewelers;0.00;1.22;17;cached;2026-10

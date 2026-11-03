@@ -1,0 +1,1 @@
+ALTER TABLE public.design_requests ADD COLUMN IF NOT EXISTS follow_up_status TEXT DEFAULT 'new';

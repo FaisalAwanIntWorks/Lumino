@@ -1,0 +1,1 @@
+UPDATE public.diamond_shape_options SET image_url = 'https://d3hry6a3ciae6y.cloudfront.net/DiamondsCatalog/diamond_shape/radiant.png' WHERE id = 'bbd34805-3c37-4a8b-a2ff-86972718df73';

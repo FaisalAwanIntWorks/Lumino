@@ -1,0 +1,76 @@
+/* ========================================
+   Screenshot & Content Protection Styles
+   ======================================== */
+
+/* Full protection — embed widgets */
+.screenshot-protected-full {
+  -webkit-user-select: none !important;
+  -moz-user-select: none !important;
+  -ms-user-select: none !important;
+  user-select: none !important;
+  -webkit-user-drag: none !important;
+  -webkit-touch-callout: none !important;
+}
+
+/* Allow selection inside form inputs/textareas even in full protection */
+.screenshot-protected-full input,
+.screenshot-protected-full textarea,
+.screenshot-protected-full select,
+.screenshot-protected-full [contenteditable="true"] {
+  -webkit-user-select: text !important;
+  -moz-user-select: text !important;
+  user-select: text !important;
+}
+
+.screenshot-protected-full img,
+.screenshot-protected-full canvas,
+.screenshot-protected-full video {
+  -webkit-user-drag: none !important;
+  pointer-events: auto;
+}
+
+/* Light protection — portal/admin pages */
+.screenshot-protected-light {
+  -webkit-user-drag: none !important;
+  -webkit-touch-callout: none !important;
+}
+
+/* ---- Print blanking ---- */
+@media print {
+  .screenshot-protected-full #root,
+  .screenshot-protected-light #root {
+    display: none !important;
+  }
+
+  .screenshot-protected-full,
+  .screenshot-protected-light {
+    visibility: hidden !important;
+  }
+
+  .screenshot-protected-full *,
+  .screenshot-protected-light * {
+    visibility: hidden !important;
+  }
+
+  /* Show a message instead */
+  .screenshot-protected-full::after,
+  .screenshot-protected-light::after {
+    content: 'Content protected — printing is not allowed.';
+    visibility: visible !important;
+    display: block;
+    position: fixed;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    font-size: 1.5rem;
+    color: #666;
+    text-align: center;
+  }
+}
+
+/* ---- Active printing blank (JS-triggered) ---- */
+.screenshot-printing body,
+.screenshot-printing #root {
+  opacity: 0 !important;
+  visibility: hidden !important;
+}

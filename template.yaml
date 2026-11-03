@@ -1,0 +1,362 @@
+AWSTemplateFormatVersion: '2010-09-09'
+Description: >-
+  CloudFormation template for deploying a React SPA on EC2 with Nginx, Elastic IP,
+  and Supabase credentials in Secrets Manager. IMPORTANT: After stack creation,
+  enable termination protection via the AWS Console or CLI:
+  aws cloudformation update-termination-protection --enable-termination-protection --stack-name <STACK_NAME>
+
+Parameters:
+  EnvironmentName:
+    Type: String
+    Description: Environment name for tagging and namespacing (e.g., production, staging)
+
+  SupabaseUrl:
+    Type: String
+    NoEcho: true
+    Description: Supabase project URL (e.g., https://xxxx.supabase.co)
+
+  SupabaseAnonKey:
+    Type: String
+    NoEcho: true
+    Description: Supabase anonymous/public API key
+
+  KeyPairName:
+    Type: AWS::EC2::KeyPair::KeyName
+    Description: Name of an existing EC2 key pair for SSH access
+
+  SSHCidr:
+    Type: String
+    Description: CIDR block allowed for SSH access (e.g., 203.0.113.0/32)
+    AllowedPattern: ^(\d{1,3}\.){3}\d{1,3}/\d{1,2}$
+    ConstraintDescription: Must be a valid CIDR block (e.g., 203.0.113.0/32)
+
+  LatestUbuntuAmiId:
+    Type: AWS::SSM::Parameter::Value<AWS::EC2::Image::Id>
+    Default: /aws/service/canonical/ubuntu/server/22.04/stable/current/amd64/hvm/ebs-gp2/ami-id
+    Description: Latest Ubuntu 22.04 LTS AMI ID (auto-resolved via SSM)
+
+  DomainName:
+    Type: String
+    Description: Domain name for documentation and tagging (e.g., myapp.example.com)
+
+Metadata:
+  StackProtection:
+    Description: >-
+      Recommended stack policy to protect critical resources from accidental replacement or deletion.
+      Apply this policy after stack creation using the CLI command below.
+    RecommendedStackPolicy: |
+      {
+        "Statement": [
+          {
+            "Effect": "Allow",
+            "Action": "Update:*",
+            "Principal": "*",
+            "Resource": "*"
+          },
+          {
+            "Effect": "Deny",
+            "Action": ["Update:Replace", "Update:Delete"],
+            "Principal": "*",
+            "Resource": "LogicalResourceId/EC2Instance"
+          },
+          {
+            "Effect": "Deny",
+            "Action": ["Update:Replace", "Update:Delete"],
+            "Principal": "*",
+            "Resource": "LogicalResourceId/SupabaseSecret"
+          }
+        ]
+      }
+    ApplyCommand: >-
+      aws cloudformation set-stack-policy --stack-name <STACK_NAME> --stack-policy-body file://stack-policy.json
+
+Resources:
+  # ==========================================
+  # VPC and Networking
+  # ==========================================
+
+  VPC:
+    Type: AWS::EC2::VPC
+    Properties:
+      CidrBlock: 10.0.0.0/16
+      EnableDnsSupport: true
+      EnableDnsHostnames: true
+      Tags:
+        - Key: Environment
+          Value: !Ref EnvironmentName
+        - Key: Project
+          Value: !Sub "${EnvironmentName}-react-app"
+        - Key: Name
+          Value: !Sub "${EnvironmentName}-vpc"
+
+  PublicSubnet:
+    Type: AWS::EC2::Subnet
+    Properties:
+      VpcId: !Ref VPC
+      CidrBlock: 10.0.1.0/24
+      MapPublicIpOnLaunch: true
+      Tags:
+        - Key: Environment
+          Value: !Ref EnvironmentName
+        - Key: Project
+          Value: !Sub "${EnvironmentName}-react-app"
+        - Key: Name
+          Value: !Sub "${EnvironmentName}-public-subnet"
+
+  InternetGateway:
+    Type: AWS::EC2::InternetGateway
+    Properties:
+      Tags:
+        - Key: Environment
+          Value: !Ref EnvironmentName
+        - Key: Project
+          Value: !Sub "${EnvironmentName}-react-app"
+        - Key: Name
+          Value: !Sub "${EnvironmentName}-igw"
+
+  VPCGatewayAttachment:
+    Type: AWS::EC2::VPCGatewayAttachment
+    Properties:
+      VpcId: !Ref VPC
+      InternetGatewayId: !Ref InternetGateway
+
+  PublicRouteTable:
+    Type: AWS::EC2::RouteTable
+    Properties:
+      VpcId: !Ref VPC
+      Tags:
+        - Key: Environment
+          Value: !Ref EnvironmentName
+        - Key: Project
+          Value: !Sub "${EnvironmentName}-react-app"
+        - Key: Name
+          Value: !Sub "${EnvironmentName}-public-rt"
+
+  DefaultRoute:
+    Type: AWS::EC2::Route
+    DependsOn: VPCGatewayAttachment
+    Properties:
+      RouteTableId: !Ref PublicRouteTable
+      DestinationCidrBlock: 0.0.0.0/0
+      GatewayId: !Ref InternetGateway
+
+  SubnetRouteTableAssociation:
+    Type: AWS::EC2::SubnetRouteTableAssociation
+    Properties:
+      SubnetId: !Ref PublicSubnet
+      RouteTableId: !Ref PublicRouteTable
+
+  # ==========================================
+  # Security Group and IAM
+  # ==========================================
+
+  EC2SecurityGroup:
+    Type: AWS::EC2::SecurityGroup
+    Properties:
+      GroupDescription: !Sub "${EnvironmentName} - EC2 instance security group"
+      VpcId: !Ref VPC
+      SecurityGroupIngress:
+        - IpProtocol: tcp
+          FromPort: 80
+          ToPort: 80
+          CidrIp: 0.0.0.0/0
+          Description: Allow HTTP from anywhere
+        - IpProtocol: tcp
+          FromPort: 443
+          ToPort: 443
+          CidrIp: 0.0.0.0/0
+          Description: Allow HTTPS from anywhere
+        - IpProtocol: tcp
+          FromPort: 22
+          ToPort: 22
+          CidrIp: !Ref SSHCidr
+          Description: Allow SSH from specified CIDR
+      SecurityGroupEgress:
+        - IpProtocol: "-1"
+          CidrIp: 0.0.0.0/0
+          Description: Allow all outbound traffic
+      Tags:
+        - Key: Environment
+          Value: !Ref EnvironmentName
+        - Key: Project
+          Value: !Sub "${EnvironmentName}-react-app"
+        - Key: Name
+          Value: !Sub "${EnvironmentName}-ec2-sg"
+
+  SupabaseSecret:
+    Type: AWS::SecretsManager::Secret
+    DeletionPolicy: Retain
+    UpdateReplacePolicy: Retain
+    Properties:
+      Name: !Sub "${EnvironmentName}/supabase-credentials"
+      SecretString: !Sub |
+        {
+          "supabaseUrl": "${SupabaseUrl}",
+          "supabaseAnonKey": "${SupabaseAnonKey}"
+        }
+      Tags:
+        - Key: Environment
+          Value: !Ref EnvironmentName
+        - Key: Project
+          Value: !Sub "${EnvironmentName}-react-app"
+
+  EC2IAMRole:
+    Type: AWS::IAM::Role
+    Properties:
+      AssumeRolePolicyDocument:
+        Version: '2012-10-17'
+        Statement:
+          - Effect: Allow
+            Principal:
+              Service: ec2.amazonaws.com
+            Action: sts:AssumeRole
+      Policies:
+        - PolicyName: SupabaseSecretReadAccess
+          PolicyDocument:
+            Version: '2012-10-17'
+            Statement:
+              - Effect: Allow
+                Action:
+                  - secretsmanager:GetSecretValue
+                Resource: !Ref SupabaseSecret
+      Tags:
+        - Key: Environment
+          Value: !Ref EnvironmentName
+        - Key: Project
+          Value: !Sub "${EnvironmentName}-react-app"
+
+  EC2InstanceProfile:
+    Type: AWS::IAM::InstanceProfile
+    Properties:
+      Roles:
+        - !Ref EC2IAMRole
+
+  # ==========================================
+  # EC2 Instance
+  # ==========================================
+
+  EC2Instance:
+    Type: AWS::EC2::Instance
+    Properties:
+      InstanceType: t2.micro
+      ImageId: !Ref LatestUbuntuAmiId
+      SubnetId: !Ref PublicSubnet
+      SecurityGroupIds:
+        - !Ref EC2SecurityGroup
+      KeyName: !Ref KeyPairName
+      IamInstanceProfile: !Ref EC2InstanceProfile
+      UserData:
+        Fn::Base64: |
+          #!/bin/bash
+          set -euo pipefail
+
+          # Update packages and install Nginx
+          apt-get update -y
+          apt-get install -y nginx
+
+          # Create web root directory
+          mkdir -p /var/www/html
+
+          # Write Nginx configuration for SPA static file serving
+          cat > /etc/nginx/sites-available/default << 'NGINX_CONF'
+          server {
+              listen 80 default_server;
+              listen [::]:80 default_server;
+
+              root /var/www/html;
+              index index.html;
+
+              server_name _;
+              server_tokens off;
+
+              location / {
+                  try_files $uri $uri/ /index.html;
+              }
+
+              # Cache static assets
+              location ~* \.(js|css|png|jpg|jpeg|gif|ico|svg|woff|woff2|ttf|eot)$ {
+                  expires 1y;
+                  add_header Cache-Control "public, immutable";
+                  try_files $uri =404;
+              }
+          }
+          NGINX_CONF
+
+          # Enable and start Nginx
+          systemctl enable nginx
+          systemctl restart nginx
+
+          # Create SSL directory for user's certificate files
+          mkdir -p /etc/ssl/myapp
+          chown root:root /etc/ssl/myapp
+          chmod 700 /etc/ssl/myapp
+
+          # Enable UFW firewall
+          ufw allow 'Nginx Full'
+          ufw allow ssh
+          ufw --force enable
+
+          # Harden SSH: disable password authentication
+          sed -i 's/^#*PasswordAuthentication.*/PasswordAuthentication no/' /etc/ssh/sshd_config
+          sed -i 's/^#*ChallengeResponseAuthentication.*/ChallengeResponseAuthentication no/' /etc/ssh/sshd_config
+          systemctl restart sshd
+      Tags:
+        - Key: Environment
+          Value: !Ref EnvironmentName
+        - Key: Project
+          Value: !Sub "${EnvironmentName}-react-app"
+        - Key: Name
+          Value: !Sub "${EnvironmentName}-web-server"
+        - Key: DomainName
+          Value: !Ref DomainName
+
+  # ==========================================
+  # Elastic IP
+  # ==========================================
+
+  ElasticIP:
+    Type: AWS::EC2::EIP
+    Properties:
+      Domain: vpc
+      Tags:
+        - Key: Environment
+          Value: !Ref EnvironmentName
+        - Key: Project
+          Value: !Sub "${EnvironmentName}-react-app"
+        - Key: Name
+          Value: !Sub "${EnvironmentName}-eip"
+
+  EIPAssociation:
+    Type: AWS::EC2::EIPAssociation
+    Properties:
+      AllocationId: !GetAtt ElasticIP.AllocationId
+      InstanceId: !Ref EC2Instance
+
+# ==========================================
+# Outputs
+# ==========================================
+
+Outputs:
+  ElasticIPAddress:
+    Description: Stable public IP — point your domain A record here
+    Value: !GetAtt ElasticIP.PublicIp
+    Export:
+      Name: !Sub "${EnvironmentName}-ElasticIP"
+
+  InstanceId:
+    Description: EC2 instance ID for SSH and management
+    Value: !Ref EC2Instance
+    Export:
+      Name: !Sub "${EnvironmentName}-InstanceId"
+
+  SupabaseSecretArn:
+    Description: ARN for application to retrieve Supabase credentials
+    Value: !Ref SupabaseSecret
+    Export:
+      Name: !Sub "${EnvironmentName}-SupabaseSecretArn"
+
+  VpcId:
+    Description: VPC ID for reference
+    Value: !Ref VPC
+    Export:
+      Name: !Sub "${EnvironmentName}-VpcId"

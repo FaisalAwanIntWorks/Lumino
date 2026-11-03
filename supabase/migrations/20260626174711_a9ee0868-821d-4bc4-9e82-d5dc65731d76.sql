@@ -1,0 +1,1 @@
+update public.cron_config set value = 'https://wcfxtsyhrpephimyrpbx.supabase.co', updated_at = now() where key = 'supabase_url';

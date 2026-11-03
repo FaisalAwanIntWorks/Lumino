@@ -1,0 +1,1 @@
+ALTER TABLE public.clients ADD CONSTRAINT clients_shopify_store_url_key UNIQUE (shopify_store_url);

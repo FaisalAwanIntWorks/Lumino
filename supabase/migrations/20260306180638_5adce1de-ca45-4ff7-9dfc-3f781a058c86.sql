@@ -1,0 +1,2 @@
+ALTER TABLE public.grill_form_leads ADD COLUMN IF NOT EXISTS uploaded_image_urls text[] DEFAULT NULL;
+ALTER TABLE public.custom_enquiry_leads ADD COLUMN IF NOT EXISTS uploaded_image_urls text[] DEFAULT NULL;

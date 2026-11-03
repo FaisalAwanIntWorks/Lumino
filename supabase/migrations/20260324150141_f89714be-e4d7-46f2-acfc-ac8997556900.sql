@@ -1,0 +1,1 @@
+ALTER TABLE public.appointment_bookings ADD COLUMN IF NOT EXISTS ring_configuration jsonb DEFAULT NULL;

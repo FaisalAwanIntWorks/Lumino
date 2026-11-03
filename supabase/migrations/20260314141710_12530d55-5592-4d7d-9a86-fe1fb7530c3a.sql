@@ -1,0 +1,2 @@
+ALTER TABLE public.clients ADD COLUMN IF NOT EXISTS terms_url text DEFAULT NULL;
+ALTER TABLE public.clients ADD COLUMN IF NOT EXISTS privacy_url text DEFAULT NULL;

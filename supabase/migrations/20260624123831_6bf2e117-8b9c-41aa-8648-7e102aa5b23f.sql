@@ -1,0 +1,1 @@
+UPDATE public.client_ghl_integrations SET opportunity_name_template='{customer_name}' WHERE client_id='aeec6491-bd1f-4787-97f9-6a47a2ddc8af';

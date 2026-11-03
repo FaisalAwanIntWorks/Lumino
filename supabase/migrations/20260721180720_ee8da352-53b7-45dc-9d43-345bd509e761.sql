@@ -1,0 +1,1 @@
+UPDATE public.clients SET enabled_features = COALESCE(enabled_features, '{}'::jsonb) || jsonb_build_object('dtt_v2', true) WHERE id = 'aeec6491-bd1f-4787-97f9-6a47a2ddc8af';

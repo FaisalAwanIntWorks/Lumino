@@ -1,0 +1,1 @@
+ALTER TABLE public.client_ring_form_questions ADD COLUMN IF NOT EXISTS subtitle text DEFAULT null;

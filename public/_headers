@@ -1,0 +1,46 @@
+/*
+  X-Frame-Options: SAMEORIGIN
+  X-Content-Type-Options: nosniff
+  Referrer-Policy: strict-origin-when-cross-origin
+  X-XSS-Protection: 1; mode=block
+  Content-Security-Policy: default-src 'self'; script-src 'self' 'unsafe-inline' 'unsafe-eval' https://*.supabase.co https://*.jewlx.ai; style-src 'self' 'unsafe-inline' https://fonts.googleapis.com; font-src 'self' https://fonts.gstatic.com data:; img-src 'self' data: https: blob:; connect-src 'self' https://*.supabase.co wss://*.supabase.co https://*.jewlx.ai; frame-src 'self' https://calendly.com https://*.calendly.com https://cal.com https://*.cal.com https://app.cal.com https://meetings.hubspot.com https://*.hubspot.com https://outlook.office.com https://outlook.office365.com https://*.youcanbook.me https://app.acuityscheduling.com https://*.acuityscheduling.com https://app.squarespacescheduling.com; frame-ancestors 'self';
+
+# Embed routes - allow iframe embedding from Shopify and builder subdomain
+/embed/*
+  X-Frame-Options: ALLOWALL
+  Content-Security-Policy: default-src 'self'; script-src 'self' 'unsafe-inline' 'unsafe-eval' https://*.supabase.co https://*.jewlx.ai; style-src 'self' 'unsafe-inline' https://fonts.googleapis.com; font-src 'self' https://fonts.gstatic.com data:; img-src 'self' data: https: blob:; connect-src 'self' https://*.supabase.co wss://*.supabase.co https://*.jewlx.ai; frame-src 'self' https://calendly.com https://*.calendly.com https://cal.com https://*.cal.com https://app.cal.com https://meetings.hubspot.com https://*.hubspot.com https://outlook.office.com https://outlook.office365.com https://*.youcanbook.me https://app.acuityscheduling.com https://*.acuityscheduling.com https://app.squarespacescheduling.com; frame-ancestors 'self' https://*.myshopify.com https://builder.jewlx.ai https://*.jewlx.ai;
+
+/embed-diamonds/*
+  X-Frame-Options: ALLOWALL
+  Content-Security-Policy: default-src 'self'; script-src 'self' 'unsafe-inline' 'unsafe-eval' https://*.supabase.co https://*.jewlx.ai; style-src 'self' 'unsafe-inline' https://fonts.googleapis.com; font-src 'self' https://fonts.gstatic.com data:; img-src 'self' data: https: blob:; connect-src 'self' https://*.supabase.co wss://*.supabase.co https://*.jewlx.ai; frame-src 'self' https://calendly.com https://*.calendly.com https://cal.com https://*.cal.com https://app.cal.com https://meetings.hubspot.com https://*.hubspot.com https://outlook.office.com https://outlook.office365.com https://*.youcanbook.me https://app.acuityscheduling.com https://*.acuityscheduling.com https://app.squarespacescheduling.com; frame-ancestors 'self' https://*.myshopify.com https://builder.jewlx.ai https://*.jewlx.ai;
+
+/embed-quote/*
+  X-Frame-Options: ALLOWALL
+  Content-Security-Policy: default-src 'self'; script-src 'self' 'unsafe-inline' 'unsafe-eval' https://*.supabase.co https://*.jewlx.ai; style-src 'self' 'unsafe-inline' https://fonts.googleapis.com; font-src 'self' https://fonts.gstatic.com data:; img-src 'self' data: https: blob:; connect-src 'self' https://*.supabase.co wss://*.supabase.co https://*.jewlx.ai; frame-src 'self' https://calendly.com https://*.calendly.com https://cal.com https://*.cal.com https://app.cal.com https://meetings.hubspot.com https://*.hubspot.com https://outlook.office.com https://outlook.office365.com https://*.youcanbook.me https://app.acuityscheduling.com https://*.acuityscheduling.com https://app.squarespacescheduling.com; frame-ancestors 'self' https://*.myshopify.com https://builder.jewlx.ai https://*.jewlx.ai;
+
+/embed-grillz/*
+  X-Frame-Options: ALLOWALL
+  Content-Security-Policy: default-src 'self'; script-src 'self' 'unsafe-inline' 'unsafe-eval' https://*.supabase.co https://*.jewlx.ai; style-src 'self' 'unsafe-inline' https://fonts.googleapis.com; font-src 'self' https://fonts.gstatic.com data:; img-src 'self' data: https: blob:; connect-src 'self' https://*.supabase.co wss://*.supabase.co https://*.jewlx.ai; frame-src 'self' https://calendly.com https://*.calendly.com https://cal.com https://*.cal.com https://app.cal.com https://meetings.hubspot.com https://*.hubspot.com https://outlook.office.com https://outlook.office365.com https://*.youcanbook.me https://app.acuityscheduling.com https://*.acuityscheduling.com https://app.squarespacescheduling.com; frame-ancestors 'self' https://*.myshopify.com https://builder.jewlx.ai https://*.jewlx.ai;
+
+/embed-custom-enquiry/*
+  X-Frame-Options: ALLOWALL
+  Content-Security-Policy: default-src 'self'; script-src 'self' 'unsafe-inline' 'unsafe-eval' https://*.supabase.co https://*.jewlx.ai; style-src 'self' 'unsafe-inline' https://fonts.googleapis.com; font-src 'self' https://fonts.gstatic.com data:; img-src 'self' data: https: blob:; connect-src 'self' https://*.supabase.co wss://*.supabase.co https://*.jewlx.ai; frame-src 'self' https://calendly.com https://*.calendly.com https://cal.com https://*.cal.com https://app.cal.com https://meetings.hubspot.com https://*.hubspot.com https://outlook.office.com https://outlook.office365.com https://*.youcanbook.me https://app.acuityscheduling.com https://*.acuityscheduling.com https://app.squarespacescheduling.com; frame-ancestors 'self' https://*.myshopify.com https://builder.jewlx.ai https://*.jewlx.ai;
+
+/embed-metal-buying/*
+  X-Frame-Options: ALLOWALL
+  Content-Security-Policy: default-src 'self'; script-src 'self' 'unsafe-inline' 'unsafe-eval' https://*.supabase.co https://*.jewlx.ai; style-src 'self' 'unsafe-inline' https://fonts.googleapis.com; font-src 'self' https://fonts.gstatic.com data:; img-src 'self' data: https: blob:; connect-src 'self' https://*.supabase.co wss://*.supabase.co https://*.jewlx.ai; frame-src 'self' https://calendly.com https://*.calendly.com https://cal.com https://*.cal.com https://app.cal.com https://meetings.hubspot.com https://*.hubspot.com https://outlook.office.com https://outlook.office365.com https://*.youcanbook.me https://app.acuityscheduling.com https://*.acuityscheduling.com https://app.squarespacescheduling.com; frame-ancestors 'self' https://*.myshopify.com https://builder.jewlx.ai https://*.jewlx.ai;
+
+# Admin portal - no embedding allowed (strict security)
+https://admin.jewlx.ai/*
+  X-Frame-Options: DENY
+  Content-Security-Policy: default-src 'self'; script-src 'self' 'unsafe-inline' 'unsafe-eval' https://*.supabase.co https://*.jewlx.ai; style-src 'self' 'unsafe-inline' https://fonts.googleapis.com; font-src 'self' https://fonts.gstatic.com data:; img-src 'self' data: https: blob:; connect-src 'self' https://*.supabase.co wss://*.supabase.co https://*.jewlx.ai; frame-ancestors 'none';
+
+# Vault portal - allow scheduler iframe preview but no external embedding
+https://vault.jewlx.ai/*
+  X-Frame-Options: DENY
+  Content-Security-Policy: default-src 'self'; script-src 'self' 'unsafe-inline' 'unsafe-eval' https://*.supabase.co https://*.jewlx.ai; style-src 'self' 'unsafe-inline' https://fonts.googleapis.com; font-src 'self' https://fonts.gstatic.com data:; img-src 'self' data: https: blob:; connect-src 'self' https://*.supabase.co wss://*.supabase.co https://*.jewlx.ai; frame-src 'self' https://calendly.com https://*.calendly.com https://cal.com https://*.cal.com https://app.cal.com; frame-ancestors 'none';
+
+# Builder subdomain routes
+https://builder.jewlx.ai/*
+  X-Frame-Options: ALLOWALL
+  Content-Security-Policy: default-src 'self'; script-src 'self' 'unsafe-inline' 'unsafe-eval' https://*.supabase.co https://*.jewlx.ai; style-src 'self' 'unsafe-inline' https://fonts.googleapis.com; font-src 'self' https://fonts.gstatic.com data:; img-src 'self' data: https: blob:; connect-src 'self' https://*.supabase.co wss://*.supabase.co https://*.jewlx.ai; frame-src 'self' https://calendly.com https://*.calendly.com https://cal.com https://*.cal.com https://app.cal.com https://meetings.hubspot.com https://*.hubspot.com https://outlook.office.com https://outlook.office365.com https://*.youcanbook.me https://app.acuityscheduling.com https://*.acuityscheduling.com https://app.squarespacescheduling.com; frame-ancestors 'self' https://*.myshopify.com https://*.jewlx.ai;

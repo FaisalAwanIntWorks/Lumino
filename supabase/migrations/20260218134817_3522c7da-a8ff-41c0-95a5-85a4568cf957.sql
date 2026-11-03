@@ -1,0 +1,1 @@
+ALTER TABLE public.client_grill_questions ADD COLUMN IF NOT EXISTS options jsonb DEFAULT NULL;

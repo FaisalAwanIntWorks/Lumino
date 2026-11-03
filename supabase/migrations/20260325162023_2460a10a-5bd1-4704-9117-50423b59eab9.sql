@@ -1,0 +1,1 @@
+UPDATE public.clients SET enabled_features = jsonb_set(enabled_features, '{experimental_ui}', 'false') WHERE id = '67373d7e-771a-42e0-bce4-a87dd44d1eb1'

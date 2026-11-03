@@ -1,0 +1,1 @@
+ALTER TABLE public.metal_buying_leads ADD COLUMN IF NOT EXISTS currency text NOT NULL DEFAULT 'USD';

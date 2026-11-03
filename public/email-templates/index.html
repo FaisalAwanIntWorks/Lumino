@@ -1,0 +1,289 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>JewlX Email Templates Gallery</title>
+  <style>
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+    body {
+      font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, 'Helvetica Neue', Arial, sans-serif;
+      background: linear-gradient(135deg, #d1f2eb 0%, #ffffff 50%, #e8f5e9 100%);
+      min-height: 100vh;
+      padding: 40px 20px;
+    }
+    .container {
+      max-width: 1200px;
+      margin: 0 auto;
+    }
+    header {
+      text-align: center;
+      margin-bottom: 48px;
+    }
+    header h1 {
+      color: #013220;
+      font-size: 36px;
+      font-weight: 700;
+      margin-bottom: 12px;
+    }
+    header p {
+      color: #0b6e4f;
+      font-size: 18px;
+    }
+    .templates-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
+      gap: 24px;
+    }
+    .template-card {
+      background: #ffffff;
+      border-radius: 16px;
+      overflow: hidden;
+      box-shadow: 0 4px 24px rgba(0, 0, 0, 0.08);
+      border: 1px solid #d1f2eb;
+      transition: transform 0.2s, box-shadow 0.2s;
+    }
+    .template-card:hover {
+      transform: translateY(-4px);
+      box-shadow: 0 8px 32px rgba(0, 0, 0, 0.12);
+    }
+    .template-header {
+      background: linear-gradient(135deg, #50c878 0%, #0b6e4f 100%);
+      padding: 20px;
+      color: #ffffff;
+    }
+    .template-header h3 {
+      font-size: 18px;
+      font-weight: 600;
+      margin-bottom: 4px;
+    }
+    .template-header span {
+      font-size: 12px;
+      opacity: 0.9;
+    }
+    .template-body {
+      padding: 20px;
+    }
+    .template-body p {
+      color: #0b6e4f;
+      font-size: 14px;
+      line-height: 1.6;
+      margin-bottom: 16px;
+    }
+    .template-body ul {
+      list-style: none;
+      margin-bottom: 20px;
+    }
+    .template-body li {
+      color: #013220;
+      font-size: 13px;
+      padding: 6px 0;
+      border-bottom: 1px solid #d1f2eb;
+    }
+    .template-body li:last-child {
+      border-bottom: none;
+    }
+    .template-body li strong {
+      color: #50c878;
+    }
+    .view-btn {
+      display: block;
+      width: 100%;
+      padding: 14px;
+      background: linear-gradient(135deg, #50c878 0%, #0b6e4f 100%);
+      color: #ffffff;
+      text-align: center;
+      text-decoration: none;
+      font-size: 14px;
+      font-weight: 600;
+      border-radius: 8px;
+      transition: opacity 0.2s;
+    }
+    .view-btn:hover {
+      opacity: 0.9;
+    }
+    .footer {
+      text-align: center;
+      margin-top: 48px;
+      color: #0b6e4f;
+      font-size: 14px;
+    }
+    .footer a {
+      color: #013220;
+      font-weight: 600;
+      text-decoration: none;
+    }
+  </style>
+</head>
+<body>
+  <div class="container">
+    <header>
+      <h1>💎 JewlX Email Templates</h1>
+      <p>Preview all email templates used across the platform</p>
+    </header>
+    
+    <div class="templates-grid">
+      <!-- Password Reset -->
+      <div class="template-card">
+        <div class="template-header">
+          <h3>🔐 Password Reset</h3>
+          <span>Authentication</span>
+        </div>
+        <div class="template-body">
+          <p>Sent when a user requests to reset their password.</p>
+          <ul>
+            <li><strong>Trigger:</strong> Forgot Password form</li>
+            <li><strong>Link Expiry:</strong> 1 hour</li>
+            <li><strong>Recipient:</strong> Any user</li>
+          </ul>
+          <a href="01-password-reset.html" class="view-btn">View Template →</a>
+        </div>
+      </div>
+      
+      <!-- Email Verification -->
+      <div class="template-card">
+        <div class="template-header">
+          <h3>✉️ Email Verification</h3>
+          <span>Authentication</span>
+        </div>
+        <div class="template-body">
+          <p>Sent during signup to verify the user's email address.</p>
+          <ul>
+            <li><strong>Trigger:</strong> New client signup</li>
+            <li><strong>Link Expiry:</strong> 24 hours</li>
+            <li><strong>Recipient:</strong> New clients</li>
+          </ul>
+          <a href="02-email-verification.html" class="view-btn">View Template →</a>
+        </div>
+      </div>
+      
+      <!-- Client Welcome -->
+      <div class="template-card">
+        <div class="template-header">
+          <h3>🎉 Client Welcome</h3>
+          <span>Onboarding</span>
+        </div>
+        <div class="template-body">
+          <p>Sent when a new client account is registered on JewlX.</p>
+          <ul>
+            <li><strong>Trigger:</strong> Admin creates client</li>
+            <li><strong>Link Expiry:</strong> 48 hours</li>
+            <li><strong>Content:</strong> Account details + features</li>
+          </ul>
+          <a href="03-client-welcome.html" class="view-btn">View Template →</a>
+        </div>
+      </div>
+      
+      <!-- Staff Welcome -->
+      <div class="template-card">
+        <div class="template-header">
+          <h3>👤 Staff Welcome</h3>
+          <span>Onboarding</span>
+        </div>
+        <div class="template-body">
+          <p>Sent when a client adds a new staff member to their account.</p>
+          <ul>
+            <li><strong>Trigger:</strong> Client adds staff</li>
+            <li><strong>Link Expiry:</strong> 48 hours</li>
+            <li><strong>Content:</strong> Account + company info</li>
+          </ul>
+          <a href="04-staff-welcome.html" class="view-btn">View Template →</a>
+        </div>
+      </div>
+      
+      <!-- New Lead Notification -->
+      <div class="template-card">
+        <div class="template-header">
+          <h3>💍 New Lead Notification</h3>
+          <span>Notifications</span>
+        </div>
+        <div class="template-body">
+          <p>Sent to clients when a customer saves a ring design on the widget.</p>
+          <ul>
+            <li><strong>Trigger:</strong> Customer saves design</li>
+            <li><strong>Content:</strong> Full configuration details</li>
+            <li><strong>Recipient:</strong> Client owner</li>
+          </ul>
+          <a href="05-new-lead-notification.html" class="view-btn">View Template →</a>
+        </div>
+      </div>
+      
+      <!-- Lead Deleted Notification -->
+      <div class="template-card">
+        <div class="template-header" style="background: linear-gradient(135deg, #e74c3c 0%, #c0392b 100%);">
+          <h3>⚠️ Lead Deleted Alert</h3>
+          <span>Security</span>
+        </div>
+        <div class="template-body">
+          <p>Sent to clients when a staff member deletes a lead record.</p>
+          <ul>
+            <li><strong>Trigger:</strong> Staff deletes lead</li>
+            <li><strong>Content:</strong> Staff + deleted lead details</li>
+            <li><strong>Purpose:</strong> Security audit trail</li>
+          </ul>
+          <a href="06-lead-deleted-notification.html" class="view-btn" style="background: linear-gradient(135deg, #e74c3c 0%, #c0392b 100%);">View Template →</a>
+        </div>
+      </div>
+      
+      <!-- Admin New Client Notification -->
+      <div class="template-card">
+        <div class="template-header" style="background: linear-gradient(135deg, #3498db 0%, #2980b9 100%);">
+          <h3>📋 Admin: New Client Alert</h3>
+          <span>Admin Notifications</span>
+        </div>
+        <div class="template-body">
+          <p>Sent to all admins when another admin creates a new client.</p>
+          <ul>
+            <li><strong>Trigger:</strong> Client account created</li>
+            <li><strong>Content:</strong> Client + creating admin details</li>
+            <li><strong>Recipients:</strong> All other admins</li>
+          </ul>
+          <a href="07-admin-new-client-notification.html" class="view-btn" style="background: linear-gradient(135deg, #3498db 0%, #2980b9 100%);">View Template →</a>
+        </div>
+      </div>
+      
+      <!-- Admin Client Status Change Notification -->
+      <div class="template-card">
+        <div class="template-header" style="background: linear-gradient(135deg, #e74c3c 0%, #c0392b 100%);">
+          <h3>⚠️ Admin: Client Status Alert</h3>
+          <span>Admin Notifications</span>
+        </div>
+        <div class="template-body">
+          <p>Sent to all admins when a client is deleted, deactivated, or has status changed.</p>
+          <ul>
+            <li><strong>Trigger:</strong> Client delete/status change</li>
+            <li><strong>Actions:</strong> Deleted, Deactivated, Activated</li>
+            <li><strong>Recipients:</strong> All other admins</li>
+          </ul>
+          <a href="08-admin-client-status-notification.html" class="view-btn" style="background: linear-gradient(135deg, #e74c3c 0%, #c0392b 100%);">View Template →</a>
+        </div>
+      </div>
+      
+      <!-- Admin Staff (Note) -->
+      <div class="template-card">
+        <div class="template-header" style="background: linear-gradient(135deg, #6c757d 0%, #495057 100%);">
+          <h3>🔒 Admin Staff Creation</h3>
+          <span>Admin Portal</span>
+        </div>
+        <div class="template-body">
+          <p>Admin staff members do NOT receive an email. The password is displayed one-time in the dashboard.</p>
+          <ul>
+            <li><strong>Method:</strong> Manual credential sharing</li>
+            <li><strong>Created by:</strong> Agency Admin</li>
+            <li><strong>Portal:</strong> console.jewlx.ai</li>
+          </ul>
+          <a href="#" class="view-btn" style="background: #6c757d; cursor: not-allowed;">No Email Template</a>
+        </div>
+      </div>
+    </div>
+    
+    <div class="footer">
+      <p>© 2026 <a href="https://jewlx.ai">JewlX</a>. All email templates use consistent branding.</p>
+    </div>
+  </div>
+</body>
+</html>

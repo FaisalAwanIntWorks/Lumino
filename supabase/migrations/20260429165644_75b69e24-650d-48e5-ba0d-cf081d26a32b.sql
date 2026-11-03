@@ -1,0 +1,1 @@
+ALTER TABLE public.my_master_db_data ADD COLUMN IF NOT EXISTS image_4_filename TEXT;

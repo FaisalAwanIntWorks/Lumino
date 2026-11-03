@@ -1,0 +1,193 @@
+-- Update get_diamond_presets_filtered to return report_no and pool_id.
+--
+-- Pool (confirmed catalog) path: report_no comes directly from diamond_inventory_pool.
+-- Legacy path: report_no comes from client_diamond_presets.report_no (populated by
+--   the backfill migration or future regenerations).
+--
+-- The widget maps report_no → Stone.reportNo which shopify-add-to-cart then uses
+-- for an exact eq('report_no', ...) lookup — no fuzzy scoring needed.
+
+CREATE OR REPLACE FUNCTION public.get_diamond_presets_filtered(
+  p_client_id   uuid,
+  p_stone_type  text    DEFAULT NULL::text,
+  p_shape_id    text    DEFAULT NULL::text,
+  p_color       text    DEFAULT NULL::text,
+  p_clarity     text    DEFAULT NULL::text,
+  p_carat_range text    DEFAULT NULL::text,
+  p_page_size   integer DEFAULT 50,
+  p_offset      integer DEFAULT 0
+)
+RETURNS TABLE(
+  id           uuid,
+  stone_type   text,
+  shape_id     text,
+  carat_range  text,
+  carat_value  numeric,
+  color        text,
+  clarity      text,
+  base_price   numeric,
+  custom_price numeric,
+  is_enabled   boolean,
+  total_count  bigint,
+  pool_id      uuid,   -- NEW: diamond_inventory_pool.id (NULL for non-pool rows)
+  report_no    text    -- NEW: certificate number (NULL when no pool match)
+)
+LANGUAGE plpgsql
+STABLE SECURITY DEFINER
+SET search_path TO 'public'
+AS $function$
+DECLARE
+  v_filter_row public.client_diamond_catalog_filter%ROWTYPE;
+  v_filter     jsonb;
+  v_stone  text[]; v_shapes text[]; v_colors text[]; v_clar text[];
+  v_cuts   text[]; v_pol    text[]; v_symm   text[]; v_flo  text[]; v_labs text[];
+  v_carat_min numeric; v_carat_max numeric;
+  v_carat_ranges numeric[];
+  v_len_min numeric; v_len_max numeric; v_canadian boolean;
+BEGIN
+  SELECT * INTO v_filter_row
+  FROM public.client_diamond_catalog_filter
+  WHERE client_id = p_client_id AND is_confirmed = true;
+
+  -- ── Legacy path (no confirmed filter) ──────────────────────────────────────
+  IF NOT FOUND THEN
+    RETURN QUERY
+    WITH raw AS (
+      SELECT
+        cdp.id, cdp.stone_type, cdp.shape_id, cdp.carat_range, cdp.carat_value,
+        cdp.color, cdp.clarity, cdp.base_price, cdp.custom_price, cdp.is_enabled,
+        cdp.source_pool_id, cdp.report_no   -- NEW
+      FROM public.client_diamond_presets cdp
+      WHERE cdp.client_id = p_client_id
+        AND cdp.is_enabled = true
+        AND (p_stone_type  IS NULL OR cdp.stone_type        = LOWER(p_stone_type))
+        AND (p_shape_id    IS NULL OR cdp.shape_id          = LOWER(p_shape_id))
+        AND (p_color       IS NULL OR UPPER(cdp.color)      = UPPER(p_color))
+        AND (p_clarity     IS NULL OR UPPER(cdp.clarity)    = UPPER(p_clarity))
+        AND (p_carat_range IS NULL OR cdp.carat_range       = p_carat_range)
+    ),
+    deduped AS (
+      SELECT DISTINCT ON (r.stone_type, r.shape_id, r.carat_range, r.color, r.clarity)
+        r.*
+      FROM raw r
+      ORDER BY r.stone_type, r.shape_id, r.carat_range, r.color, r.clarity,
+               COALESCE(r.custom_price, r.base_price) DESC,
+               r.report_no NULLS LAST   -- prefer rows that have a cert number
+    )
+    SELECT
+      d.id, d.stone_type, d.shape_id, d.carat_range, d.carat_value,
+      d.color, d.clarity, d.base_price, d.custom_price, d.is_enabled,
+      COUNT(*) OVER ()::bigint AS total_count,
+      d.source_pool_id AS pool_id,   -- NEW
+      d.report_no                    -- NEW
+    FROM deduped d
+    ORDER BY d.stone_type, COALESCE(d.custom_price, d.base_price) DESC, d.color, d.clarity
+    LIMIT p_page_size OFFSET p_offset;
+    RETURN;
+  END IF;
+
+  -- ── Pool path (confirmed catalog filter) ───────────────────────────────────
+  v_filter := COALESCE(v_filter_row.filter, '{}'::jsonb);
+  SELECT ARRAY(SELECT LOWER(jsonb_array_elements_text(v_filter->'stoneTypes'))) INTO v_stone;
+  SELECT ARRAY(SELECT LOWER(jsonb_array_elements_text(v_filter->'shapes')))     INTO v_shapes;
+  SELECT ARRAY(SELECT UPPER(jsonb_array_elements_text(v_filter->'colors')))     INTO v_colors;
+  SELECT ARRAY(SELECT UPPER(jsonb_array_elements_text(v_filter->'clarities')))  INTO v_clar;
+  SELECT ARRAY(SELECT UPPER(jsonb_array_elements_text(v_filter->'cuts')))       INTO v_cuts;
+  SELECT ARRAY(SELECT UPPER(jsonb_array_elements_text(v_filter->'polish')))     INTO v_pol;
+  SELECT ARRAY(SELECT UPPER(jsonb_array_elements_text(v_filter->'symmetry')))   INTO v_symm;
+  SELECT ARRAY(SELECT UPPER(jsonb_array_elements_text(v_filter->'fluorescence'))) INTO v_flo;
+  SELECT ARRAY(SELECT UPPER(jsonb_array_elements_text(v_filter->'labs')))       INTO v_labs;
+  v_carat_min    := NULLIF(v_filter->>'caratMin','')::numeric;
+  v_carat_max    := NULLIF(v_filter->>'caratMax','')::numeric;
+  SELECT ARRAY(SELECT (jsonb_array_elements_text(v_filter->'caratRanges'))::numeric) INTO v_carat_ranges;
+  v_len_min      := NULLIF(v_filter->>'lengthMin','')::numeric;
+  v_len_max      := NULLIF(v_filter->>'lengthMax','')::numeric;
+  v_canadian     := COALESCE((v_filter->>'canadianOnly')::boolean, false);
+
+  RETURN QUERY
+  WITH base AS (
+    SELECT
+      p.id,
+      CASE WHEN COALESCE(p.lg,'') ILIKE 'Y%' THEN 'lab' ELSE 'natural' END          AS diamond_stone_type,
+      LOWER(SPLIT_PART(REGEXP_REPLACE(COALESCE(p.shape,''),'\s+',' ','g'),' ',1))    AS diamond_shape_id,
+      p.carats                                                                         AS diamond_carat_value,
+      UPPER(COALESCE(p.col,''))                                                        AS diamond_color,
+      UPPER(COALESCE(p.clar,''))                                                       AS diamond_clarity,
+      ROUND(
+        COALESCE(p.price,0) *
+        (1 + (CASE WHEN COALESCE(p.lg,'') ILIKE 'Y%'
+                   THEN v_filter_row.markup_lab
+                   ELSE v_filter_row.markup_natural END) / 100.0)
+      , 2)                                                                             AS diamond_base_price,
+      FLOOR(COALESCE(p.carats,0) * 2) / 2                                             AS diamond_carat_bucket,
+      p.report_no                                                                      AS diamond_report_no  -- NEW
+    FROM public.diamond_inventory_pool p
+    WHERE
+      (COALESCE(array_length(v_stone,1),0)  = 0 OR (CASE WHEN COALESCE(p.lg,'') ILIKE 'Y%' THEN 'lab' ELSE 'natural' END) = ANY(v_stone))
+      AND (COALESCE(array_length(v_shapes,1),0) = 0 OR LOWER(SPLIT_PART(REGEXP_REPLACE(COALESCE(p.shape,''),'\s+',' ','g'),' ',1)) = ANY(v_shapes))
+      AND (COALESCE(array_length(v_colors,1),0) = 0 OR UPPER(COALESCE(p.col,''))  = ANY(v_colors))
+      AND (COALESCE(array_length(v_clar,1),0)   = 0 OR UPPER(COALESCE(p.clar,'')) = ANY(v_clar))
+      AND (COALESCE(array_length(v_cuts,1),0)   = 0 OR UPPER(COALESCE(p.cut,''))  = ANY(v_cuts))
+      AND (COALESCE(array_length(v_pol,1),0)    = 0 OR UPPER(COALESCE(p.pol,''))  = ANY(v_pol))
+      AND (COALESCE(array_length(v_symm,1),0)   = 0 OR UPPER(COALESCE(p.symm,'')) = ANY(v_symm))
+      AND (COALESCE(array_length(v_flo,1),0)    = 0 OR UPPER(COALESCE(p.flo,''))  = ANY(v_flo))
+      AND (COALESCE(array_length(v_labs,1),0)   = 0 OR UPPER(COALESCE(p.lab,''))  = ANY(v_labs))
+      AND (v_carat_min IS NULL OR COALESCE(p.carats,0) >= v_carat_min)
+      AND (v_carat_max IS NULL OR COALESCE(p.carats,0) <= v_carat_max)
+      AND (COALESCE(array_length(v_carat_ranges,1),0) = 0 OR (FLOOR(COALESCE(p.carats,0) * 2) / 2) = ANY(v_carat_ranges))
+      AND (v_len_min IS NULL OR COALESCE(p.length,0) >= v_len_min)
+      AND (v_len_max IS NULL OR COALESCE(p.length,0) <= v_len_max)
+      AND (NOT v_canadian OR COALESCE(p.canada_mark_eligible,false))
+  ),
+  filtered AS (
+    SELECT * FROM base b
+    WHERE (p_stone_type IS NULL OR b.diamond_stone_type = LOWER(p_stone_type))
+      AND (p_shape_id   IS NULL OR b.diamond_shape_id   = LOWER(p_shape_id))
+      AND (p_color      IS NULL OR b.diamond_color       = UPPER(p_color))
+      AND (p_clarity    IS NULL OR b.diamond_clarity     = UPPER(p_clarity))
+  ),
+  ranged AS (
+    SELECT
+      f.*,
+      TRIM(TO_CHAR(f.diamond_carat_bucket, 'FM0.00')) || '-' || TRIM(TO_CHAR(f.diamond_carat_bucket + 0.49, 'FM0.00')) AS diamond_carat_range
+    FROM filtered f
+  ),
+  -- Pick the highest-priced diamond per (stone_type, shape, carat_range, color, clarity).
+  -- Prefer rows with a non-null report_no so that the cert is always available.
+  deduped AS (
+    SELECT DISTINCT ON (r.diamond_stone_type, r.diamond_shape_id, r.diamond_carat_range, r.diamond_color, r.diamond_clarity)
+      r.id,
+      r.diamond_stone_type,
+      r.diamond_shape_id,
+      r.diamond_carat_range,
+      r.diamond_carat_value,
+      r.diamond_color,
+      r.diamond_clarity,
+      r.diamond_base_price,
+      r.diamond_report_no   -- NEW
+    FROM ranged r
+    WHERE (p_carat_range IS NULL OR r.diamond_carat_range = p_carat_range)
+    ORDER BY r.diamond_stone_type, r.diamond_shape_id, r.diamond_carat_range,
+             r.diamond_color, r.diamond_clarity,
+             r.diamond_base_price DESC,
+             r.diamond_report_no NULLS LAST   -- prefer cert-bearing rows at equal price
+  )
+  SELECT
+    d.id,
+    d.diamond_stone_type  AS stone_type,
+    d.diamond_shape_id    AS shape_id,
+    d.diamond_carat_range AS carat_range,
+    d.diamond_carat_value AS carat_value,
+    d.diamond_color       AS color,
+    d.diamond_clarity     AS clarity,
+    d.diamond_base_price  AS base_price,
+    NULL::numeric         AS custom_price,
+    true                  AS is_enabled,
+    COUNT(*) OVER ()::bigint AS total_count,
+    d.id                  AS pool_id,          -- NEW: same as id in pool path
+    d.diamond_report_no   AS report_no         -- NEW: certificate number
+  FROM deduped d
+  ORDER BY d.diamond_stone_type, d.diamond_base_price DESC, d.diamond_color, d.diamond_clarity
+  LIMIT p_page_size OFFSET p_offset;
+END;
+$function$;

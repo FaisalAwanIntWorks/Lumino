@@ -1,0 +1,1 @@
+ALTER TABLE public.grill_form_leads ADD COLUMN IF NOT EXISTS ai_preview_url TEXT DEFAULT NULL;

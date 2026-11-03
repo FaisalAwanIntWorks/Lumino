@@ -1,0 +1,1 @@
+UPDATE diamond_shape_options SET name = 'Gemstone' WHERE option_value = 'ruby-sapphire-emerald';

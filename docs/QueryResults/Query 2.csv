@@ -1,0 +1,30 @@
+avg_price_per_image_usd;charged_usd;company_name;est_supplier_cost_usd;first_used;from_client_wallet_usd;from_free_credits_usd;images;last_used;model
+0.0720;8.21;Asteri Diamonds;4.56;2026-05-08;0.00;8.21;114;2026-10-23;google/gemini-3.1-flash-image-preview
+0.0720;1.15;Chrono 47;0.64;2026-07-28;0.00;1.15;16;2026-09-11;google/gemini-3.1-flash-image-preview
+0.0720;13.32;Danny Diamonds & Co;7.40;2026-10-07;0.00;13.32;185;2026-10-30;google/gemini-3.1-flash-image-preview
+0.0720;1.80;Dumoni;1.00;2026-08-06;0.00;1.80;25;2026-10-02;google/gemini-3.1-flash-image-preview
+0.0760;3.19;fbe;1.77;2026-04-15;0.06;3.13;42;2026-10-16;google/gemini-3.1-flash-image-preview
+0.0872;2.53;fbe;1.41;2026-04-15;0.43;2.10;29;2026-04-28;google/gemini-3-pro-image-preview
+0.0720;105.98;GoldMoufDog Custom Grillz & Jewelry;58.88;2026-08-06;59.12;46.86;1472;2026-10-30;google/gemini-3.1-flash-image-preview
+0.0720;3.67;GoldMoufDog Custom Grillz & Jewelry;2.04;2026-09-07;2.23;1.44;51;2026-10-29;cached
+0.0720;0.14;GoldMoufDog Custom Grillz & Jewelry;0.08;2026-10-01;0.07;0.07;2;2026-10-18;google/gemini-3-pro-image-preview
+0.0720;1.44;Gotham City Jewelers;0.80;2026-05-06;0.00;1.44;20;2026-10-24;google/gemini-3.1-flash-image-preview
+0.0720;5.04;Henrys Jewelry;2.80;2026-05-16;0.00;5.04;70;2026-10-24;google/gemini-3.1-flash-image-preview
+0.0720;0.29;Intrigue Jewelers;0.16;2026-09-01;0.00;0.29;4;2026-10-29;google/gemini-3.1-flash-image-preview
+0.0720;92.02;IRIS FINE JEWELS LTD.;51.12;2026-07-31;39.46;52.56;1278;2026-10-30;google/gemini-3.1-flash-image-preview
+0.0720;0.14;IRIS FINE JEWELS LTD.;0.08;2026-08-24;0.00;0.14;2;2026-10-01;google/gemini-3-pro-image-preview
+0.0720;0.14;IRIS FINE JEWELS LTD.;0.08;2026-10-15;0.07;0.07;2;2026-10-22;cached
+0.0720;1.22;Jesse the Jeweler;0.68;2026-06-03;0.00;1.22;17;2026-10-24;google/gemini-3.1-flash-image-preview
+0.0720;0.07;Jesse the Jeweler;0.04;2026-06-04;0.00;0.07;1;2026-06-04;google/gemini-3-pro-image-preview
+0.0720;26.06;Jewels of nyc;14.48;2026-08-01;0.00;26.06;362;2026-10-30;google/gemini-3.1-flash-image-preview
+0.0674;30.59;JewlX;17.00;2026-03-20;5.95;24.64;454;2026-10-30;google/gemini-3.1-flash-image-preview
+0.0576;1.90;JewlX;1.06;2026-03-20;1.33;0.57;33;2026-05-14;google/gemini-3-pro-image-preview
+0.0300;0.18;JewlX;0.10;2026-03-31;0.03;0.15;6;2026-04-08;google/gemini-2.5-flash-image
+0.0300;0.06;JewlX;0.03;2026-03-25;0.03;0.03;2;2026-04-08;cached
+0.0720;12.24;Joey The Jeweller;6.80;2026-10-01;0.00;12.24;170;2026-10-30;google/gemini-3.1-flash-image-preview
+0.0720;0.29;Lavora Diamonds;0.16;2026-09-04;0.00;0.29;4;2026-10-09;google/gemini-3.1-flash-image-preview
+0.1100;1.10;Lumière Fine Jewelry;0.61;2026-04-08;0.00;1.10;10;2026-04-20;google/gemini-3.1-flash-image-preview
+0.0702;8.21;Ounce of Ice;4.56;2026-04-10;0.15;8.06;117;2026-10-25;google/gemini-3.1-flash-image-preview
+0.0550;0.22;Ounce of Ice;0.12;2026-04-11;0.22;0.00;4;2026-04-16;google/gemini-3-pro-image-preview
+0.0720;34.49;Vvs Jewelers;19.16;2026-05-22;3.28;31.21;479;2026-10-29;google/gemini-3.1-flash-image-preview
+0.0720;1.30;Vvs Jewelers;0.72;2026-05-25;0.00;1.30;18;2026-10-14;cached

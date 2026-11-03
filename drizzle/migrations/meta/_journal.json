@@ -1,0 +1,440 @@
+{
+  "version": "7",
+  "dialect": "postgresql",
+  "entries": [
+    {
+      "idx": 0,
+      "version": "7",
+      "when": 1789172801785,
+      "tag": "0000_bound_widget_view_daily_range",
+      "breakpoints": true
+    },
+    {
+      "idx": 1,
+      "version": "7",
+      "when": 1789172920163,
+      "tag": "0001_expose_google_tracking_ids_in_client_branding",
+      "breakpoints": true
+    },
+    {
+      "idx": 2,
+      "version": "7",
+      "when": 1789589020913,
+      "tag": "0002_diamond_presets_sensible_selection",
+      "breakpoints": true
+    },
+    {
+      "idx": 3,
+      "version": "7",
+      "when": 1789589163607,
+      "tag": "0003_diamond_presets_outlier_perf_fix",
+      "breakpoints": true
+    },
+    {
+      "idx": 4,
+      "version": "7",
+      "when": 1789589298424,
+      "tag": "0004_diamond_grade_stats_cache_and_fast_dedup",
+      "breakpoints": true
+    },
+    {
+      "idx": 5,
+      "version": "7",
+      "when": 1789589413364,
+      "tag": "0005_diamond_presets_function_perf_tuning",
+      "breakpoints": true
+    },
+    {
+      "idx": 6,
+      "version": "7",
+      "when": 1789589499689,
+      "tag": "0006_diamond_presets_materialize_base",
+      "breakpoints": true
+    },
+    {
+      "idx": 7,
+      "version": "7",
+      "when": 1789589679521,
+      "tag": "0007_diamond_group_reps_cache_fast_rpc",
+      "breakpoints": true
+    },
+    {
+      "idx": 8,
+      "version": "7",
+      "when": 1789670477937,
+      "tag": "0008_ringos_revenue_rpc",
+      "breakpoints": true
+    },
+    {
+      "idx": 9,
+      "version": "7",
+      "when": 1789674158596,
+      "tag": "0009_product_revenue_rpc",
+      "breakpoints": true
+    },
+    {
+      "idx": 10,
+      "version": "7",
+      "when": 1789713034569,
+      "tag": "0010_orders_status_free_text",
+      "breakpoints": true
+    },
+    {
+      "idx": 11,
+      "version": "7",
+      "when": 1789749418580,
+      "tag": "0011_platform_health_monitoring",
+      "breakpoints": true
+    },
+    {
+      "idx": 12,
+      "version": "7",
+      "when": 1789996630797,
+      "tag": "0012_daily_leads_report",
+      "breakpoints": true
+    },
+    {
+      "idx": 13,
+      "version": "7",
+      "when": 1789996777633,
+      "tag": "0013_daily_leads_report_trigger_secret_header",
+      "breakpoints": true
+    },
+    {
+      "idx": 14,
+      "version": "7",
+      "when": 1789998982981,
+      "tag": "0014_daily_leads_report_midnight_uk",
+      "breakpoints": true
+    },
+    {
+      "idx": 15,
+      "version": "7",
+      "when": 1790098705297,
+      "tag": "0015_subscription_plans_commission_rate_nullable",
+      "breakpoints": true
+    },
+    {
+      "idx": 16,
+      "version": "7",
+      "when": 1790285312715,
+      "tag": "0016_diamond_outlier_engine",
+      "breakpoints": true
+    },
+    {
+      "idx": 17,
+      "version": "7",
+      "when": 1790350614954,
+      "tag": "0017_diamond_outlier_dear_side_fix",
+      "breakpoints": true
+    },
+    {
+      "idx": 18,
+      "version": "7",
+      "when": 1790591360927,
+      "tag": "0018_diamond_outlier_client_scope",
+      "breakpoints": true
+    },
+    {
+      "idx": 19,
+      "version": "7",
+      "when": 1790615420491,
+      "tag": "0019_debit_wallet_no_free_credit_loss",
+      "breakpoints": true
+    },
+    {
+      "idx": 20,
+      "version": "7",
+      "when": 1790623816862,
+      "tag": "0020_scheduled_subscription_status",
+      "breakpoints": true
+    },
+    {
+      "idx": 21,
+      "version": "7",
+      "when": 1790714408188,
+      "tag": "0021_ai_image_delivery",
+      "breakpoints": true
+    },
+    {
+      "idx": 22,
+      "version": "7",
+      "when": 1790885654638,
+      "tag": "0022_ring_ai_image_delivery",
+      "breakpoints": true
+    },
+    {
+      "idx": 23,
+      "version": "7",
+      "when": 1791125098684,
+      "tag": "0023_sandbox_quote_estimator_version_storage",
+      "breakpoints": true
+    },
+    {
+      "idx": 24,
+      "version": "7",
+      "when": 1791126443789,
+      "tag": "0024_diamond_lead_quote_version",
+      "breakpoints": true
+    },
+    {
+      "idx": 25,
+      "version": "7",
+      "when": 1791129508248,
+      "tag": "0025_sandbox_quote_v3_isolated_settings",
+      "breakpoints": true
+    },
+    {
+      "idx": 26,
+      "version": "7",
+      "when": 1791217577161,
+      "tag": "0026_diamond_carat_buckets_to_8ct",
+      "breakpoints": true
+    },
+    {
+      "idx": 27,
+      "version": "7",
+      "when": 1791371800167,
+      "tag": "0027_expand_sandbox_v3_diamond_quality_options",
+      "breakpoints": true
+    },
+    {
+      "idx": 28,
+      "version": "7",
+      "when": 1791419049560,
+      "tag": "0028_add_customer_email_header_appearance",
+      "breakpoints": true
+    },
+    {
+      "idx": 29,
+      "version": "7",
+      "when": 1791802543885,
+      "tag": "0029_marketing_email_campaigns",
+      "breakpoints": true
+    },
+    {
+      "idx": 30,
+      "version": "7",
+      "when": 1791806673125,
+      "tag": "0030_metal_iq_volume_tiers",
+      "breakpoints": true
+    },
+    {
+      "idx": 31,
+      "version": "7",
+      "when": 1792146974236,
+      "tag": "0031_quote_estimator_diamond_picker",
+      "breakpoints": true
+    },
+    {
+      "idx": 32,
+      "version": "7",
+      "when": 1792181919077,
+      "tag": "0032_quote_estimator_diamond_configuration",
+      "breakpoints": true
+    },
+    {
+      "idx": 33,
+      "version": "7",
+      "when": 1792182773804,
+      "tag": "0033_quote_estimator_diamond_picker_v3_only_configuration",
+      "breakpoints": true
+    },
+    {
+      "idx": 34,
+      "version": "7",
+      "when": 1792184361993,
+      "tag": "0034_quote_estimator_diamond_picker_fast_pool_scan",
+      "breakpoints": true
+    },
+    {
+      "idx": 35,
+      "version": "7",
+      "when": 1792185193725,
+      "tag": "0035_quote_estimator_diamond_picker_reps_fast_path",
+      "breakpoints": true
+    },
+    {
+      "idx": 36,
+      "version": "7",
+      "when": 1792185793725,
+      "tag": "0036_diamond_shape_options_new_cuts",
+      "breakpoints": true
+    },
+    {
+      "idx": 37,
+      "version": "7",
+      "when": 1792428241990,
+      "tag": "0037_diamond_shape_options_new_cuts",
+      "breakpoints": true
+    },
+    {
+      "idx": 38,
+      "version": "7",
+      "when": 1792428841990,
+      "tag": "0038_gemstone_pool_and_quote_v3_gemstone_picker",
+      "breakpoints": true
+    },
+    {
+      "idx": 39,
+      "version": "7",
+      "when": 1792439725739,
+      "tag": "0039_gemstone_pool_and_quote_v3_gemstone_picker",
+      "breakpoints": true
+    },
+    {
+      "idx": 40,
+      "version": "7",
+      "when": 1792440325739,
+      "tag": "0039_ring_os_catalog_legacy_shapes",
+      "breakpoints": true
+    },
+    {
+      "idx": 41,
+      "version": "7",
+      "when": 1792608078959,
+      "tag": "0041_revenue_usage_accuracy",
+      "breakpoints": true
+    },
+    {
+      "idx": 42,
+      "version": "7",
+      "when": 1792608678959,
+      "tag": "0042_quote_v3_gemstone_carat_window",
+      "breakpoints": true
+    },
+    {
+      "idx": 43,
+      "version": "7",
+      "when": 1792613194685,
+      "tag": "0043_20261022120000_quote_v3_gemstone_carat_window",
+      "breakpoints": true
+    },
+    {
+      "idx": 44,
+      "version": "7",
+      "when": 1792771047169,
+      "tag": "0044_quote_estimator_option_custom_names",
+      "breakpoints": true
+    },
+    {
+      "idx": 45,
+      "version": "7",
+      "when": 1793028359556,
+      "tag": "0045_diamond_pipeline_manual_batched",
+      "breakpoints": true
+    },
+    {
+      "idx": 46,
+      "version": "7",
+      "when": 1793028411794,
+      "tag": "0046_availability_refresh_on_confirm_only",
+      "breakpoints": true
+    },
+    {
+      "idx": 47,
+      "version": "7",
+      "when": 1793028422527,
+      "tag": "0047_backup_weekly_allowlist",
+      "breakpoints": true
+    },
+    {
+      "idx": 48,
+      "version": "7",
+      "when": 1793028804129,
+      "tag": "0048_unschedule_legacy_diamond_crons",
+      "breakpoints": true
+    },
+    {
+      "idx": 49,
+      "version": "7",
+      "when": 1793199971834,
+      "tag": "0049_sandbox_ring_os_currency_fx_pricing",
+      "breakpoints": true
+    },
+    {
+      "idx": 50,
+      "version": "7",
+      "when": 1793206923353,
+      "tag": "0050_sandbox_ring_os_currency_fx_pricing",
+      "breakpoints": true
+    },
+    {
+      "idx": 51,
+      "version": "7",
+      "when": 1793210523353,
+      "tag": "0051_diamond_uuid_max_aggregate",
+      "breakpoints": true
+    },
+    {
+      "idx": 52,
+      "version": "7",
+      "when": 1793210523354,
+      "tag": "0052_diamond_uuid_max_aggregate",
+      "breakpoints": true
+    },
+    {
+      "idx": 53,
+      "version": "7",
+      "when": 1793214123354,
+      "tag": "0053_diamond_fx_prices_for_pool_ids",
+      "breakpoints": true
+    },
+    {
+      "idx": 54,
+      "version": "7",
+      "when": 1793281824673,
+      "tag": "0054_diamond_fx_prices_for_pool_ids",
+      "breakpoints": true
+    },
+    {
+      "idx": 55,
+      "version": "7",
+      "when": 1793391119869,
+      "tag": "0055_keep_ai_usage_logs_out_of_truncate",
+      "breakpoints": true
+    },
+    {
+      "idx": 56,
+      "version": "7",
+      "when": 1793515720755,
+      "tag": "0056_lead_device_info",
+      "breakpoints": true
+    },
+    {
+      "idx": 57,
+      "version": "7",
+      "when": 1793528108786,
+      "tag": "0057_lead_device_breakdown_rpc",
+      "breakpoints": true
+    },
+    {
+      "idx": 58,
+      "version": "7",
+      "when": 1793646651937,
+      "tag": "0058_widgets_off_on_failed_payment",
+      "breakpoints": true
+    },
+    {
+      "idx": 59,
+      "version": "7",
+      "when": 1793646660285,
+      "tag": "0059_new_clients_start_with_modules_off",
+      "breakpoints": true
+    },
+    {
+      "idx": 60,
+      "version": "7",
+      "when": 1793646863294,
+      "tag": "0060_widget_gate_follows_failed_payment_rule",
+      "breakpoints": true
+    },
+    {
+      "idx": 61,
+      "version": "7",
+      "when": 1793650018667,
+      "tag": "0061_lead_notification_extra_recipients",
+      "breakpoints": true
+    }
+  ]
+}

@@ -1,0 +1,1308 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<title>JewlX Platform Guide</title>
+<link href="https://fonts.googleapis.com/css2?family=Jost:wght@400;500;600;700&family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+<style>
+@page { size: A4; margin: 0; }
+:root{
+  --black:#000000; --ink:#101613; --muted:#5b6660; --line:#dfe6e2;
+  --emerald:#50c878; --deep:#0b6e4f; --dark:#013220; --mint:#d1f2eb; --paper:#ffffff; --soft:#f4f8f6;
+}
+*{box-sizing:border-box}
+html,body{margin:0;padding:0;background:#fff;color:var(--ink);font-family:'Inter','Segoe UI',Arial,sans-serif;font-size:10.2pt;line-height:1.45;-webkit-print-color-adjust:exact;print-color-adjust:exact}
+h1,h2,h3,h4,.display{font-family:'Jost','Segoe UI',Arial,sans-serif;margin:0;color:var(--ink)}
+p{margin:0 0 7pt}
+body{counter-reset:page}
+.page{position:relative;width:210mm;height:297mm;padding:16mm 17mm 18mm 17mm;page-break-after:always;overflow:hidden;background:#fff;counter-increment:page}
+.page:last-child{page-break-after:auto}
+.page.dark{background:#000;color:#fff}
+.page.dark h1,.page.dark h2,.page.dark h3,.page.dark h4{color:#fff}
+/* header / footer */
+.hdr{position:absolute;top:9mm;left:17mm;right:17mm;display:flex;justify-content:space-between;align-items:center;font-size:7.5pt;letter-spacing:.14em;text-transform:uppercase;color:var(--muted)}
+.hdr b{color:var(--deep);font-weight:600}
+.ftr{position:absolute;bottom:9mm;left:17mm;right:17mm;display:flex;justify-content:space-between;align-items:center;font-size:7.5pt;color:var(--muted);border-top:1px solid var(--line);padding-top:4mm}
+.ftr .pn::after{content:counter(page);font-weight:600;color:var(--ink)}
+.page.dark .hdr,.page.dark .ftr{color:#9aa8a1;border-color:#233}
+.page.dark .ftr .pn::after{color:#fff}
+/* typography */
+.kicker{font-size:8pt;letter-spacing:.18em;text-transform:uppercase;color:var(--deep);font-weight:600;margin-bottom:6pt}
+h1{font-size:26pt;font-weight:600;line-height:1.12;letter-spacing:-.01em;margin-bottom:8pt}
+h2{font-size:15pt;font-weight:600;margin:12pt 0 5pt}
+h3{font-size:11.5pt;font-weight:600;margin:9pt 0 3pt}
+.lead{font-size:11.5pt;line-height:1.5;color:#2a332e;margin-bottom:10pt}
+.muted{color:var(--muted)}
+.small{font-size:8.6pt}
+ul{margin:0 0 7pt 0;padding-left:14pt}
+li{margin-bottom:2.5pt}
+.tight li{margin-bottom:1.5pt}
+.rule{height:2px;background:linear-gradient(90deg,var(--emerald),var(--deep));width:42mm;margin:6pt 0 10pt;border-radius:2px}
+/* layout helpers */
+.cols{display:grid;grid-template-columns:1fr 1fr;gap:8mm}
+.cols3{display:grid;grid-template-columns:1fr 1fr 1fr;gap:5mm}
+.card{border:1px solid var(--line);border-radius:6px;padding:8pt 10pt;background:#fff;break-inside:avoid}
+.card h3{margin-top:0}
+.card.tint{background:var(--soft);border-color:#cfe3d9}
+.card.dark{background:var(--dark);color:#e8f5ee;border-color:var(--dark)}
+.card.dark h3,.card.dark h4{color:#fff}
+.chip{display:inline-block;font-size:7.5pt;font-weight:600;letter-spacing:.08em;text-transform:uppercase;padding:2pt 6pt;border-radius:3px;background:var(--mint);color:var(--dark);margin-right:4pt}
+.chip.g{background:var(--emerald);color:#022}
+.chip.k{background:#111;color:#fff}
+.stat{padding:8pt 10pt;border-left:3px solid var(--emerald);background:var(--soft);border-radius:0 6px 6px 0}
+.stat .n{font-family:'Jost',sans-serif;font-size:20pt;font-weight:600;line-height:1;color:var(--dark)}
+.stat .l{font-size:8.4pt;color:var(--muted);margin-top:3pt}
+table{width:100%;border-collapse:collapse;font-size:9pt;margin:4pt 0 8pt}
+th{text-align:left;font-weight:600;font-size:8pt;letter-spacing:.06em;text-transform:uppercase;color:var(--deep);border-bottom:1.5px solid var(--deep);padding:4pt 6pt 4pt 0;vertical-align:bottom}
+td{padding:4.5pt 6pt 4.5pt 0;border-bottom:1px solid var(--line);vertical-align:top}
+tr:last-child td{border-bottom:none}
+table.grid td,table.grid th{padding-left:6pt}
+table.grid td:first-child,table.grid th:first-child{padding-left:0}
+.quote{border-left:3px solid var(--emerald);padding:6pt 10pt;font-size:10.5pt;font-style:italic;color:#243;background:var(--soft);border-radius:0 6px 6px 0;margin:8pt 0}
+.flow{display:flex;gap:4mm;align-items:stretch;margin:8pt 0}
+.flow .step{flex:1;border:1px solid var(--line);border-top:3px solid var(--emerald);border-radius:6px;padding:7pt 8pt;background:#fff;position:relative}
+.flow .step .num{font-family:'Jost',sans-serif;font-size:18pt;font-weight:600;color:var(--emerald);line-height:1}
+.flow .step h4{font-size:10pt;margin:3pt 0 2pt}
+.flow .step p{font-size:8.6pt;margin:0;color:#334}
+.steps{display:flex;flex-wrap:wrap;gap:3pt;margin:5pt 0 8pt}
+.steps span{font-size:8.3pt;background:var(--soft);border:1px solid var(--line);border-radius:4px;padding:2.5pt 6pt}
+.steps span b{color:var(--deep);margin-right:3pt}
+.check li{list-style:none;position:relative;padding-left:13pt}
+.check li::before{content:"";position:absolute;left:0;top:5pt;width:7pt;height:7pt;border-radius:2px;background:var(--emerald)}
+.two-tone{display:grid;grid-template-columns:1.15fr 1fr;gap:8mm}
+.tag{display:inline-block;font-size:8pt;padding:1.5pt 6pt;border:1px solid var(--line);border-radius:10px;margin:0 3pt 3pt 0;background:#fff}
+.hero-band{background:var(--dark);color:#e8f5ee;border-radius:8px;padding:12pt 14pt;margin:8pt 0 10pt}
+.hero-band h3{color:#fff;margin-top:0}
+.hero-band .stat{background:rgba(255,255,255,.06);border-left-color:var(--emerald)}
+.hero-band .stat .n{color:#fff}.hero-band .stat .l{color:#b7cfc3}
+.toc{columns:1;font-size:10.5pt}
+.toc .row{display:flex;justify-content:space-between;padding:3.2pt 0;border-bottom:1px dotted #cbd5cf}
+.toc .row b{font-family:'Jost',sans-serif;font-weight:500;color:var(--deep);width:22pt;display:inline-block}
+.toc .row .sec{font-size:8pt;letter-spacing:.14em;text-transform:uppercase;color:var(--muted);font-weight:600;padding:7pt 0 1pt;border:none;display:block}
+.tiers{display:flex;gap:4mm;margin-top:8pt}
+.tier{flex:1;border:1px solid var(--line);border-radius:6px;padding:8pt;text-align:center}
+.tier .t{font-family:'Jost',sans-serif;font-weight:600;font-size:11pt;color:var(--dark)}
+.tier p{font-size:8.6pt;margin:3pt 0 0;color:#334}
+.arrow{align-self:center;font-size:16pt;color:var(--emerald)}
+.pricing{display:grid;grid-template-columns:repeat(5,1fr);gap:3mm;margin-top:6pt}
+.plan{border:1px solid var(--line);border-radius:6px;padding:8pt 7pt;font-size:8.3pt;display:flex;flex-direction:column}
+.plan.star{border:2px solid var(--emerald);background:var(--soft)}
+.plan .name{font-family:'Jost',sans-serif;font-size:11pt;font-weight:600;color:var(--dark)}
+.plan .price{font-family:'Jost',sans-serif;font-size:15pt;font-weight:600;margin:3pt 0 0;color:var(--ink)}
+.plan .price small{font-size:8pt;color:var(--muted);font-weight:400}
+.plan .sub{color:var(--muted);font-size:7.8pt;margin-bottom:5pt;min-height:22pt}
+.plan ul{padding-left:10pt;margin:0}.plan li{margin-bottom:1.5pt}
+.cover-logo{width:95mm}
+.cover-title{font-size:38pt;line-height:1.05;font-weight:600;letter-spacing:-.01em;margin:10pt 0 8pt;color:#fff}
+.cover-sub{font-size:14pt;color:#b7cfc3;max-width:140mm;line-height:1.45}
+.cover-foot{position:absolute;left:17mm;right:17mm;bottom:16mm;display:flex;justify-content:space-between;align-items:flex-end;color:#9aa8a1;font-size:9pt}
+.xmark{position:absolute;right:-30mm;bottom:-25mm;width:150mm;opacity:.16}
+.sectionbar{display:flex;gap:3mm;flex-wrap:wrap;margin:6pt 0 10pt}
+.sectionbar span{font-size:8.2pt;padding:3pt 7pt;border-radius:4px;background:#111;color:#fff}
+.sectionbar span.e{background:var(--emerald);color:#022}
+.icon-row{display:grid;grid-template-columns:repeat(3,1fr);gap:4mm;margin-top:6pt}
+.icon-row .it{border:1px solid var(--line);border-radius:6px;padding:7pt 9pt}
+.icon-row .it h4{font-size:10pt;margin-bottom:2pt}
+.icon-row .it p{font-size:8.6pt;margin:0;color:#334}
+.ba{display:grid;grid-template-columns:1fr 1fr;gap:0;border:1px solid var(--line);border-radius:6px;overflow:hidden;margin-top:6pt}
+.ba > div{padding:8pt 10pt;font-size:9pt}
+.ba .before{background:#f7f7f7}
+.ba .after{background:var(--soft)}
+.ba h4{font-size:9pt;letter-spacing:.1em;text-transform:uppercase;margin-bottom:4pt}
+.ba .before h4{color:#777}.ba .after h4{color:var(--deep)}
+.ba ul{margin:0;padding-left:12pt}
+.note{font-size:8.3pt;color:var(--muted);border-top:1px solid var(--line);padding-top:4pt;margin-top:6pt}
+</style>
+</head>
+<body>
+
+<!-- ============ COVER ============ -->
+<div class="page dark" style="padding-top:24mm">
+  <img class="cover-logo" src="logo_dark.png" alt="JewlX">
+  <div style="margin-top:34mm">
+    <div class="kicker" style="color:var(--emerald)">Platform Guide &amp; Product Manual</div>
+    <div class="cover-title">Turn your jewelry website<br>into a salesperson<br>that never sleeps.</div>
+    <div class="cover-sub">AI-powered ring builders, instant quote forms, custom-jewelry configurators and a gold-buying widget that capture, price and qualify buyers on your own site, 24/7, and deliver every lead fully specced into your dashboard and CRM.</div>
+  </div>
+  <div style="margin-top:22mm;display:flex;gap:4mm">
+    <span class="chip g">Ring OS</span><span class="chip g">Instant Quote</span><span class="chip g">Custom X</span><span class="chip g">Metal IQ</span><span class="chip g">JewlX Agent</span>
+  </div>
+  <img class="xmark" src="icon.png" alt="">
+  <div class="cover-foot">
+    <div>Edition: September 2026<br>Prepared for jewelers, jewelry retailers, manufacturers and agencies</div>
+    <div style="text-align:right">jewlx.ai<br>admin.jewlx.ai · vault.jewlx.ai · builder.jewlx.ai</div>
+  </div>
+</div>
+
+<!-- ============ CONTENTS ============ -->
+<div class="page">
+  <div class="hdr"><span><b>JewlX</b> · Platform Guide</span><span>Contents</span></div>
+  <div class="kicker">Inside this guide</div>
+  <h1>Contents</h1>
+  <div class="rule"></div>
+  <div class="toc" style="font-size:10pt">
+    <div class="row"><span class="sec">Part 1 · The opportunity</span></div>
+    <div class="row"><span><b>01</b> Executive summary</span><span>3</span></div>
+    <div class="row"><span><b>02</b> The problems jewelers face today</span><span>4</span></div>
+    <div class="row"><span><b>03</b> The JewlX solution: how it works</span><span>5</span></div>
+    <div class="row"><span><b>04</b> The product suite at a glance</span><span>6</span></div>
+    <div class="row"><span class="sec">Part 2 · Products</span></div>
+    <div class="row"><span><b>05</b> Ring OS: the engagement-ring builder</span><span>7</span></div>
+    <div class="row"><span><b>06</b> Instant Quote: the lead-volume engine</span><span>9</span></div>
+    <div class="row"><span><b>07</b> Custom X: Ring Builder, Grillz Builder, Custom Enquiry</span><span>10</span></div>
+    <div class="row"><span><b>08</b> AI visual previews and the AI Wallet</span><span>12</span></div>
+    <div class="row"><span><b>09</b> Metal IQ: the gold-buying widget</span><span>13</span></div>
+    <div class="row"><span><b>10</b> JewlX Agent: the AI sales assistant</span><span>14</span></div>
+    <div class="row"><span class="sec">Part 3 · The platform</span></div>
+    <div class="row"><span><b>11</b> Customer Hub, unified leads and bookings</span><span>15</span></div>
+    <div class="row"><span><b>12</b> Integrations: CRM MVMNT (GoHighLevel) and Shopify</span><span>16</span></div>
+    <div class="row"><span><b>13</b> Orders, CAD pipeline, emails, tracking and analytics</span><span>17</span></div>
+    <div class="row"><span><b>14</b> The client dashboard (Vault) tour</span><span>18</span></div>
+    <div class="row"><span><b>15</b> White-label branding, embedding and widget security</span><span>19</span></div>
+    <div class="row"><span><b>16</b> For manufacturers and agencies: the Admin Portal</span><span>20</span></div>
+    <div class="row"><span><b>17</b> Security, compliance and reliability</span><span>21</span></div>
+    <div class="row"><span class="sec">Part 4 · Proof, pricing and next steps</span></div>
+    <div class="row"><span><b>18</b> Case study: Diamond Touch Toronto</span><span>22</span></div>
+    <div class="row"><span><b>19</b> Platform proof points and before/after</span><span>23</span></div>
+    <div class="row"><span><b>20</b> Plans and pricing</span><span>24</span></div>
+    <div class="row"><span><b>21</b> Implementation: your first 30 days</span><span>25</span></div>
+    <div class="row"><span><b>22</b> Who JewlX is for, and common objections answered</span><span>26</span></div>
+    <div class="row"><span><b>23</b> Technology summary for IT teams</span><span>27</span></div>
+    <div class="row"><span><b>24</b> Next steps</span><span>28</span></div>
+  </div>
+  <div class="ftr"><span>JewlX Platform Guide · September 2026</span><span class="pn"></span></div>
+</div>
+
+<!-- ============ 01 EXEC SUMMARY ============ -->
+<div class="page">
+  <div class="hdr"><span><b>01</b> · Executive summary</span><span>Part 1 · The opportunity</span></div>
+  <div class="kicker">01 · Executive summary</div>
+  <h1>One platform. Every custom-jewelry enquiry, captured and qualified.</h1>
+  <div class="rule"></div>
+  <p class="lead">JewlX is a conversion and lead-generation platform built exclusively for the jewelry industry. It embeds white-labeled configurators, instant-quote forms and AI tools on a jeweler's existing website, so every visitor who wants a ring, a custom piece, grillz or a gold payout can configure it, see a price and leave their details.</p>
+  <div class="cols">
+    <div>
+      <h3>What it replaces</h3>
+      <ul class="tight">
+        <li>"Contact us" forms that capture a name and nothing else</li>
+        <li>Instagram DMs and emails asking "how much would this cost?"</li>
+        <li>Manual quoting by the owner or the CAD designer</li>
+                <li>Losing bridal buyers to online giants that offer instant configuration</li>
+      </ul>
+    </div>
+    <div>
+      <h3>What it delivers</h3>
+      <ul class="tight check">
+        <li><b>More leads:</b> the website produces enquiries at volume, not a trickle</li>
+        <li><b>Better leads:</b> shape, carat, metal, budget, timeline and contact details arrive with every submission</li>
+        <li><b>Less manual work:</b> pricing, confirmations, CRM entry and CAD briefs are automated</li>
+        <li><b>No replatforming:</b> an iframe embed on Shopify, WordPress or any custom site</li>
+      </ul>
+    </div>
+  </div>
+  <div class="hero-band">
+    <h3>Proof from the largest live deployment</h3>
+    <div class="cols3">
+      <div class="stat"><div class="n">3,459</div><div class="l">fully specced ring enquiries captured by one Toronto jeweler in under six months</div></div>
+      <div class="stat"><div class="n">~625</div><div class="l">qualified ring enquiries per month, on average, from a single Instant Quote form</div></div>
+      <div class="stat"><div class="n">69%</div><div class="l">win rate on the enquiries that jeweler actively followed up</div></div>
+    </div>
+    <p class="small" style="margin:8pt 0 0;color:#b7cfc3">Source: JewlX production data and the client's CRM review, 21 August 2026. Full case study in section 18.</p>
+  </div>
+  <h3>The product suite in one line each</h3>
+  <table class="grid">
+    <tr><th style="width:26mm">Product</th><th>What it does</th><th style="width:48mm">Best for</th></tr>
+    <tr><td><b>Ring OS</b></td><td>A full engagement-ring builder with your diamonds, your prices, live metal pricing, 3D previews and checkout or enquiry.</td><td>Engagement-ring retailers</td></tr>
+    <tr><td><b>Instant Quote</b></td><td>A fast, linear ring-quote wizard that ends in a real price estimate. The highest-volume lead capture JewlX ships.</td><td>Any jeweler running website traffic</td></tr>
+    <tr><td><b>Custom X</b></td><td>Three configurators for non-catalog work: Ring Builder, Grillz Builder and Custom Jewelry Enquiry, with AI-rendered previews.</td><td>Custom and bespoke jewelers, hip-hop jewelers</td></tr>
+    <tr><td><b>Metal IQ</b></td><td>A gold-buying widget: live spot prices, your margins, instant payout estimates and lead capture.</td><td>Gold buyers and refiners</td></tr>
+    <tr><td><b>JewlX Agent</b></td><td>A jewelry-trained AI assistant inside the ring builder that answers questions and applies configurations, and never invents a price.</td><td>Every Ring OS deployment</td></tr>
+  </table>
+  <div class="ftr"><span>JewlX Platform Guide · September 2026</span><span class="pn"></span></div>
+</div>
+
+<!-- ============ 02 PROBLEMS ============ -->
+<div class="page">
+  <div class="hdr"><span><b>02</b> · The problems jewelers face today</span><span>Part 1 · The opportunity</span></div>
+  <div class="kicker">02 · The business problem</div>
+  <h1>Your website is a brochure. Your customers expect a salesperson.</h1>
+  <div class="rule"></div>
+  <p class="lead">Jewelers spend on advertising, photography and a beautiful website, then hand the most valuable moment, the point where a visitor decides to ask for a price, to a generic contact form or a DM inbox. JewlX was built to fix the six failures that follow.</p>
+  <div class="icon-row">
+    <div class="it"><h4>1. Enquiries with no information</h4><p>"Hi, interested in a ring." No shape, no carat, no budget. Every lead needs a discovery call before anyone knows whether it is worth pursuing.</p></div>
+    <div class="it"><h4>2. Slow, manual quoting</h4><p>Each price request becomes a task for the owner or the CAD designer. Quotes take hours or days, and buyers move on to whoever answered first.</p></div>
+    <div class="it"><h4>3. Losing bridal buyers to online giants</h4><p>Blue Nile, Brilliant Earth and With Clarity let customers build a ring and see a price instantly. Local jewelers are benchmarked against that experience.</p></div>
+    <div class="it"><h4>4. DM and inbox chaos</h4><p>Instagram, WhatsApp, email and phone calls all carry price requests. Nothing is tracked, followed up consistently, or measurable.</p></div>
+    <div class="it"><h4>5. No pipeline, no attribution</h4><p>Leads never reach the CRM, or reach it by copy-paste. Paid-media teams cannot optimize against real conversions.</p></div>
+    <div class="it"><h4>6. Unqualified consultations</h4><p>Appointment slots are spent on visitors whose budget was never known. Sales staff cannot prioritize.</p></div>
+  </div>
+  <h2>What jewelers tell us</h2>
+  <div class="cols">
+    <div>
+      <div class="quote">"People message us for a price and we never hear back from them."</div>
+      <div class="quote">"We don't know a lead's budget until we've spent 30 minutes with them."</div>
+      <div class="quote">"Our website is a brochure, not a salesperson."</div>
+    </div>
+    <div>
+      <div class="quote">"Every quote is a manual job for me or my CAD guy."</div>
+      <div class="quote">"We get leads but no details, just a name and 'hi, interested in a ring'."</div>
+      <div class="quote">"We tried an AI tool and the renders looked fake."</div>
+    </div>
+  </div>
+  <h2>The cost of doing nothing</h2>
+  <p>A single custom engagement ring is typically worth several thousand dollars. Across the largest JewlX deployment, the average ring value requested through the widget is roughly $4,300. When a website converts price requests into vague enquiries, or into nothing at all, the loss is not a marketing statistic. It is unbuilt rings.</p>
+  <div class="ftr"><span>JewlX Platform Guide · September 2026</span><span class="pn"></span></div>
+</div>
+
+<!-- ============ 03 SOLUTION ============ -->
+<div class="page">
+  <div class="hdr"><span><b>03</b> · The JewlX solution</span><span>Part 1 · The opportunity</span></div>
+  <div class="kicker">03 · How it works</div>
+  <h1>Bolt on. Do not rebuild.</h1>
+  <div class="rule"></div>
+  <p class="lead">JewlX is delivered as embeddable, fully branded widgets plus a hosted dashboard. Your website stays exactly as it is. Paste a short embed code on a page, and that page becomes a configurator, a quote engine and a lead-capture funnel.</p>
+  <div class="flow">
+    <div class="step"><div class="num">1</div><h4>Embed</h4><p>Paste one iframe snippet on Shopify, WordPress or any custom site. Height syncs automatically. Your domain is whitelisted.</p></div>
+    <div class="step"><div class="num">2</div><h4>Configure</h4><p>Choose your metals, diamonds, options, prices, colors, copy, step order and deposit rules in a guided onboarding wizard.</p></div>
+    <div class="step"><div class="num">3</div><h4>Capture</h4><p>Visitors build their ring or piece, see an instant estimate or AI preview, then book, pay a deposit, or leave contact details.</p></div>
+    <div class="step"><div class="num">4</div><h4>Sync</h4><p>Every submission lands in your dashboard and Customer Hub, and is pushed to your CRM and Shopify with the full spec attached.</p></div>
+    <div class="step"><div class="num">5</div><h4>Close</h4><p>Your team follows up with a known budget, a chosen configuration and a customer who already accepted the price.</p></div>
+  </div>
+  <h2>Three tiers, one platform</h2>
+  <p>Manufacturers and agencies run the admin layer, retail jewelers run their own branded dashboard, and end customers interact only with the jeweler's brand.</p>
+  <div class="tiers">
+    <div class="tier"><div class="t">Agency / Manufacturer</div><p>Admin Portal: master product database, client onboarding, manufacturing and CAD queues, platform analytics, billing.</p></div>
+    <div class="arrow">→</div>
+    <div class="tier"><div class="t">Retail Jeweler</div><p>Client dashboard (Vault): catalog, pricing, widgets, leads, orders, bookings, integrations, staff and settings.</p></div>
+    <div class="arrow">→</div>
+    <div class="tier"><div class="t">End Customer</div><p>Embedded widgets: ring builder, instant quote, custom forms, grillz, gold buying and AI chat, all under the jeweler's brand.</p></div>
+  </div>
+  <h2>Why jewelers choose JewlX over the alternatives</h2>
+  <table class="grid">
+    <tr><th style="width:44mm">Alternative</th><th>Where it falls short</th><th style="width:50mm">The JewlX difference</th></tr>
+    <tr><td>Generic contact form</td><td>Captures a name. No configuration, no price, no qualification.</td><td>Captures the ring, the budget and the timeline, plus an accepted estimate.</td></tr>
+    <tr><td>Shopify product-option apps</td><td>Options only. No pricing intelligence, no AI previews, no CRM pipeline.</td><td>Configuration, quoting, AI rendering and CRM sync in one flow.</td></tr>
+    <tr><td>Agency-built custom form</td><td>Expensive, static, unmaintained after launch.</td><td>Continuously improved product, self-service configuration, jewelry-specific.</td></tr>
+    <tr><td>Jewelry website or chat platforms</td><td>A CMS or a chat tool, not a configurator with pricing.</td><td>Works alongside your site and chat, and replaces neither.</td></tr>
+  </table>
+  <div class="ftr"><span>JewlX Platform Guide · September 2026</span><span class="pn"></span></div>
+</div>
+
+<!-- ============ 04 SUITE AT A GLANCE ============ -->
+<div class="page">
+  <div class="hdr"><span><b>04</b> · The product suite at a glance</span><span>Part 1 · The opportunity</span></div>
+  <div class="kicker">04 · Product suite</div>
+  <h1>Four product lines, one shared platform layer.</h1>
+  <div class="rule"></div>
+  <p>Each product line is independently licensable and independently switched on per client account. They share one theming engine, one lead pipeline, one Customer Hub, one CRM integration and one billing system, so adding a second product is a toggle, not a project.</p>
+  <table class="grid" style="font-size:8.6pt">
+    <tr><th style="width:24mm">Product</th><th style="width:60mm">What the customer does</th><th>What the jeweler receives</th><th style="width:28mm">Segment</th></tr>
+    <tr><td><b>Ring OS</b></td><td>Builds a ring step by step: style, shank, metal, shape, carat, stone, size, engraving. Sees 3D and photo previews. Checks out, pays a deposit, or enquires.</td><td>A saved design or Shopify order carrying the full spec, diamond certificate details, wholesale and markup prices, and a CAD-ready brief.</td><td>Engagement-ring retailers</td></tr>
+    <tr><td><b>Instant Quote</b></td><td>Answers a short linear wizard and sees a real price estimate at the end, then submits contact details or pays a deposit.</td><td>A lead with diamond type, shape, size, quality, setting, band, metal, karat, personalization, timeline and inspiration images, plus the accepted estimate.</td><td>Any jeweler with website traffic</td></tr>
+    <tr><td><b>Custom X</b><br><span class="small muted">3 forms</span></td><td>Configures a non-catalog piece, answers the jeweler's own custom questions, uploads inspiration, and receives an AI-rendered preview.</td><td>A fully briefed design request with deposit (optional), sent to the CRM and visible in the Customer Hub.</td><td>Custom and bespoke jewelers, hip-hop and street jewelers</td></tr>
+    <tr><td><b>Metal IQ</b></td><td>Enters metal, purity, weight and photos, and receives an instant estimated payout based on live spot prices.</td><td>A gold-buying lead with a quoted offer and a booked walk-in.</td><td>Gold buyers and refiners</td></tr>
+    <tr><td><b>JewlX Agent</b></td><td>Chats with a jewelry-trained assistant inside the ring builder, asks questions, gets recommendations applied to the builder.</td><td>Higher completion rates and a conversation log with intent classification.</td><td>All Ring OS deployments</td></tr>
+  </table>
+  <h2>The shared platform layer</h2>
+  <table class="grid" style="font-size:8.6pt">
+    <tr><td style="width:33%"><b>Customer Hub.</b> Every lead from every widget merged into one per-customer timeline with status tags, notes and quote history.</td><td style="width:33%"><b>CRM MVMNT.</b> GoHighLevel integration: contacts, opportunities, notes and mapped custom fields created the moment a lead submits.</td><td><b>Shopify.</b> Catalog sync, deposit products, cart permalinks and line-item attributes carrying the full ring spec into the order.</td></tr>
+    <tr><td><b>Bookings.</b> Appointment booking with client availability, timezone handling and confirmation emails.</td><td><b>Orders and CAD.</b> Order management linked to leads, CAD request, resize and delivery workflow, purchasable CAD add-ons.</td><td><b>Analytics and tracking.</b> Widget views, funnel drop-off, lead attribution, Meta Pixel with Conversions API, Google Tag Manager.</td></tr>
+    <tr><td><b>Branded emails.</b> 27 designed transactional templates for lead alerts, confirmations, quotes, CAD, bookings, billing and access.</td><td><b>White-label and security.</b> Client branding, four themes, per-theme colors, domain-locked embeds, screenshot protection, staff permissions.</td><td><b>AI Wallet.</b> Per-client AI credit balance with a free monthly allocation, top-up packs, auto-recharge and cost reporting.</td></tr>
+  </table>
+  <div class="ftr"><span>JewlX Platform Guide · September 2026</span><span class="pn"></span></div>
+</div>
+
+<!-- ============ 05 RING OS (1) ============ -->
+<div class="page">
+  <div class="hdr"><span><b>05</b> · Ring OS</span><span>Part 2 · Products</span></div>
+  <div class="kicker">05 · Ring OS</div>
+  <h1>The engagement-ring builder your customers already expect.</h1>
+  <div class="rule"></div>
+  <div class="sectionbar"><span class="e">Flagship product</span><span>Your diamonds</span><span>Your prices</span><span>Your brand</span><span>Checkout or enquiry</span></div>
+  <p class="lead">Ring OS gives a local jeweler the same guided ring-building experience that online-native retailers use to win bridal buyers, running on the jeweler's own website with the jeweler's own inventory and pricing rules.</p>
+  <h2>The customer journey</h2>
+  <div class="steps">
+    <span><b>1</b>Style</span><span><b>2</b>Shank</span><span><b>3</b>Metal and karat</span><span><b>4</b>Diamond shape</span><span><b>5</b>Carat</span><span><b>6</b>Stone (natural or lab)</span><span><b>7</b>Ring size</span><span><b>8</b>Engraving and details</span><span><b>9</b>Estimate, checkout or enquiry</span>
+  </div>
+  <p class="small muted">Step order is configurable per jeweler. Dependencies such as shape before carat before stone are enforced automatically, so the flow always makes sense.</p>
+  <div class="cols">
+    <div>
+      <h3>Visual experience</h3>
+      <ul class="tight">
+        <li>High-resolution product imagery per configuration, including carat-specific and transparent-background images served from a global CDN</li>
+        <li>Interactive 3D ring viewer built on Three.js with realistic materials, orbit controls and post-processing effects</li>
+                <li>Four widget themes: Luxury, Modern, Chat and Elegant, each with five color channels the jeweler controls</li>
+        <li>Split-panel and full-screen wizard layouts, mobile and tablet optimized</li>
+      </ul>
+      <h3>Live diamond catalog</h3>
+      <ul class="tight">
+        <li>Natural and lab-grown stones filtered by shape, carat, color and clarity</li>
+        <li>Diamond presets for fast setup, or individual stone inventory with SKUs and certificate numbers</li>
+        <li>Optional access to the shared platform diamond pool managed by the agency</li>
+        <li>Per-client display limits and pricing markup rules</li>
+      </ul>
+    </div>
+    <div>
+      <h3>Real pricing, automatically</h3>
+      <ul class="tight">
+        <li>Ring price = style + shank + metal + carat + size + diamond, using the jeweler's own price rules</li>
+        <li>Live metal-price tracking: gold, platinum and silver spot prices flow into quotes through a blended-weight model with per-metal markups</li>
+        <li>Per-item markup percentage or fixed price overrides in the catalog</li>
+        <li>Ten currencies supported: USD, CAD, GBP, EUR, AUD, NZD, ZAR, INR, AED and CHF</li>
+      </ul>
+      <h3>Save, compare, book</h3>
+      <ul class="tight">
+        <li>Customers save designs for later and compare alternatives</li>
+        <li>Built-in appointment booking with the jeweler's availability and timezone handling</li>
+              </ul>
+      <h3>JewlX Agent inside the builder</h3>
+      <p class="small">A jewelry-trained AI assistant answers questions during configuration and can apply a recommended configuration directly to the builder. See section 10.</p>
+    </div>
+  </div>
+  <div class="quote">Sell it as: "Blue Nile's ring builder, running on your website, with your diamonds and your prices."</div>
+  <div class="ftr"><span>JewlX Platform Guide · September 2026</span><span class="pn"></span></div>
+</div>
+
+<!-- ============ 05 RING OS (2) ============ -->
+<div class="page">
+  <div class="hdr"><span><b>05</b> · Ring OS (continued)</span><span>Part 2 · Products</span></div>
+  <div class="kicker">05 · Ring OS · Commerce and control</div>
+  <h1>Three ways to convert. You choose the friction.</h1>
+  <div class="rule"></div>
+  <p>Not every jeweler wants to sell a $6,000 ring through a web checkout. Ring OS supports three pricing modes so the widget matches the way you actually sell.</p>
+  <div class="cols3">
+    <div class="card tint"><h3>Estimates + deposit</h3><p class="small">The customer sees the estimated ring price, then pays a fixed deposit through Shopify checkout. The full configuration travels with the order as line-item attributes.</p><span class="chip">Most popular</span></div>
+    <div class="card tint"><h3>No-deposit enquiry</h3><p class="small">Zero payment friction. The customer sees the estimate, leaves contact details, and the design is stored as a lead and synced to the CRM. Ideal for jewelers who close in-store.</p><span class="chip">Maximum lead volume</span></div>
+    <div class="card"><h3>Full custom pricing</h3><p class="small">Dynamic pricing with every product pushed to Shopify and the setting plus diamond sold as two line items. Currently rolling out.</p><span class="chip">Coming soon</span></div>
+  </div>
+  <h2>What arrives with every Ring OS order or lead</h2>
+  <div class="cols">
+    <div>
+      <ul class="tight">
+        <li>Style, shank, metal, shape, size and carat range</li>
+        <li>Stone type, carat, color, clarity, cut grade, polish, symmetry and fluorescence</li>
+        <li>Diamond certificate number, grading lab and certificate PDF link</li>
+        <li>Wholesale diamond price and markup price, for margin visibility</li>
+      </ul>
+    </div>
+    <div>
+      <ul class="tight">
+        <li>Estimated ring price, deposit amount and order type</li>
+        <li>Band width, personalized inscription and any other request</li>
+        <li>Currency and Shopify order number</li>
+        <li>A source marker identifying the transaction as a JewlX Ring Builder sale</li>
+      </ul>
+    </div>
+  </div>
+  <h2>Catalog built for you, controlled by you</h2>
+  <p>During onboarding the jeweler selects preferred styles, shanks, shapes, metals and diamond types. JewlX generates a catalog from the master product database automatically. From there the jeweler enables or disables items, sets markups or fixed prices, chooses which carats and sizes to offer, and configures metal variants with karat and purity options, all from the dashboard.</p>
+  <div class="cols">
+    <div class="card"><h3>From design to production</h3><p class="small">A won design can be pushed straight into a CAD request with messaging, delivery and resize handling, and purchasable CAD add-ons: CAD Tweak, New CAD Request and CAD + Render. Manufacturing status is tracked per order.</p></div>
+    <div class="card"><h3>Real-time order sync</h3><p class="small">Shopify order webhooks create matching orders in JewlX instantly, trigger order-update notifications, and push the purchase to the CRM as an order record so Add-to-Cart sales reach the pipeline too.</p></div>
+  </div>
+  <h2>Who buys Ring OS</h2>
+  <p>Engagement-ring retailers who already carry or source diamonds, run paid traffic or strong organic search, and are losing bridal buyers to online-native competitors. The typical trigger is a new website launch, a rebrand, or an owner tired of quoting every ring by hand.</p>
+  <div class="ftr"><span>JewlX Platform Guide · September 2026</span><span class="pn"></span></div>
+</div>
+
+<!-- ============ 06 INSTANT QUOTE ============ -->
+<div class="page">
+  <div class="hdr"><span><b>06</b> · Instant Quote</span><span>Part 2 · Products</span></div>
+  <div class="kicker">06 · Instant Quote (Quote Estimator)</div>
+  <h1>Give every visitor a price in 90 seconds. Get their ring spec in return.</h1>
+  <div class="rule"></div>
+  <div class="sectionbar"><span class="e">Highest lead volume</span><span>Real price at the end</span><span>Meta Pixel + CAPI</span><span>Deposit or contact</span></div>
+  <p class="lead">Instant Quote was built for one client, Diamond Touch Toronto, and out-performed every other lead form so decisively that it became a standard platform product. The mechanic is simple: a fast, linear wizard that ends with a real number. That number is why completion rates are high and lead volume is an order of magnitude above a standard enquiry form.</p>
+  <h2>The customer journey</h2>
+  <div class="steps">
+    <span><b>1</b>Welcome</span><span><b>2</b>Natural or lab-grown</span><span><b>3</b>Shape</span><span><b>4</b>Size (carat)</span><span><b>5</b>Quality</span><span><b>6</b>Setting</span><span><b>7</b>Holder</span><span><b>8</b>Band</span><span><b>9</b>Band width</span><span><b>10</b>Metal</span><span><b>11</b>Karat</span><span><b>12</b>Personalization</span><span><b>13</b>Inspiration upload</span><span><b>14</b>Timeline</span><span><b>15</b>Contact + instant estimate</span>
+  </div>
+  <div class="cols">
+    <div>
+      <h3>Why it converts</h3>
+      <ul class="tight">
+        <li>One decision per screen, image-led options, no dead ends</li>
+        <li>The estimate is itemized: every selection adds a visible line item, so the price feels earned and transparent</li>
+                <li>The customer accepts the price before they submit, which pre-qualifies the lead</li>
+        <li>Thank-you screen with incentive banner, booking calendar and a configurable contact button</li>
+      </ul>
+      <h3>Two submission modes</h3>
+      <ul class="tight">
+        <li><b>Contact mode:</b> free lead, instant email to the jeweler, branded confirmation to the customer</li>
+        <li><b>Deposit mode:</b> "Continue, $X deposit" redirects to Shopify checkout</li>
+      </ul>
+    </div>
+    <div>
+      <h3>Everything is configurable per jeweler</h3>
+      <ul class="tight">
+        <li>Drag-to-reorder steps; switch individual steps on or off</li>
+        <li>Per-step headings, welcome, summary and thank-you copy</li>
+        <li>Seven color channels, from background to button text and highlight</li>
+        <li>Enable or disable any option; custom image and custom price per option</li>
+        <li>Metal karat and purity variants with their own prices, including two-tone pairs</li>
+        <li>Deposit amount, currency and submission mode</li>
+        <li>Optimized WebP option images on a CDN, so the form loads fast on mobile</li>
+      </ul>
+      <h3>Built for paid media</h3>
+      <ul class="tight">
+        <li>Fires Meta Pixel Lead and Schedule events, mirrored through the server-side Conversions API with matching event IDs</li>
+                <li>Branded "New Instant Quote Lead" email, toggleable for CRM-connected clients</li>
+      </ul>
+    </div>
+  </div>
+  <div class="quote">Sell it as: "the highest-volume lead capture we ship, an instant ring price estimate, in your brand, on your site."</div>
+  <div class="ftr"><span>JewlX Platform Guide · September 2026</span><span class="pn"></span></div>
+</div>
+
+<!-- ============ 07 CUSTOM X (1) ============ -->
+<div class="page">
+  <div class="hdr"><span><b>07</b> · Custom X</span><span>Part 2 · Products</span></div>
+  <div class="kicker">07 · Custom X</div>
+  <h1>Turn "can you make this?" into a briefed, deposited, AI-visualized order.</h1>
+  <div class="rule"></div>
+  <p class="lead">Custom X is a suite of three wizard-style configurators for non-catalog work. They share one shell, one theming engine, one custom-question system and one AI preview engine. Everything the customer sees is defined by the jeweler in a guided onboarding wizard: which steps run, in what order, every option list, custom images per option, colors, deposit amount, and unlimited custom questions placed anywhere in the flow.</p>
+  <div class="cols3">
+    <div class="card tint"><h3>Ring Builder</h3><p class="small">Guided custom-ring intake: nature, shape, size, quality, setting, holder, band, band width, metal, karat, personalization, timeline, engraving, inspiration uploads and the jeweler's own questions.</p></div>
+    <div class="card tint"><h3>Grillz Builder</h3><p class="small">Teeth-level configuration with Plain and Iced Out types, per-type metal imagery, top and bottom teeth selection, custom questions and deposit checkout.</p></div>
+    <div class="card tint"><h3>Custom Jewelry Enquiry</h3><p class="small">Open-ended commissions: jewelry type, budget, metal color, karats, diamond quality with jeweler notes, diamond setup, back option, vision description and inspiration images.</p></div>
+  </div>
+  <h2>Ring Builder in detail</h2>
+  <div class="cols">
+    <div>
+      <ul class="tight">
+        <li>Fifteen-step guided wizard that mirrors how a bench jeweler actually briefs a custom ring</li>
+        <li>Budget ranges and timeline options the jeweler defines, so the lead arrives pre-qualified</li>
+                <li>Inspiration image upload with a swipeable gallery of category-specific example assets</li>
+        <li>Up to three AI-rendered previews per session so the customer can see the piece before they commit</li>
+      </ul>
+    </div>
+    <div>
+      <ul class="tight">
+        <li>Contact mode for a free lead, or deposit mode with a Shopify deposit product pushed automatically</li>
+        <li>Every answer is stored as structured data and can be mapped field by field into the CRM</li>
+                <li>Fully themed: background, tab border, font, image background and button colors</li>
+      </ul>
+    </div>
+  </div>
+  <h2>Custom questions: ask exactly what your bench needs</h2>
+  <p>Every Custom X form supports jeweler-defined questions of five types: yes/no, free text, dropdown, custom options with images, and file upload. Each can carry a text or file follow-up, be enabled or disabled, and be ordered freely. Default questions ship with every form and are editable, so setup takes minutes.</p>
+  <table class="grid">
+    <tr><th>Question type</th><th>Typical use</th></tr>
+    <tr><td>Yes / No with follow-up</td><td>"Do you have a stone you would like us to use?" then a description or photo</td></tr>
+    <tr><td>Dropdown or custom options</td><td>Finish, stone setting preference, matching band, gift wrapping</td></tr>
+    <tr><td>File upload</td><td>Sketches, reference photos, existing ring for redesign</td></tr>
+  </table>
+  <div class="ftr"><span>JewlX Platform Guide · September 2026</span><span class="pn"></span></div>
+</div>
+
+<!-- ============ 07 CUSTOM X (2) ============ -->
+<div class="page">
+  <div class="hdr"><span><b>07</b> · Custom X (continued)</span><span>Part 2 · Products</span></div>
+  <div class="kicker">07 · Custom X · Grillz Builder and Custom Enquiry</div>
+  <h1>Built for the way street jewelers and bespoke studios actually sell.</h1>
+  <div class="rule"></div>
+  <div class="cols">
+    <div>
+      <h2 style="margin-top:0">Grillz Builder</h2>
+      <p>A five-step configurator with a split-screen layout: a sticky product preview on the left that updates live as the customer changes metal and Iced Out selections, and an independently scrolling form on the right.</p>
+      <div class="steps">
+        <span><b>1</b>Metal and purity</span><span><b>2</b>Top and bottom teeth</span><span><b>3</b>Custom questions</span><span><b>4</b>Contact</span><span><b>5</b>Submit or deposit</span>
+      </div>
+      <ul class="tight">
+        <li>Jeweler configures enabled metals with purities and colors, teeth options, and per-option name and on/off toggles for styles such as Fangs or Open Faced</li>
+        <li>Plain versus Iced Out types with client-added custom types and per-type metal imagery</li>
+        <li>Contact mode with animated in-place thank-you, or deposit mode with "Continue, $X deposit" to Shopify checkout</li>
+        <li>Grillz orders carry metal type, purity, top teeth, bottom teeth and notes as line-item attributes</li>
+        <li>Form color customization: background, tab border, font, image background, submit button and button text</li>
+      </ul>
+      <div class="quote">Sell it as: "Teeth-level configuration, iced or plain, priced and deposited on your site."</div>
+    </div>
+    <div>
+      <h2 style="margin-top:0">Custom Jewelry Enquiry</h2>
+      <p>A five-step wizard for open-ended commissions, redesigns and one-off pieces, with a swipeable image gallery of category-specific examples on the left and the form on the right.</p>
+      <div class="steps">
+        <span><b>1</b>Jewelry type and budget</span><span><b>2</b>Materials</span><span><b>3</b>Custom questions</span><span><b>4</b>Details and inspiration</span><span><b>5</b>Contact and submit</span>
+      </div>
+      <ul class="tight">
+        <li>Jeweler defines jewelry types, budget ranges, gold colors (multi-select), karat options, diamond qualities with written guidance such as "VVS1 is the best", diamond setup options and back options</li>
+        <li>Vision description, size and inspiration image upload</li>
+        <li>AI-rendered preview of the described piece, delivered on screen and by email</li>
+        <li>Contact or deposit submission with a Shopify deposit product created automatically</li>
+        <li>Leads stored as structured design requests and pushed to the CRM with mapped fields</li>
+      </ul>
+      <div class="quote">Sell it as: "Every 'can you make this?' becomes a briefed design request with a budget attached."</div>
+    </div>
+  </div>
+  <h2>What the jeweler gets from every Custom X submission</h2>
+  <div class="cols3">
+    <div class="card"><h3>A complete brief</h3><p class="small">Every selection, every custom answer, every uploaded file, in one record. No follow-up email to ask what they meant.</p></div>
+    <div class="card"><h3>A qualified budget</h3><p class="small">Budget and timeline are captured before the first conversation, so consultations are booked with buyers who can afford the piece.</p></div>
+    <div class="card"><h3>A committed customer</h3><p class="small">Optional deposits turn enquiries into paid commitments, and the AI preview gives the customer something to fall in love with.</p></div>
+  </div>
+  <div class="ftr"><span>JewlX Platform Guide · September 2026</span><span class="pn"></span></div>
+</div>
+
+<!-- ============ 08 AI PREVIEWS + WALLET ============ -->
+<div class="page">
+  <div class="hdr"><span><b>08</b> · AI visual previews and the AI Wallet</span><span>Part 2 · Products</span></div>
+  <div class="kicker">08 · AI previews and AI Wallet</div>
+  <h1>Photorealistic previews. Predictable costs.</h1>
+  <div class="rule"></div>
+  <p class="lead">The single most demo-able feature in JewlX: the customer describes or configures their piece and receives a photorealistic, catalog-grade render on a clean background. No props, no people, e-commerce isolation standard. It is built specifically for jewelry, not a generic image prompt, which is why the renders look like product photography rather than concept art.</p>
+  <div class="cols">
+    <div>
+      <h3>Where AI previews appear</h3>
+      <ul class="tight">
+        <li>Custom X Ring Builder: rendered from the configured style, metal, karat, stone and personalization</li>
+        <li>Custom Jewelry Enquiry: rendered from the customer's description, materials and inspiration</li>
+        <li>Grillz Builder: rendered from metal, purity, teeth selection and Iced Out choice</li>
+        <li>Delivered on the thank-you screen and by branded email</li>
+      </ul>
+      <h3>Why it matters commercially</h3>
+      <ul class="tight">
+        <li>The customer sees their piece before the first consultation, which raises emotional commitment</li>
+        <li>Sales staff open the conversation with a visual already agreed, cutting revision cycles</li>
+        <li>Renders can be capped per session or switched off per jeweler to control cost</li>
+      </ul>
+    </div>
+    <div>
+      <h3>The AI Wallet</h3>
+      <p class="small">Every jeweler has a credit balance that pays for AI image generation, JewlX Agent conversations and cost estimates. The wallet makes AI spend visible and predictable.</p>
+      <table class="grid small">
+        <tr><th>Item</th><th>Detail</th></tr>
+        <tr><td>Free monthly allocation</td><td>Included with every plan and granted automatically each month</td></tr>
+        <tr><td>Top-up packs</td><td>$25, $50 and $100 packs, with bonus credits on the larger packs</td></tr>
+        <tr><td>Auto-recharge</td><td>Set a threshold and a recharge amount; a saved card tops up automatically</td></tr>
+        <tr><td>Usage reporting</td><td>Full usage and cost history per feature in the dashboard</td></tr>
+      </table>
+      <table class="grid small">
+        <tr><th>Plan</th><th>AI chat / month</th><th>AI image previews / month</th></tr>
+        <tr><td>Custom X</td><td>3,000</td><td>200</td></tr>
+        <tr><td>Ring OS</td><td>8,000</td><td>400</td></tr>
+        <tr><td>JewlX Suite</td><td>50,000</td><td>1,000</td></tr>
+        <tr><td>Elite</td><td>100,000</td><td>5,000, priority processing</td></tr>
+      </table>
+    </div>
+  </div>
+  <div class="card dark">
+    <h3>Cost governance built in</h3>
+    <p class="small" style="margin:0">Server-side quota gating, response caching and multi-provider fallback keep AI features fast and affordable. Platform administrators see daily usage, feature distribution, model performance and top clients by AI spend in the AI Data Center, and revenue versus AI cost per client in Revenue and Usage.</p>
+  </div>
+  <div class="ftr"><span>JewlX Platform Guide · September 2026</span><span class="pn"></span></div>
+</div>
+
+<!-- ============ 09 METAL IQ ============ -->
+<div class="page">
+  <div class="hdr"><span><b>09</b> · Metal IQ</span><span>Part 2 · Products</span></div>
+  <div class="kicker">09 · Metal IQ</div>
+  <h1>Turn "what's my gold worth?" into a booked walk-in.</h1>
+  <div class="rule"></div>
+  <div class="sectionbar"><span class="e">Live spot prices</span><span>Your margins</span><span>Instant payout estimate</span><span>Lead capture + booking</span></div>
+  <p class="lead">Metal IQ is a gold-buying widget for jewelers, buyers and refiners who purchase metal from the public. Instead of a phone call and a vague "bring it in", the customer gets an instant estimated payout on your website, on your margins, and leaves their details to complete the sale in store.</p>
+  <h2>The customer journey</h2>
+  <div class="steps">
+    <span><b>1</b>Metal (gold, silver, platinum)</span><span><b>2</b>Purity or karat</span><span><b>3</b>Weight</span><span><b>4</b>Authenticity check</span><span><b>5</b>Photos</span><span><b>6</b>Contact</span><span><b>7</b>Instant estimate</span>
+  </div>
+  <div class="cols">
+    <div>
+      <h3>How the estimate is calculated</h3>
+      <ul class="tight">
+        <li>Live gold, silver and platinum spot prices, quoted with a short validity window</li>
+        <li>Purity factors for gold 8K to 24K, silver 800 to 999 and platinum 850 to 999</li>
+        <li>Troy ounce to gram conversion and the jeweler's own buy percentage applied</li>
+        <li>An optional "competitor rate" shown alongside, so the customer sees how your offer compares</li>
+        <li>"I don't know" answers are allowed for karat, weight and authenticity; when data is missing the widget promises a team follow-up instead of a misleading number</li>
+      </ul>
+      <h3>Lead capture and follow-up</h3>
+      <ul class="tight">
+        <li>Every estimate creates a Metal IQ lead with photos, quoted offer and contact details</li>
+        <li>Built-in appointment booking dialog so the customer books the walk-in immediately</li>
+        <li>Branded "New Metal IQ Lead" email to the jeweler and a dedicated leads pipeline in the dashboard</li>
+              </ul>
+    </div>
+    <div>
+      <h3>What the jeweler configures</h3>
+      <table class="grid small">
+        <tr><th>Setting</th><th>Purpose</th></tr>
+        <tr><td>Refinery sell rate</td><td>The reference rate your business receives</td></tr>
+        <tr><td>Enabled metals</td><td>Offer gold only, or gold, silver and platinum</td></tr>
+        <tr><td>Our buy % per karat</td><td>Your margin for each purity, individually or bulk-set</td></tr>
+        <tr><td>Competitor % per karat</td><td>Optional comparison rate shown to the customer</td></tr>
+        <tr><td>Allow "I don't know"</td><td>Trade estimate precision for lead volume</td></tr>
+        <tr><td>Accent, background, font colors</td><td>Match the widget to the site</td></tr>
+      </table>
+      <div class="card tint"><h3>Why gold buyers love it</h3><p class="small" style="margin:0">Gold-buying searches are high intent and price-driven. A customer who sees a fair number on your site, with a comparison against the competition, is far more likely to walk in than one who was told to "call for a quote". Metal IQ answers the question instantly and captures the lead in the same step.</p></div>
+    </div>
+  </div>
+  <div class="quote">Sell it as: "Instant gold payout estimates, live-priced, on your margins."</div>
+  <div class="ftr"><span>JewlX Platform Guide · September 2026</span><span class="pn"></span></div>
+</div>
+
+<!-- ============ 10 JEWLX AGENT ============ -->
+<div class="page">
+  <div class="hdr"><span><b>10</b> · JewlX Agent</span><span>Part 2 · Products</span></div>
+  <div class="kicker">10 · JewlX Agent</div>
+  <h1>A jewelry-trained AI that sells while you sleep, and never quotes a price you did not set.</h1>
+  <div class="rule"></div>
+  <p class="lead">JewlX Agent is an AI sales assistant inside the Ring OS widget. It answers buyer questions about diamonds, metals and settings, recommends configurations and can apply them directly to the builder. It is trained on the jeweler's own catalog, pricing rules and FAQ, with a server-side pricing gatekeeper so it can never invent a number.</p>
+  <div class="cols">
+    <div>
+      <h3>What the customer experiences</h3>
+      <ul class="tight">
+        <li>Natural conversation in the jeweler's tone, no emojis, brand-consistent</li>
+        <li>Guidance on the four Cs, lab versus natural, metal choice and budget trade-offs</li>
+        <li>Recommendations that update the builder live as the conversation progresses</li>
+        <li>Diamond suggestions read from the jeweler's actual inventory and attributes</li>
+              </ul>
+      <h3>What the jeweler controls</h3>
+      <ul class="tight">
+        <li>Twenty default FAQ questions with a progress tracker, plus unlimited custom question-and-answer pairs</li>
+        <li>Document upload: PDFs are parsed into a searchable knowledge base for the agent</li>
+        <li>Custom system prompt, model selection and temperature</li>
+        <li>Chat session analytics with intent classification per message</li>
+      </ul>
+    </div>
+    <div>
+      <div class="card dark">
+        <h3>The pricing gatekeeper</h3>
+        <p class="small" style="margin:0">Every price the agent mentions is computed server-side from the jeweler's pricing rules and live metal prices. The language model chooses what to say; the platform decides what it is allowed to quote. This is the difference between an AI you can put in front of a $5,000 purchase and one you cannot.</p>
+      </div>
+      <h3 style="margin-top:10pt">Also included: AI help for your team</h3>
+      <p class="small">Dashboard users get an in-app AI help assistant for platform questions, plus a ticketed Help Center with threaded replies from JewlX support.</p>
+      <h3>Feature-gated and metered</h3>
+      <p class="small">JewlX Agent is a per-client feature toggle included in Ring OS and above. Conversations draw on the AI Wallet at a small fixed cost per message, and every plan includes a monthly chat allowance.</p>
+    </div>
+  </div>
+  <h2>Where AI is used across the platform</h2>
+  <table class="grid">
+    <tr><th style="width:44mm">Capability</th><th>What it does</th><th style="width:36mm">Who benefits</th></tr>
+    <tr><td>JewlX Agent</td><td>Sales conversation and configuration assistance inside Ring OS</td><td>End customer, jeweler</td></tr>
+    <tr><td>AI visual previews</td><td>Photorealistic renders for Ring Builder, Custom Enquiry and Grillz</td><td>End customer, jeweler</td></tr>
+    <tr><td>Knowledge base parsing</td><td>Turns uploaded PDFs into agent training material</td><td>Jeweler</td></tr>
+    <tr><td>In-app help assistant</td><td>Answers platform questions for dashboard users</td><td>Jeweler, staff, admin</td></tr>
+  </table>
+  <div class="ftr"><span>JewlX Platform Guide · September 2026</span><span class="pn"></span></div>
+</div>
+
+<!-- ============ 11 CUSTOMER HUB ============ -->
+<div class="page">
+  <div class="hdr"><span><b>11</b> · Customer Hub, unified leads and bookings</span><span>Part 3 · The platform</span></div>
+  <div class="kicker">11 · Customer Hub and leads</div>
+  <h1>Every enquiry, from every widget, in one customer timeline.</h1>
+  <div class="rule"></div>
+  <p class="lead">Most jewelers have leads scattered across a website form, an inbox, Instagram and a notebook. JewlX merges every interaction a customer has with any widget into one profile with one timeline, so the next conversation starts with full context.</p>
+  <div class="cols">
+    <div>
+      <h3>Sources merged into the Customer Hub</h3>
+      <ul class="tight">
+        <li>Ring OS saved designs and no-deposit enquiries</li>
+        <li>Instant Quote submissions</li>
+        <li>Custom X Ring Builder design requests</li>
+        <li>Grillz Builder leads</li>
+        <li>Custom Jewelry Enquiry leads</li>
+        <li>Metal IQ leads</li>
+        <li>Appointment bookings</li>
+        <li>Shopify orders</li>
+        <li>CAD requests and CAD resize requests</li>
+      </ul>
+      <h3>Working the pipeline</h3>
+      <ul class="tight">
+        <li>Follow-up status per lead, with an overall status per customer taken from their latest activity</li>
+        <li>Custom color-coded status tags the jeweler defines and orders, for example Hot Lead, Quoted, Consultation Booked, Won</li>
+        <li>Filter and search across every source; per-source lead pages remain available</li>
+        <li>Full configuration and notes on every activity, plus the quote history</li>
+        <li>Lead export to CSV for reporting or migration</li>
+        <li>Instant email alerts on new leads and on lead deletion, with an email delivery log per lead</li>
+      </ul>
+    </div>
+    <div>
+      <div class="card tint">
+        <h3>A customer record looks like this</h3>
+        <ul class="tight small" style="margin:0">
+          <li><b>12 Mar</b> Instant Quote: 1.5 ct oval, lab, 14K yellow gold, estimate $4,120, timeline 2 to 4 weeks</li>
+          <li><b>12 Mar</b> Branded confirmation email sent, Meta Lead event fired</li>
+          <li><b>13 Mar</b> Booked consultation, Saturday 11:00, customer timezone noted</li>
+          <li><b>18 Mar</b> Status changed to Quoted, note added by staff</li>
+          <li><b>25 Mar</b> Shopify order: $500 deposit, full ring spec on line item</li>
+          <li><b>26 Mar</b> CAD request raised, delivered 2 Apr</li>
+        </ul>
+      </div>
+      <h3 style="margin-top:10pt">Bookings</h3>
+      <ul class="tight">
+        <li>Appointment booking from any widget's thank-you screen and from Ring OS, with the jeweler's day-by-day availability and timezone</li>
+        <li>No past dates, slot generation from your schedule, customer timezone recorded</li>
+        <li>Branded booking notification to the jeweler and confirmation to the customer</li>
+        <li>Bookings page in the dashboard with detail view, status updates and bulk actions</li>
+        <li>Meta Pixel Schedule event fired for paid-media optimization</li>
+      </ul>
+    </div>
+  </div>
+  <div class="quote">The Customer Hub solves the problem JewlX creates: when a form produces hundreds of specced enquiries a month, follow-up capacity becomes the new bottleneck. One timeline per customer is how a small team keeps up.</div>
+  <div class="ftr"><span>JewlX Platform Guide · September 2026</span><span class="pn"></span></div>
+</div>
+
+<!-- ============ 12 INTEGRATIONS ============ -->
+<div class="page">
+  <div class="hdr"><span><b>12</b> · Integrations</span><span>Part 3 · The platform</span></div>
+  <div class="kicker">12 · Integrations</div>
+  <h1>Leads in your CRM. Orders in your Shopify. Automatically.</h1>
+  <div class="rule"></div>
+  <div class="cols">
+    <div>
+      <h2 style="margin-top:0">CRM MVMNT (GoHighLevel)</h2>
+      <p>Any jeweler can connect their own GoHighLevel account. The moment a lead submits, JewlX creates the contact, opens an opportunity in the right pipeline and stage, writes a formatted note, and fills mapped custom fields with the structured answers.</p>
+      <ul class="tight">
+        <li>Per-form configuration tabs: Instant Quote, Ring Builder, Grillz, Custom Enquiry, Metal IQ, Ring OS designs, bookings and Shopify orders</li>
+        <li>Field mapping: any question key, for example shape, carat, metal, budget, timeline, maps to a CRM custom field; JewlX can provision the fields for you</li>
+        <li>Monetary value source per form, so opportunities carry the estimate or deposit as deal value</li>
+        <li>Opportunity name templates and lead source labels per form</li>
+        <li>Phone numbers normalized to international format; retries with idempotency so no lead is duplicated or lost</li>
+        <li>Connection test and metadata fetch (pipelines, stages, fields) from inside the dashboard</li>
+        <li>Backfill tools to push historical leads when you connect for the first time</li>
+      </ul>
+      <div class="card tint"><h3>Speed to lead</h3><p class="small" style="margin:0">Because the contact and opportunity exist within seconds of submission, your CRM automations, SMS sequences and sales alerts start immediately, while the customer is still on your site.</p></div>
+    </div>
+    <div>
+      <h2 style="margin-top:0">Shopify</h2>
+      <p>JewlX connects to Shopify through a guided OAuth flow or API tokens, with all credentials encrypted before storage. From there it handles products, checkout and orders end to end.</p>
+      <ul class="tight">
+        <li><b>Catalog sync:</b> push enabled ring catalog items, diamond presets and stone inventory to Shopify as products, batched and rate-limited, with sync status per item</li>
+        <li><b>Deposit products:</b> one click creates the deposit product used by Instant Quote, Grillz, Custom Enquiry and Ring OS estimate mode</li>
+        <li><b>Cart permalinks:</b> Ring OS adds the setting and the diamond as two line items with the complete configuration as line-item attributes, then redirects safely to Shopify checkout, even inside an iframe</li>
+        <li><b>Form checkout:</b> deposit checkouts for every Custom X form, with the lead recorded before redirect</li>
+        <li><b>Order webhooks:</b> new orders appear in JewlX instantly, linked to the lead, and trigger order-update notifications</li>
+        <li><b>Source marker:</b> every JewlX transaction is tagged so you can report on widget-driven revenue</li>
+        <li>Connection test, webhook registration and per-item sync status in the dashboard</li>
+      </ul>
+      <h3>Also available</h3>
+      <ul class="tight">
+        <li>Stripe for subscriptions, AI credit purchases, CAD add-ons and saved payment methods</li>
+        <li>Meta Pixel and Conversions API, Google Tag Manager</li>
+        <li>Live metal price feed for Ring OS and Metal IQ</li>
+        <li>Programmatic API access with managed API keys and usage analytics (Suite and Elite)</li>
+      </ul>
+    </div>
+  </div>
+  <div class="ftr"><span>JewlX Platform Guide · September 2026</span><span class="pn"></span></div>
+</div>
+
+<!-- ============ 13 ORDERS, CAD, EMAILS, TRACKING ============ -->
+<div class="page">
+  <div class="hdr"><span><b>13</b> · Orders, CAD, emails, tracking and analytics</span><span>Part 3 · The platform</span></div>
+  <div class="kicker">13 · Operations layer</div>
+  <h1>From lead to CAD to delivery, with every message on brand.</h1>
+  <div class="rule"></div>
+  <div class="cols">
+    <div>
+      <h3>Orders and manufacturing</h3>
+      <ul class="tight">
+        <li>Orders created from Shopify webhooks or manually, linked to the originating lead and customer</li>
+        <li>Full configuration stored on the order, including diamond certificate and pricing breakdown</li>
+        <li>Order status updates with real-time notifications to the customer and the team</li>
+        <li>Manufacturing pipeline tracking per order, with CAD files, production updates and design requests visible to both jeweler and manufacturer</li>
+      </ul>
+      <h3>CAD pipeline</h3>
+      <ul class="tight">
+        <li>Raise a CAD request from a won design with messaging between jeweler and CAD team</li>
+        <li>Resize requests handled as their own queue</li>
+        <li>Delivery notifications when the CAD is ready, plus manual send</li>
+        <li>Purchasable add-ons through Stripe: CAD Tweak, New CAD Request, CAD + Render; priority CAD queue on Suite, unlimited CAD on Elite</li>
+      </ul>
+      <h3>Tracking for paid media</h3>
+      <ul class="tight">
+        <li>Meta Pixel in the browser plus server-side Conversions API with matched event IDs, so Lead and Schedule events are deduplicated and resilient to ad blockers</li>
+        <li>Google Tag Manager container support and per-client pixel IDs</li>
+        <li>Widget view and step events for funnel analysis</li>
+      </ul>
+    </div>
+    <div>
+      <h3>Branded email system: 27 templates</h3>
+      <table class="grid small">
+        <tr><th>Category</th><th>Templates</th></tr>
+        <tr><td>Leads</td><td>New lead, form lead, Metal IQ lead, lead deleted</td></tr>
+        <tr><td>Customer-facing</td><td>Quote estimate, booking confirmation, AI render ready, consolidated renders</td></tr>
+        <tr><td>Bookings and orders</td><td>Appointment booking, order update</td></tr>
+        <tr><td>CAD</td><td>Request, resize, delivery, manual send</td></tr>
+        <tr><td>Access and security</td><td>Verification, password reset, login OTP, admin reset</td></tr>
+        <tr><td>Onboarding and admin</td><td>Client welcome, staff welcome, new client, status change, staff activity, billing event, support reply</td></tr>
+      </table>
+      <p class="small">Every template is white-labeled: the jeweler's logo, company name and call-to-action are pulled from settings. Customer confirmations can be switched off for CRM-connected clients to avoid double emails.</p>
+      <h3>Analytics</h3>
+      <ul class="tight">
+        <li>Widget views, configuration starts, completions and saves, with start, completion and save rates</li>
+        <li>Step-level drop-off, lead source attribution and traffic source breakdown per feature</li>
+        <li>Product analytics: which styles, shapes and metals customers actually choose</li>
+        <li>Monthly performance report emailed to the jeweler</li>
+        <li>Usage monitoring and configurable alert rules</li>
+      </ul>
+    </div>
+  </div>
+  <div class="ftr"><span>JewlX Platform Guide · September 2026</span><span class="pn"></span></div>
+</div>
+
+<!-- ============ 14 DASHBOARD TOUR ============ -->
+<div class="page">
+  <div class="hdr"><span><b>14</b> · The client dashboard (Vault)</span><span>Part 3 · The platform</span></div>
+  <div class="kicker">14 · Client dashboard</div>
+  <h1>One dashboard to run every widget, lead and integration.</h1>
+  <div class="rule"></div>
+  <p>The jeweler's dashboard is organized by job to be done. Modules appear only when the feature is enabled on the account, so a Metal IQ-only client sees a focused workspace and a Suite client sees everything.</p>
+  <table class="grid" style="font-size:8.6pt">
+    <tr><th style="width:36mm">Module</th><th>What you do there</th></tr>
+    <tr><td><b>Dashboard</b></td><td>Overview metrics, recent leads, quick actions and health at a glance</td></tr>
+    <tr><td><b>Onboarding</b></td><td>Guided wizard: choose styles, shanks, shapes, metals and diamond types; the catalog is generated for you</td></tr>
+    <tr><td><b>Catalog</b></td><td>Enable or disable rings, set markups or fixed prices, carats, sizes, metal variants and karats; push to Shopify</td></tr>
+    <tr><td><b>Diamonds</b></td><td>Diamond presets and stone inventory, natural and lab-grown, with pricing and certificates</td></tr>
+    <tr><td><b>Widget setup</b></td><td>Embed codes for every widget, theme selection, per-theme colors, logo, company name, allowed domains, pricing mode</td></tr>
+    <tr><td><b>Instant Quote</b></td><td>Preview, configure (steps, copy, colors, options, images, prices, karats, deposit) and embed the Quote Estimator</td></tr>
+    <tr><td><b>Ring Builder, Grillz, Custom Enquiry</b></td><td>Onboarding wizards for each Custom X form: options, custom questions, submission mode, deposit, colors</td></tr>
+    <tr><td><b>Metal IQ</b></td><td>Buy rates, competitor rates, metals, purities, colors, preview and embed</td></tr>
+    <tr><td><b>Leads and Customer Hub</b></td><td>Unified leads from every source, per-customer timelines, status tags, notes, export</td></tr>
+    <tr><td><b>Bookings</b></td><td>Appointment requests, availability, statuses</td></tr>
+    <tr><td><b>Orders</b></td><td>Shopify-synced and manual orders with full configuration and status tracking</td></tr>
+    <tr><td><b>CAD Requests</b> and <b>Manufacturing</b></td><td>Raise, message and track CAD and resize requests; buy add-ons; production status per order</td></tr>
+    <tr><td><b>AI Configurator</b></td><td>Train JewlX Agent: FAQ, custom questions, documents, prompt and model settings</td></tr>
+    <tr><td><b>Shopify</b> and <b>CRM MVMNT</b></td><td>Connect accounts, test connections, sync catalog, map fields, register webhooks</td></tr>
+    <tr><td><b>Analytics</b> and <b>Live Prices</b></td><td>Funnels, drop-off, attribution and traffic sources per widget; live gold, silver and platinum prices</td></tr>
+    <tr><td><b>Staff</b></td><td>Invite team members with per-module permissions: catalog view or edit, leads, orders, settings, analytics</td></tr>
+    <tr><td><b>Usage and AI Wallet</b></td><td>Credit balance, top-ups, auto-recharge, usage and cost history</td></tr>
+    <tr><td><b>Settings</b></td><td>Profile, branding, currency, notification preferences, security, billing and subscription portal</td></tr>
+    <tr><td><b>Help Center</b> and <b>Activity log</b></td><td>Ticketed support with threaded replies and the in-app AI help assistant; audit trail of every login and action</td></tr>
+  </table>
+  <div class="ftr"><span>JewlX Platform Guide · September 2026</span><span class="pn"></span></div>
+</div>
+
+<!-- ============ 15 WHITE-LABEL + EMBED SECURITY ============ -->
+<div class="page">
+  <div class="hdr"><span><b>15</b> · White-label, embedding and widget security</span><span>Part 3 · The platform</span></div>
+  <div class="kicker">15 · White-label and embedding</div>
+  <h1>Your brand on every screen. Your domain, and only your domain.</h1>
+  <div class="rule"></div>
+  <div class="cols">
+    <div>
+      <h3>Branding and theming</h3>
+      <ul class="tight">
+        <li>Company name, logo, primary and secondary colors on every widget and every email</li>
+        <li>Four Ring OS themes: Luxury (dark, gold-accented), Modern (clean, minimal), Chat (conversational) and Elegant (refined, serif)</li>
+        <li>Five color channels per theme: background, text, accent, button fill and button text, each customizable independently</li>
+        <li>Seven-channel color control on Instant Quote and Custom X forms</li>
+        <li>Custom images per option, so the widget shows your rings, your grillz, your examples</li>
+        <li>Editable copy: step headings, subtitles, welcome, summary and thank-you content</li>
+        <li>JewlX branding visibility on widgets is a per-client toggle</li>
+        <li>Client-specific layout overrides for special cases, for example a tablet-fit split layout for in-store iPads</li>
+      </ul>
+      <h3>Embedding</h3>
+      <ul class="tight">
+        <li>One responsive iframe snippet per widget, generated in the dashboard</li>
+        <li>Automatic height synchronization with the host page; full-height mobile layout</li>
+        <li>Works on Shopify, WordPress, Wix, Squarespace, Webflow and custom sites</li>
+        <li>Preview and "Test in new tab" before publishing; theme test links for review</li>
+      </ul>
+    </div>
+    <div>
+      <h3>Widget security</h3>
+      <ul class="tight">
+        <li><b>Domain locking:</b> every widget is served only to the domains you whitelist, validated server-side with a trusted-referrer check</li>
+        <li><b>Feature gating:</b> widgets go dark automatically if a feature is disabled or a subscription lapses, with an access-denied page instead of a broken form</li>
+        <li><b>Screenshot protection:</b> full protection on embeds blocks print, save and right-click capture; light protection on the portal</li>
+        <li><b>Origin validation</b> on all cross-frame messaging and CORS controls on every endpoint</li>
+        <li><b>Rate limiting</b> on public endpoints and input sanitization against injection</li>
+        <li><b>Encrypted credentials:</b> Shopify and CRM tokens encrypted before storage and excluded from every client-side query</li>
+      </ul>
+      <div class="card dark" style="margin-top:8pt">
+        <h3>Custom subdomains and portals</h3>
+        <p class="small" style="margin:0">Widgets are served from builder.jewlx.ai, the jeweler's dashboard from vault.jewlx.ai and the agency console from admin.jewlx.ai. Custom subdomain support is available for enterprise deployments.</p>
+      </div>
+      <h3 style="margin-top:10pt">Performance</h3>
+      <ul class="tight">
+        <li>CDN-hosted imagery with WebP delivery: one client's form image set fell from 102 MB to 3 MB</li>
+        <li>Image prefetching and shimmer loading so steps feel instant</li>
+        <li>Code-split builds so a widget only loads what it uses</li>
+      </ul>
+    </div>
+  </div>
+  <div class="ftr"><span>JewlX Platform Guide · September 2026</span><span class="pn"></span></div>
+</div>
+
+<!-- ============ 16 ADMIN PORTAL ============ -->
+<div class="page">
+  <div class="hdr"><span><b>16</b> · For manufacturers and agencies</span><span>Part 3 · The platform</span></div>
+  <div class="kicker">16 · Admin Portal</div>
+  <h1>Run a network of jewelers from one console.</h1>
+  <div class="rule"></div>
+  <p class="lead">JewlX is also the operating system for manufacturers, wholesalers and agencies who serve many retail jewelers. The Admin Portal manages the master product database, onboards and supports clients, runs the manufacturing and CAD queues, and reports on the whole business.</p>
+  <div class="cols">
+    <div>
+      <h3>Client management</h3>
+      <ul class="tight">
+        <li>Onboard jewelers in one step: account, client record, role, welcome email</li>
+        <li>Per-client feature matrix: switch every module on or off, grouped by Ring OS, Custom X and Metal IQ</li>
+        <li>"View As" impersonation to see exactly what a client sees, with every session logged</li>
+        <li>Client health scoring, status management, subscription plan and license fee tracking</li>
+        <li>Admin staff with granular client-level access; super admins versus read-only admin staff</li>
+        <li>Client support inbox with threaded replies</li>
+      </ul>
+      <h3>Master product database</h3>
+      <ul class="tight">
+        <li>Central ring database with style, shank and shape taxonomy and metal variants</li>
+        <li>CSV import, bulk media upload and an Asset Sheet showing asset completeness per product</li>
+        <li>Multiple photo angles, transparent versions, carat-specific images, video, 3D GLB models, CAD files and rendered CADs per product</li>
+        <li>Shared Diamond Pool with CSV import and a Diamond Pricing Matrix sandbox for color-by-clarity pricing experiments</li>
+      </ul>
+    </div>
+    <div>
+      <h3>Production</h3>
+      <ul class="tight">
+        <li>Cross-client order view and manufacturing pipeline</li>
+        <li>CAD request and CAD resize queues with delivery and messaging</li>
+        <li>Design request management from every client</li>
+      </ul>
+      <h3>Business intelligence</h3>
+      <ul class="tight">
+        <li>SaaS Dashboard: platform-wide business metrics</li>
+        <li>Revenue and Usage: subscription revenue against AI cost per client</li>
+        <li>AI Wallet economics and the AI Data Center</li>
+        <li>Product Analytics: which products perform across the network</li>
+        <li>Usage snapshots, alert rules and platform health board</li>
+      </ul>
+      <h3>Governance</h3>
+      <ul class="tight">
+        <li>Security monitoring, failed-login tracking, system error tracking</li>
+        <li>Activity and audit logs with IP and user agent</li>
+        <li>GDPR export and deletion, database backups, data governance settings</li>
+        <li>Billing: Stripe subscriptions, license payments, billing event alerts and reconciliation</li>
+        <li>API key management with usage analytics</li>
+      </ul>
+    </div>
+  </div>
+  <div class="card tint"><h3>Why this matters to a manufacturer</h3><p class="small" style="margin:0">Every retailer you onboard sells from your catalog with their own branding and pricing. Orders and CAD requests arrive already specced. You gain a direct line into retail demand, product-level insight across the network, and a recurring platform relationship with every jeweler you serve.</p></div>
+  <div class="ftr"><span>JewlX Platform Guide · September 2026</span><span class="pn"></span></div>
+</div>
+
+<!-- ============ 17 SECURITY ============ -->
+<div class="page">
+  <div class="hdr"><span><b>17</b> · Security, compliance and reliability</span><span>Part 3 · The platform</span></div>
+  <div class="kicker">17 · Security and compliance</div>
+  <h1>Enterprise-grade protection for a business built on trust.</h1>
+  <div class="rule"></div>
+  <div class="cols3">
+    <div class="card"><h3>Access control</h3><ul class="tight small" style="margin:0"><li>Three roles: agency admin, client, staff, plus super admin and read-only admin staff</li><li>Per-module staff permissions</li><li>Email verification, account lockout after failed attempts, time-limited password reset</li><li>One-time-passcode login for customers and OTP confirmation for sensitive admin actions</li><li>Session timeouts with expiry warnings; 7-day "remember me"</li></ul></div>
+    <div class="card"><h3>Data protection</h3><ul class="tight small" style="margin:0"><li>Row-level security on every table: admins see all, clients see their own, staff see what they are permitted</li><li>Integration tokens encrypted before storage</li><li>Input sanitization against cross-site scripting</li><li>Rate limiting on public endpoints</li><li>Automated security monitoring and failed-login analytics</li></ul></div>
+    <div class="card"><h3>Compliance and continuity</h3><ul class="tight small" style="margin:0"><li>GDPR: full user data export and deletion on request</li><li>Comprehensive audit logs with IP address and user agent</li><li>Impersonation sessions logged and reviewable</li><li>Scheduled database backups with download</li><li>Log archiving and data cleanup records</li><li>Platform health board and system error tracking</li></ul></div>
+  </div>
+  <h2>Reliability by design</h2>
+  <div class="cols">
+    <div>
+      <ul class="tight">
+        <li>Serverless backend of over 100 functions with independent scaling, so a traffic spike on one widget cannot slow another</li>
+        <li>Global CDN for all product imagery and form assets</li>
+        <li>AI layer with quota gating, caching and provider fallback, so a single AI vendor outage does not take the widget down</li>
+        <li>Idempotent CRM and payment operations: retries never duplicate a lead or a charge</li>
+      </ul>
+    </div>
+    <div>
+      <ul class="tight">
+        <li>Widgets keep working when a subscription is temporarily in arrears; they are only disabled on cancellation, and super admins are alerted to every flip</li>
+        <li>Stripe webhooks for subscription lifecycle, with reconciliation tooling for administrators</li>
+        <li>Health-check endpoint and status page</li>
+        <li>Automated test suites covering the feature registry and CRM field catalog to prevent configuration drift</li>
+      </ul>
+    </div>
+  </div>
+  <div class="card dark"><h3>Your customers' data stays yours</h3><p class="small" style="margin:0">Each jeweler's leads, designs, orders and customers are isolated at the database level. JewlX administrators access a client account only through logged impersonation sessions. Every export and deletion request is fulfilled through auditable tooling.</p></div>
+  <div class="ftr"><span>JewlX Platform Guide · September 2026</span><span class="pn"></span></div>
+</div>
+
+<!-- ============ 18 CASE STUDY ============ -->
+<div class="page">
+  <div class="hdr"><span><b>18</b> · Case study</span><span>Part 4 · Proof, pricing and next steps</span></div>
+  <div class="kicker">18 · Case study · Diamond Touch Toronto</div>
+  <h1>3,459 ring enquiries in under six months. One jeweler. One form.</h1>
+  <div class="rule"></div>
+  <p class="lead">Diamond Touch Toronto is an engagement-ring retailer running the JewlX Instant Quote form on its website, connected to its CRM through CRM MVMNT. It is the longest-running and highest-traffic deployment on the platform.</p>
+  <div class="hero-band">
+    <div class="cols3">
+      <div class="stat"><div class="n">3,459</div><div class="l">Instant Quote leads captured, 4 March to 21 August 2026</div></div>
+      <div class="stat"><div class="n">~625</div><div class="l">form leads per month, average run rate</div></div>
+      <div class="stat"><div class="n">$4,317</div><div class="l">average requested ring value per enquiry</div></div>
+    </div>
+  </div>
+  <div class="cols">
+    <div>
+      <h3>Before</h3>
+      <p>A jewelry website that produced a handful of vague enquiries a month, each needing a manual quote and a discovery call before anyone knew the budget.</p>
+      <h3>After</h3>
+      <p>Roughly 625 fully specced ring enquiries a month, each carrying diamond type, shape, size, quality, setting, band, metal, personalization, timeline, contact details, inspiration images and a price estimate the customer had already accepted, flowing automatically into the CRM as contacts, opportunities and mapped custom fields with zero manual entry.</p>
+      <h3>The honest result</h3>
+      <p>The form did not just increase leads. It moved the bottleneck. The client closes about 69% of the leads they actively work. Their constraint is no longer demand; it is follow-up capacity. Most open leads sit at the earliest stage, and lost deals died at "Hot Lead", the follow-up gap, not the closing ability.</p>
+    </div>
+    <div>
+      <h3>From the client's own CRM, 21 February to 21 August 2026</h3>
+      <table class="grid small">
+        <tr><th>Metric</th><th style="text-align:right">Value</th></tr>
+        <tr><td>Leads entered CRM, all sources</td><td style="text-align:right">3,912</td></tr>
+        <tr><td>Won</td><td style="text-align:right">45</td></tr>
+        <tr><td>Lost</td><td style="text-align:right">18</td></tr>
+        <tr><td>Still open in pipeline</td><td style="text-align:right">3,847</td></tr>
+        <tr><td>Average won deal value</td><td style="text-align:right">~$2,950</td></tr>
+        <tr><td>Won revenue in the six-month window</td><td style="text-align:right">~$133,000</td></tr>
+        <tr><td>Won revenue reported, all time</td><td style="text-align:right">C$228,370</td></tr>
+        <tr><td>Win rate on resolved leads</td><td style="text-align:right"><b>69.2%</b></td></tr>
+      </table>
+      <div class="card tint"><h3>What this means for you</h3><p class="small" style="margin:0">JewlX solves the demand problem so completely that staffing follow-up becomes the priority. The Customer Hub, CRM automation and JewlX Agent exist precisely to help a small team work a pipeline this size.</p></div>
+    </div>
+  </div>
+  <p class="note">Platform figures verified against the JewlX production database on 21 August 2026. CRM figures supplied by the client's CRM review. The requested-ring value is the value of configurations customers submitted, not closed revenue. The 69.2% win rate applies to leads the client actively followed up.</p>
+  <div class="ftr"><span>JewlX Platform Guide · September 2026</span><span class="pn"></span></div>
+</div>
+
+<!-- ============ 19 PROOF POINTS ============ -->
+<div class="page">
+  <div class="hdr"><span><b>19</b> · Platform proof points</span><span>Part 4 · Proof, pricing and next steps</span></div>
+  <div class="kicker">19 · Proof points</div>
+  <h1>Built for one jeweler. Proven across a network.</h1>
+  <div class="rule"></div>
+  <p>The Instant Quote form built for Diamond Touch Toronto performed so well it was generalized into a platform product with its own configuration surface. It is now live on nine client accounts. Newer deployments are early in their ramp; the numbers below are cumulative platform data as of 21 August 2026.</p>
+  <div class="cols3">
+    <div class="stat"><div class="n">23</div><div class="l">client accounts on the platform, 18 active</div></div>
+    <div class="stat"><div class="n">3,647</div><div class="l">Instant Quote leads captured across all clients</div></div>
+    <div class="stat"><div class="n">9</div><div class="l">client accounts live with Instant Quote</div></div>
+  </div>
+  <div class="cols3" style="margin-top:4mm">
+    <div class="stat"><div class="n">353</div><div class="l">Custom Enquiry leads</div></div>
+    <div class="stat"><div class="n">165</div><div class="l">Grillz Builder leads</div></div>
+    <div class="stat"><div class="n">145</div><div class="l">Metal IQ leads</div></div>
+  </div>
+  <div class="cols3" style="margin-top:4mm">
+    <div class="stat"><div class="n">249</div><div class="l">Custom X design requests</div></div>
+    <div class="stat"><div class="n">38</div><div class="l">appointments booked through widgets</div></div>
+    <div class="stat"><div class="n">26</div><div class="l">CAD requests raised</div></div>
+  </div>
+  <h2>Before and after JewlX</h2>
+  <div class="ba">
+    <div class="before"><h4>Before</h4><ul class="tight"><li>Website role: brochure</li><li>Enquiry content: "Hi, interested in a ring"</li><li>Response time: hours to days, manual</li><li>Quoting: manual, per lead</li><li>Lead volume: a trickle</li><li>CRM: copy-paste or nothing</li><li>Consultations: unqualified</li><li>Gold buying: "call for a quote"</li></ul></div>
+    <div class="after"><h4>With JewlX</h4><ul class="tight"><li>Website role: salesperson</li><li>Enquiry content: shape, carat, quality, metal, setting, budget, timeline, images, estimate</li><li>Response time: instant estimate plus automatic confirmation email</li><li>Quoting: automated from your own price rules</li><li>Lead volume: hundreds per month at the largest deployment</li><li>CRM: auto-created contact, opportunity and full spec</li><li>Consultations: pre-qualified with a known budget</li><li>Gold buying: instant payout estimate and booked walk-in</li></ul></div>
+  </div>
+  <h3>Claims you can make with confidence</h3>
+  <ul class="tight">
+    <li>"One JewlX client captured over 3,400 fully specced ring enquiries in under six months."</li>
+    <li>"Our largest deployment averages more than 600 qualified ring enquiries a month."</li>
+    <li>"Average requested ring value across those enquiries: about $4,300."</li>
+    <li>"That client closes about 69% of the enquiries they actively follow up."</li>
+  </ul>
+  <div class="ftr"><span>JewlX Platform Guide · September 2026</span><span class="pn"></span></div>
+</div>
+
+<!-- ============ 20 PRICING ============ -->
+<div class="page">
+  <div class="hdr"><span><b>20</b> · Plans and pricing</span><span>Part 4 · Proof, pricing and next steps</span></div>
+  <div class="kicker">20 · Plans and pricing</div>
+  <h1>Start with one widget. Grow into the Suite.</h1>
+  <div class="rule"></div>
+  <p>JewlX is a monthly subscription per jeweler. Entry starts with a single-purpose widget and expands to the full Suite. The one-time license on the ring-builder tiers reflects implementation depth and catalog setup. Metered AI credits sit on top of every plan with a free monthly allocation.</p>
+  <div class="pricing">
+    <div class="plan">
+      <div class="name">Metal IQ</div>
+      <div class="price">$297<small>/mo</small></div>
+      <div class="sub">or +$99/mo as an add-on to another plan</div>
+      <ul><li>Branded metal-buying form</li><li>Live metal pricing feed</li><li>Instant payout estimates</li><li>Custom margins per karat</li><li>Lead capture and booking</li></ul>
+    </div>
+    <div class="plan">
+      <div class="name">Custom X</div>
+      <div class="price">$497<small>/mo</small></div>
+      <div class="sub">30-day free trial · best for custom jewelry stores</div>
+      <ul><li>Ring Builder, Grillz Builder, Custom Enquiry</li><li>AI image previews</li><li>Shopify deposits</li><li>Analytics</li><li>Custom branding</li><li>3,000 AI chats, 200 renders / mo</li></ul>
+    </div>
+    <div class="plan">
+      <div class="name">Ring OS</div>
+      <div class="price">$897<small>/mo</small></div>
+      <div class="sub">+ $4,999 one-time license · best for engagement-ring retailers</div>
+      <ul><li>Ring builder OS</li><li>JewlX Agent AI chat</li><li>3D previews</li><li>Shopify integration</li><li>CAD request system</li><li>Priority support</li><li>8,000 AI chats, 400 renders / mo</li></ul>
+    </div>
+    <div class="plan star">
+      <div class="name">JewlX Suite</div>
+      <div class="price">$1,297<small>/mo</small></div>
+      <div class="sub">+ $4,999 license · 30-day free trial · best for full-service jewelers</div>
+      <ul><li>Everything in Ring OS</li><li>Grillz and Custom Enquiry</li><li>Metal IQ included</li><li>Advanced analytics</li><li>Dedicated account manager</li><li>API access</li><li>Priority CAD queue</li><li>50,000 AI chats, 1,000 renders / mo</li></ul>
+    </div>
+    <div class="plan">
+      <div class="name">Elite</div>
+      <div class="price">$1,999<small>/mo</small></div>
+      <div class="sub">custom onboarding from $19,000 · for enterprise jewelers</div>
+      <ul><li>Everything in Suite</li><li>White-glove onboarding</li><li>Custom integrations</li><li>Dedicated success manager</li><li>Service-level agreements</li><li>Custom AI model training</li><li>Unlimited CAD</li><li>100,000 AI chats, 5,000 renders / mo, priority processing</li></ul>
+    </div>
+  </div>
+  <h2>Additional revenue lines and what they buy</h2>
+  <div class="cols3">
+    <div class="card"><h3>AI credits</h3><p class="small" style="margin:0">Free monthly allocation on every plan. Top-up packs at $25, $50 and $100 with bonus credits on larger packs. Optional auto-recharge from a saved card. Full cost reporting in the AI Wallet.</p></div>
+    <div class="card"><h3>CAD add-ons</h3><p class="small" style="margin:0">Purchase CAD capacity beyond plan limits: CAD Tweak, New CAD Request, or CAD + Render, paid through Stripe from the dashboard.</p></div>
+    <div class="card"><h3>License and onboarding</h3><p class="small" style="margin:0">A $4,999 one-time license on Ring OS and Suite covers catalog generation, pricing setup and widget configuration. Elite onboarding is scoped per client.</p></div>
+  </div>
+  <div class="quote">One recovered custom ring order typically covers a month. Average requested ring value across our largest deployment is about $4,300.</div>
+  <p class="note">Prices in USD, as configured on the platform in August 2026, and subject to change. Payment by card through Stripe. Direct-purchase payment links are available per plan.</p>
+  <div class="ftr"><span>JewlX Platform Guide · September 2026</span><span class="pn"></span></div>
+</div>
+
+<!-- ============ 21 IMPLEMENTATION ============ -->
+<div class="page">
+  <div class="hdr"><span><b>21</b> · Implementation</span><span>Part 4 · Proof, pricing and next steps</span></div>
+  <div class="kicker">21 · Implementation</div>
+  <h1>Live in days, not months. Here is what the first 30 days look like.</h1>
+  <div class="rule"></div>
+  <div class="flow">
+    <div class="step"><div class="num">1</div><h4>Day 1 · Account</h4><p>Your account is created with the modules on your plan enabled. You receive a branded welcome email and log in to your dashboard.</p></div>
+    <div class="step"><div class="num">2</div><h4>Days 1 to 3 · Onboarding</h4><p>Guided wizards: pick styles, metals, diamonds and options; upload your logo; choose a theme and colors; set prices, deposits and copy.</p></div>
+    <div class="step"><div class="num">3</div><h4>Days 3 to 5 · Connect</h4><p>Connect Shopify and your CRM, map fields, test connections, register webhooks, add your Meta Pixel and Tag Manager IDs.</p></div>
+    <div class="step"><div class="num">4</div><h4>Day 5 · Embed</h4><p>Paste the embed snippet on your site, whitelist your domain, preview every widget on desktop and mobile, then go live.</p></div>
+    <div class="step"><div class="num">5</div><h4>Days 5 to 30 · Optimize</h4><p>Watch the funnel, tune options and copy, train JewlX Agent on your FAQ, and build your follow-up cadence in the Customer Hub.</p></div>
+  </div>
+  <div class="cols">
+    <div>
+      <h3>What we need from you</h3>
+      <ul class="tight">
+        <li>Logo files and brand colors</li>
+        <li>Which styles, metals, karats and diamond types you offer</li>
+        <li>Your pricing rules: markups, deposit amounts, option prices</li>
+        <li>Shopify store access (guided OAuth) and CRM credentials if applicable</li>
+        <li>Meta Pixel and Google Tag Manager IDs if you run paid media</li>
+        <li>The page on your website where the widget will live</li>
+      </ul>
+      <h3>What you do not need</h3>
+      <ul class="tight">
+        <li>A new website, a replatform or a developer</li>
+        <li>Product photography for catalog rings: the master database includes multi-angle imagery, transparent versions and 3D models</li>
+        <li>A design agency: themes, colors and copy are self-service</li>
+      </ul>
+    </div>
+    <div>
+      <h3>Support model</h3>
+      <table class="grid small">
+        <tr><th>Plan</th><th>Support</th></tr>
+        <tr><td>Metal IQ, Custom X</td><td>Ticketed Help Center with threaded replies, in-app AI help assistant, email notifications</td></tr>
+        <tr><td>Ring OS</td><td>Priority support and CAD request system</td></tr>
+        <tr><td>JewlX Suite</td><td>Dedicated account manager, priority CAD queue, API access</td></tr>
+        <tr><td>Elite</td><td>White-glove onboarding, dedicated success manager, service-level agreements, custom integrations</td></tr>
+      </table>
+      <div class="card tint"><h3>Team rollout</h3><p class="small" style="margin:0">Invite staff with exactly the access they need: catalog view or edit, leads, orders, settings, analytics. Every login and action is logged. Owners keep full control, and JewlX support can assist through logged "View As" sessions when you ask.</p></div>
+    </div>
+  </div>
+  <div class="ftr"><span>JewlX Platform Guide · September 2026</span><span class="pn"></span></div>
+</div>
+
+<!-- ============ 22 WHO IT'S FOR + OBJECTIONS ============ -->
+<div class="page">
+  <div class="hdr"><span><b>22</b> · Who JewlX is for, and objections answered</span><span>Part 4 · Proof, pricing and next steps</span></div>
+  <div class="kicker">22 · Fit and objections</div>
+  <h1>Is JewlX right for your business?</h1>
+  <div class="rule"></div>
+  <table class="grid">
+    <tr><th style="width:40mm">Segment</th><th>What they sell</th><th style="width:52mm">Where to start</th></tr>
+    <tr><td>Engagement-ring retailers</td><td>Diamond rings, bridal</td><td>Ring OS + Instant Quote</td></tr>
+    <tr><td>Custom and bespoke jewelers</td><td>One-off commissions, redesigns</td><td>Custom X (Ring Builder, Custom Enquiry)</td></tr>
+    <tr><td>Hip-hop and street jewelers</td><td>Grillz, iced-out pieces, chains</td><td>Custom X (Grillz Builder)</td></tr>
+    <tr><td>Gold buyers and refiners</td><td>Buying scrap gold and metals from the public</td><td>Metal IQ</td></tr>
+    <tr><td>Multi-location and full-service jewelers</td><td>All of the above</td><td>JewlX Suite or Elite</td></tr>
+    <tr><td>Manufacturers, wholesalers, agencies</td><td>Serving a network of retail jewelers</td><td>Admin Portal, Suite or Elite per client</td></tr>
+  </table>
+  <h3>Buying triggers we see most often</h3>
+  <div class="cols">
+    <ul class="tight"><li>Paid traffic is running but the site converts poorly</li><li>Staff drowning in DMs and "how much?" messages</li></ul>
+    <ul class="tight"><li>Expanding into custom work and needing repeatable intake</li><li>Wanting to pre-qualify buyers so consultation slots are not wasted</li></ul>
+  </div>
+  <h2>Objections, answered</h2>
+  <table class="grid">
+    <tr><th style="width:52mm">Objection</th><th>Answer</th></tr>
+    <tr><td>"We already have a contact form."</td><td>A contact form captures a name. JewlX captures the ring: shape, carat, metal, setting, budget, timeline and inspiration images, plus a live estimate. Same visitor, dramatically more sales-ready.</td></tr>
+    <tr><td>"Showing prices online kills our margin."</td><td>Estimate mode shows "starting at" figures you control. You set every price component and can run it as a range, a deposit, or a no-price enquiry.</td></tr>
+    <tr><td>"Our customers want to come in-store."</td><td>The widget's job is to book them in, pre-qualified. Deposit and appointment booking are built in, and no-deposit enquiry mode captures every visitor.</td></tr>
+    <tr><td>"Setup will be a nightmare."</td><td>It is an iframe embed plus a guided configurator. No replatform. Works on Shopify, WordPress and custom sites. Most jewelers are live within a week.</td></tr>
+    <tr><td>"AI renders look fake."</td><td>JewlX renders are photorealistic, catalog-grade and on clean backgrounds, built specifically for jewelry, and can be capped or switched off per client.</td></tr>
+    <tr><td>"It is too expensive."</td><td>One recovered custom ring order typically covers a month. Average requested ring value on our largest deployment is about $4,300.</td></tr>
+    <tr><td>"We do not use Shopify."</td><td>Shopify is optional. Contact mode, bookings, Customer Hub and CRM sync work without a store.</td></tr>
+  </table>
+  <div class="ftr"><span>JewlX Platform Guide · September 2026</span><span class="pn"></span></div>
+</div>
+
+<!-- ============ 23 TECHNOLOGY ============ -->
+<div class="page">
+  <div class="hdr"><span><b>23</b> · Technology summary</span><span>Part 4 · Proof, pricing and next steps</span></div>
+  <div class="kicker">23 · Technology summary for IT teams</div>
+  <h1>Modern, serverless, and built to sit beside your existing stack.</h1>
+  <div class="rule"></div>
+  <div class="cols">
+    <div>
+      <h3>Architecture</h3>
+      <table class="grid small">
+        <tr><th>Layer</th><th>Technology</th></tr>
+        <tr><td>Front end</td><td>React 18, TypeScript, Vite, Tailwind CSS, Radix-based component library, Framer Motion, Recharts</td></tr>
+        <tr><td>3D</td><td>Three.js with React Three Fiber, GLB models, post-processing effects</td></tr>
+        <tr><td>Backend</td><td>PostgreSQL with row-level security, authentication, file storage, real-time subscriptions</td></tr>
+        <tr><td>Serverless functions</td><td>Over 100 edge functions (Deno) for integrations, notifications, AI, billing, security and data operations</td></tr>
+        <tr><td>Media</td><td>Global CDN, WebP delivery, transparent and carat-specific image sets, video, CAD files</td></tr>
+        <tr><td>Payments</td><td>Stripe: subscriptions, credit packs, CAD add-ons, saved payment methods, customer portal, webhooks</td></tr>
+        <tr><td>AI</td><td>Multi-provider routing with quota gating, caching and fallback; server-side pricing gatekeeper</td></tr>
+        <tr><td>Hosting</td><td>Multi-subdomain deployment: admin, vault and builder portals; separate marketing site</td></tr>
+      </table>
+    </div>
+    <div>
+      <h3>Integration surface</h3>
+      <ul class="tight">
+        <li>Shopify Admin and Storefront APIs, OAuth install, order webhooks, cart permalinks</li>
+        <li>GoHighLevel API: contacts, opportunities, notes, custom fields, pipelines</li>
+        <li>Meta Pixel and Conversions API, Google Tag Manager</li>
+        <li>Metals price feed for live spot pricing</li>
+        <li>Managed API keys with usage analytics for programmatic access</li>
+        <li>CSV import and export, JSON table export, GDPR export</li>
+      </ul>
+      <h3>Embedding</h3>
+      <ul class="tight">
+        <li>Responsive iframe with cross-frame height sync and origin validation</li>
+        <li>Server-side domain whitelist and trusted-referrer check</li>
+        <li>No JavaScript dependencies injected into the host page</li>
+        <li>Works with any CMS or custom site that allows an iframe</li>
+      </ul>
+      <h3>Operations</h3>
+      <ul class="tight">
+        <li>Health-check endpoint and status page</li>
+        <li>Scheduled jobs: usage snapshots, alert checks, free-credit grants, auto-recharge, log archiving, backups</li>
+        <li>Audit logging, error tracking and security monitoring</li>
+        <li>Automated tests guarding the feature registry and CRM field catalog</li>
+      </ul>
+    </div>
+  </div>
+  <div class="card tint"><h3>Data model highlights</h3><p class="small" style="margin:0">Master product database with variants and full asset tracking; per-client catalog, pricing, carat, size and metal tables; diamond presets, stone inventory and shared diamond pool; mirrored config, questions and leads tables for every form; unified customer timeline; orders, bookings, CAD requests; AI configurations, sessions, documents and training examples; analytics events, usage snapshots and alerts; subscription plans, invoices and license payments.</p></div>
+  <div class="ftr"><span>JewlX Platform Guide · September 2026</span><span class="pn"></span></div>
+</div>
+
+<!-- ============ 24 NEXT STEPS / BACK COVER ============ -->
+<div class="page dark" style="padding-top:26mm">
+  <img class="cover-logo" src="logo_dark.png" alt="JewlX" style="width:70mm">
+  <div style="margin-top:22mm">
+    <div class="kicker" style="color:var(--emerald)">24 · Next steps</div>
+    <div class="cover-title" style="font-size:30pt">See your own website<br>quoting rings in 90 seconds.</div>
+    <div class="cover-sub" style="max-width:150mm">Book a live demo and we will configure a working Instant Quote form or ring builder in your branding, on your options, before the call ends. Then choose a plan, or start a 30-day free trial on Custom X or the JewlX Suite.</div>
+  </div>
+  <div class="cols3" style="margin-top:16mm">
+    <div class="stat" style="background:rgba(255,255,255,.06)"><div class="n" style="color:#fff">1</div><div class="l" style="color:#b7cfc3">Book a 30-minute demo. We show the widgets live on a jeweler's site and walk through your dashboard.</div></div>
+    <div class="stat" style="background:rgba(255,255,255,.06)"><div class="n" style="color:#fff">2</div><div class="l" style="color:#b7cfc3">Pick your starting product. Metal IQ, Custom X, Ring OS, or the full Suite.</div></div>
+    <div class="stat" style="background:rgba(255,255,255,.06)"><div class="n" style="color:#fff">3</div><div class="l" style="color:#b7cfc3">Go live within a week. Onboarding wizards, embed code, integrations, and your first specced leads.</div></div>
+  </div>
+  <div style="margin-top:18mm;border-top:1px solid #233;padding-top:8mm;display:grid;grid-template-columns:1fr 1fr;gap:8mm;font-size:10pt;color:#d7e5dd">
+    <div>
+      <div class="kicker" style="color:var(--emerald)">Products</div>
+      Ring OS · Instant Quote · Custom X (Ring Builder, Grillz Builder, Custom Enquiry) · Metal IQ · JewlX Agent
+    </div>
+    <div>
+      <div class="kicker" style="color:var(--emerald)">Platform</div>
+      Customer Hub · CRM MVMNT (GoHighLevel) · Shopify · Bookings · Orders and CAD · Analytics and tracking · Branded emails · AI Wallet · White-label and security
+    </div>
+  </div>
+  <img class="xmark" src="icon.png" alt="">
+  <div class="cover-foot">
+    <div>JewlX · AI configurator and lead-generation platform for jewelers<br>Platform Guide, September 2026 edition</div>
+    <div style="text-align:right;font-size:12pt;color:#fff;font-family:'Jost',sans-serif;font-weight:600">jewlx.ai</div>
+  </div>
+</div>
+
+</body>
+</html>

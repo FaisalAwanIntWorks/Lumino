@@ -1,0 +1,1 @@
+ALTER TABLE public.client_ring_form_config ADD COLUMN IF NOT EXISTS timeline_options text[];

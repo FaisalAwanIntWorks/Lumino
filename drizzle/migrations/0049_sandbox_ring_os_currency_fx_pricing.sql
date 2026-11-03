@@ -1,0 +1,696 @@
+-- ============================================================================
+-- Sandbox (JewlX) Ring OS currency + admin-approved diamond FX prices
+-- ============================================================================
+-- Spec: diamondcurrencyimplemenation/Nivoda_Manual_FX_Sync_Implementation_FINAL.md
+--
+-- Scope: ONLY the Sandbox client JewlX (dcd952fc-783b-4a92-be7f-62751265c650)
+-- can pick a Ring OS catalogue currency. Every other client keeps the exact
+-- behaviour it has today: get_ring_os_currency() returns NULL for them and the
+-- diamond preset RPC takes its unchanged USD path.
+--
+-- 1. clients.ring_catalog_currency (USD / GBP / CAD). Saved by
+--    generate-client-catalog when the Sandbox catalogue is (re)generated.
+-- 2. Ring step prices (styles / shanks / metals) are NOT converted. The jeweler
+--    types numbers in the catalogue currency. `price` stays the live amount
+--    every reader already uses (= amount in the catalogue currency);
+--    price_usd / price_gbp / price_cad keep what was entered per currency so a
+--    currency switch never loses the other currency's numbers.
+-- 3. Diamond FX: nothing runs on upload and there is no schedule.
+--      Sync Rates (edge fn diamond-fx-sync-rates)  -> diamond_fx_rate_fetches
+--      Apply (apply_diamond_fx_rates, admin click)  -> diamond_fx_price_versions
+--      diamond_fx_step (temporary self-unscheduling cron `diamond-fx-price-job`,
+--      started only by Apply) stages price_gbp / price_cad for every USD pool
+--      row in batches into diamond_pool_fx_prices, verifies the whole version
+--      against the pool, then publishes it by switching
+--      diamond_fx_state.active_version_id in one transaction. A failed or
+--      cancelled run never touches the published version.
+--    Prices are stored per version (not as columns on diamond_inventory_pool):
+--    swap_diamond_inventory_pool copies staging with SELECT *, so extra pool
+--    columns would break uploads, and in-place million-row updates would show
+--    shoppers a mix of old and new rates.
+-- 4. get_diamond_presets_filtered becomes a thin currency wrapper around the
+--    existing function, renamed to get_diamond_presets_filtered_base (whatever
+--    version is live is kept as is). USD / non-Sandbox: identical rows.
+--    GBP / CAD: each stone's stored price for the published version, times the
+--    client's markup; stones without a published price are left out.
+-- ============================================================================
+
+-- ----------------------------------------------------------------------------
+-- 1. Ring catalogue currency (Sandbox only)
+-- ----------------------------------------------------------------------------
+ALTER TABLE public.clients
+  ADD COLUMN IF NOT EXISTS ring_catalog_currency text;
+
+DO $$
+BEGIN
+  IF NOT EXISTS (SELECT 1 FROM pg_constraint WHERE conname = 'clients_ring_catalog_currency_check') THEN
+    ALTER TABLE public.clients
+      ADD CONSTRAINT clients_ring_catalog_currency_check
+      CHECK (ring_catalog_currency IS NULL OR ring_catalog_currency IN ('USD', 'GBP', 'CAD'));
+  END IF;
+END $$;
+
+-- Mirrored in src/lib/ring-os-currency.ts and
+-- supabase/functions/_shared/ring-os-currency.ts — keep all three in sync.
+CREATE OR REPLACE FUNCTION public.ring_os_currency_client_allowed(p_client_id uuid)
+RETURNS boolean
+LANGUAGE sql IMMUTABLE AS $$
+  SELECT p_client_id IS NOT NULL
+     AND p_client_id = ANY (ARRAY['dcd952fc-783b-4a92-be7f-62751265c650']::uuid[])
+$$;
+
+-- Catalogue currency for allow-listed clients (USD when never chosen);
+-- NULL for everyone else so callers keep their current default.
+CREATE OR REPLACE FUNCTION public.get_ring_os_currency(p_client_id uuid)
+RETURNS text
+LANGUAGE sql STABLE SECURITY DEFINER SET search_path = public AS $$
+  SELECT CASE
+    WHEN public.ring_os_currency_client_allowed(p_client_id)
+      THEN COALESCE((SELECT c.ring_catalog_currency FROM public.clients c WHERE c.id = p_client_id), 'USD')
+    ELSE NULL
+  END
+$$;
+GRANT EXECUTE ON FUNCTION public.get_ring_os_currency(uuid) TO anon, authenticated, service_role;
+
+-- ----------------------------------------------------------------------------
+-- 2. Per-currency ring step prices
+-- ----------------------------------------------------------------------------
+ALTER TABLE public.client_option_prices
+  ADD COLUMN IF NOT EXISTS price_usd numeric,
+  ADD COLUMN IF NOT EXISTS price_gbp numeric,
+  ADD COLUMN IF NOT EXISTS price_cad numeric;
+
+ALTER TABLE public.client_metal_variants
+  ADD COLUMN IF NOT EXISTS price_usd numeric,
+  ADD COLUMN IF NOT EXISTS price_gbp numeric,
+  ADD COLUMN IF NOT EXISTS price_cad numeric;
+
+-- The Sandbox catalogue so far was built in USD: remember those numbers.
+UPDATE public.client_option_prices
+   SET price_usd = price
+ WHERE public.ring_os_currency_client_allowed(client_id) AND price_usd IS NULL;
+UPDATE public.client_metal_variants
+   SET price_usd = price
+ WHERE public.ring_os_currency_client_allowed(client_id) AND price_usd IS NULL;
+
+-- ----------------------------------------------------------------------------
+-- 3. Diamond FX storage
+-- ----------------------------------------------------------------------------
+-- A pool row is converted only when its sheet price is USD (blank = USD).
+CREATE OR REPLACE FUNCTION public.diamond_fx_is_usd_row(p_markup_currency text)
+RETURNS boolean
+LANGUAGE sql IMMUTABLE AS $$
+  SELECT COALESCE(NULLIF(UPPER(TRIM(p_markup_currency)), ''), 'USD') = 'USD'
+$$;
+
+-- Every Sync Rates call (suggested quotes only; nothing is priced from here).
+CREATE TABLE IF NOT EXISTS public.diamond_fx_rate_fetches (
+  id                  bigserial PRIMARY KEY,
+  provider            text NOT NULL,
+  base_currency       text NOT NULL DEFAULT 'USD',
+  usd_to_gbp          numeric(20,10) NOT NULL,
+  usd_to_cad          numeric(20,10) NOT NULL,
+  provider_timestamp  timestamptz,
+  fetched_by          uuid,
+  fetched_at          timestamptz NOT NULL DEFAULT now()
+);
+
+-- One row per Apply: the immutable approved snapshot, the job and the audit.
+CREATE TABLE IF NOT EXISTS public.diamond_fx_price_versions (
+  id                    bigserial PRIMARY KEY,
+  status                text NOT NULL DEFAULT 'processing'
+                        CHECK (status IN ('processing', 'verifying', 'published', 'superseded', 'failed', 'cancelled')),
+  usd_to_gbp            numeric(20,10) NOT NULL,
+  usd_to_cad            numeric(20,10) NOT NULL,
+  gbp_buffer_pct        numeric(8,4)   NOT NULL,
+  cad_buffer_pct        numeric(8,4)   NOT NULL,
+  gbp_effective_rate    numeric(20,10) NOT NULL,
+  cad_effective_rate    numeric(20,10) NOT NULL,
+  rate_source           text NOT NULL CHECK (rate_source IN ('api', 'api_edited', 'manual')),
+  fetch_id              bigint REFERENCES public.diamond_fx_rate_fetches(id),
+  api_fetched_at        timestamptz,
+  fetched_usd_to_gbp    numeric(20,10),
+  fetched_usd_to_cad    numeric(20,10),
+  approval_note         text,
+  rounding_policy       text NOT NULL DEFAULT 'half_up_2dp',
+  idempotency_key       text UNIQUE,
+  previous_version_id   bigint,
+  requested_by          uuid,
+  requested_at          timestamptz NOT NULL DEFAULT now(),
+  expected_count        bigint NOT NULL DEFAULT 0,
+  scanned_count         bigint NOT NULL DEFAULT 0,
+  processed_count       bigint NOT NULL DEFAULT 0,
+  skipped_count         bigint NOT NULL DEFAULT 0,
+  verified_count        bigint,
+  last_pool_id          uuid,
+  steps_done            integer NOT NULL DEFAULT 0,
+  last_step_at          timestamptz,
+  cancel_requested      boolean NOT NULL DEFAULT false,
+  error_summary         text,
+  started_at            timestamptz,
+  finished_at           timestamptz,
+  published_at          timestamptz,
+  rows_cleaned          boolean NOT NULL DEFAULT false
+);
+
+-- At most one run at a time.
+CREATE UNIQUE INDEX IF NOT EXISTS idx_diamond_fx_price_versions_one_active
+  ON public.diamond_fx_price_versions ((true))
+  WHERE status IN ('processing', 'verifying');
+
+-- Staged / published per-diamond prices. No FK to the pool on purpose: a pool
+-- Replace truncates the pool, and stones that are no longer there simply stop
+-- matching (they are left out until the next Apply).
+CREATE TABLE IF NOT EXISTS public.diamond_pool_fx_prices (
+  version_id        bigint  NOT NULL,
+  pool_id           uuid    NOT NULL,
+  source_usd_price  numeric NOT NULL,
+  price_gbp         numeric(18,2) NOT NULL,
+  price_cad         numeric(18,2) NOT NULL,
+  PRIMARY KEY (version_id, pool_id)
+);
+
+-- The published-version pointer readers follow (switched atomically).
+CREATE TABLE IF NOT EXISTS public.diamond_fx_state (
+  id                 integer PRIMARY KEY DEFAULT 1 CHECK (id = 1),
+  active_version_id  bigint,
+  updated_at         timestamptz NOT NULL DEFAULT now()
+);
+INSERT INTO public.diamond_fx_state (id) VALUES (1) ON CONFLICT (id) DO NOTHING;
+
+-- Read/written only through the SECURITY DEFINER functions below.
+ALTER TABLE public.diamond_fx_rate_fetches   ENABLE ROW LEVEL SECURITY;
+ALTER TABLE public.diamond_fx_price_versions ENABLE ROW LEVEL SECURITY;
+ALTER TABLE public.diamond_pool_fx_prices    ENABLE ROW LEVEL SECURITY;
+ALTER TABLE public.diamond_fx_state          ENABLE ROW LEVEL SECURITY;
+
+-- ----------------------------------------------------------------------------
+-- 4. Admin functions
+-- ----------------------------------------------------------------------------
+-- Used by the edge function to check the caller before calling the FX API.
+CREATE OR REPLACE FUNCTION public.diamond_fx_assert_admin_write()
+RETURNS uuid
+LANGUAGE plpgsql SECURITY DEFINER SET search_path = public AS $$
+BEGIN
+  PERFORM public._diamond_outlier_require_admin(true);
+  RETURN auth.uid();
+END;
+$$;
+REVOKE ALL ON FUNCTION public.diamond_fx_assert_admin_write() FROM PUBLIC;
+GRANT EXECUTE ON FUNCTION public.diamond_fx_assert_admin_write() TO authenticated;
+
+-- Sanity range per quote. Also catches an inverted quote (1 GBP = 1.33 USD).
+CREATE OR REPLACE FUNCTION public._diamond_fx_check_rates(p_gbp numeric, p_cad numeric)
+RETURNS void
+LANGUAGE plpgsql IMMUTABLE AS $$
+BEGIN
+  IF p_gbp IS NULL OR p_gbp < 0.40 OR p_gbp > 1.20 THEN
+    RAISE EXCEPTION 'USD to GBP rate % is outside 0.40 - 1.20 (it must be GBP per 1 USD)', p_gbp USING ERRCODE = '22023';
+  END IF;
+  IF p_cad IS NULL OR p_cad < 1.00 OR p_cad > 2.00 THEN
+    RAISE EXCEPTION 'USD to CAD rate % is outside 1.00 - 2.00 (it must be CAD per 1 USD)', p_cad USING ERRCODE = '22023';
+  END IF;
+END;
+$$;
+
+-- Called by the edge function with the service role after the API answered.
+CREATE OR REPLACE FUNCTION public.record_diamond_fx_fetch(
+  p_usd_to_gbp numeric,
+  p_usd_to_cad numeric,
+  p_provider text,
+  p_provider_timestamp timestamptz,
+  p_fetched_by uuid
+)
+RETURNS jsonb
+LANGUAGE plpgsql SECURITY DEFINER SET search_path = public AS $$
+DECLARE
+  v public.diamond_fx_rate_fetches%ROWTYPE;
+BEGIN
+  PERFORM public._diamond_fx_check_rates(p_usd_to_gbp, p_usd_to_cad);
+  INSERT INTO public.diamond_fx_rate_fetches (provider, usd_to_gbp, usd_to_cad, provider_timestamp, fetched_by)
+  VALUES (p_provider, p_usd_to_gbp, p_usd_to_cad, p_provider_timestamp, p_fetched_by)
+  RETURNING * INTO v;
+  RETURN to_jsonb(v);
+END;
+$$;
+REVOKE ALL ON FUNCTION public.record_diamond_fx_fetch(numeric, numeric, text, timestamptz, uuid) FROM PUBLIC;
+GRANT EXECUTE ON FUNCTION public.record_diamond_fx_fetch(numeric, numeric, text, timestamptz, uuid) TO service_role;
+
+CREATE OR REPLACE FUNCTION public._diamond_fx_cron(p_on boolean)
+RETURNS void LANGUAGE plpgsql SECURITY DEFINER SET search_path = public AS $body$
+BEGIN
+  IF p_on THEN
+    IF NOT EXISTS (SELECT 1 FROM cron.job WHERE jobname = 'diamond-fx-price-job') THEN
+      PERFORM cron.schedule('diamond-fx-price-job', '* * * * *',
+        $job$ SET statement_timeout = '900000'; SELECT public.diamond_fx_step(); $job$);
+    END IF;
+  ELSE
+    IF EXISTS (SELECT 1 FROM cron.job WHERE jobname = 'diamond-fx-price-job') THEN
+      PERFORM cron.unschedule('diamond-fx-price-job');
+    END IF;
+  END IF;
+EXCEPTION WHEN OTHERS THEN
+  RAISE WARNING 'diamond fx cron toggle failed: %', SQLERRM;
+END;
+$body$;
+REVOKE ALL ON FUNCTION public._diamond_fx_cron(boolean) FROM PUBLIC;
+
+-- Apply Rates & Generate Prices. Uses exactly the values the admin approved.
+CREATE OR REPLACE FUNCTION public.apply_diamond_fx_rates(
+  p_usd_to_gbp      numeric,
+  p_usd_to_cad      numeric,
+  p_gbp_buffer_pct  numeric,
+  p_cad_buffer_pct  numeric,
+  p_fetch_id        bigint  DEFAULT NULL,
+  p_note            text    DEFAULT NULL,
+  p_idempotency_key text    DEFAULT NULL,
+  p_confirm         boolean DEFAULT false
+)
+RETURNS jsonb
+LANGUAGE plpgsql SECURITY DEFINER SET search_path = public AS $$
+DECLARE
+  v_fetch    public.diamond_fx_rate_fetches%ROWTYPE;
+  v_active   public.diamond_fx_price_versions%ROWTYPE;
+  v_new      public.diamond_fx_price_versions%ROWTYPE;
+  v_source   text;
+  v_note     text := NULLIF(TRIM(COALESCE(p_note, '')), '');
+  v_move     numeric;
+  v_expected bigint;
+BEGIN
+  PERFORM public._diamond_outlier_require_admin(true);
+
+  IF NOT COALESCE(p_confirm, false) THEN
+    RAISE EXCEPTION 'confirmation required' USING ERRCODE = '22023';
+  END IF;
+
+  IF p_idempotency_key IS NOT NULL THEN
+    SELECT * INTO v_new FROM public.diamond_fx_price_versions WHERE idempotency_key = p_idempotency_key;
+    IF FOUND THEN
+      RETURN jsonb_build_object('started', false, 'reason', 'duplicate_request', 'version', to_jsonb(v_new));
+    END IF;
+  END IF;
+
+  IF EXISTS (SELECT 1 FROM public.diamond_fx_price_versions WHERE status IN ('processing', 'verifying')) THEN
+    RAISE EXCEPTION 'a pricing run is already in progress' USING ERRCODE = '55000';
+  END IF;
+
+  -- Never run beside diamond scoring: both read the whole pool (see trigger_diamond_pipeline below).
+  IF EXISTS (SELECT 1 FROM public.diamond_pipeline_jobs WHERE status IN ('queued', 'running')) THEN
+    RAISE EXCEPTION 'diamond scoring is running; apply FX rates after it finishes' USING ERRCODE = '55000';
+  END IF;
+
+  PERFORM public._diamond_fx_check_rates(p_usd_to_gbp, p_usd_to_cad);
+  IF p_gbp_buffer_pct IS NULL OR p_gbp_buffer_pct < 0 OR p_gbp_buffer_pct > 25
+     OR p_cad_buffer_pct IS NULL OR p_cad_buffer_pct < 0 OR p_cad_buffer_pct > 25 THEN
+    RAISE EXCEPTION 'buffers must be between 0 and 25 percent' USING ERRCODE = '22023';
+  END IF;
+
+  IF p_fetch_id IS NOT NULL THEN
+    SELECT * INTO v_fetch FROM public.diamond_fx_rate_fetches WHERE id = p_fetch_id;
+    IF NOT FOUND THEN
+      RAISE EXCEPTION 'unknown rate fetch %', p_fetch_id USING ERRCODE = '22023';
+    END IF;
+    v_source := CASE WHEN v_fetch.usd_to_gbp = p_usd_to_gbp AND v_fetch.usd_to_cad = p_usd_to_cad
+                     THEN 'api' ELSE 'api_edited' END;
+  ELSE
+    v_source := 'manual';
+  END IF;
+
+  -- Typed / edited rates need a reason in the audit trail.
+  IF v_source <> 'api' AND v_note IS NULL THEN
+    RAISE EXCEPTION 'a note is required when rates are entered or edited manually' USING ERRCODE = '22023';
+  END IF;
+
+  -- More than 3% away from the published market rates: needs a reason too.
+  SELECT v.* INTO v_active
+  FROM public.diamond_fx_state s
+  JOIN public.diamond_fx_price_versions v ON v.id = s.active_version_id
+  WHERE s.id = 1;
+  IF FOUND THEN
+    v_move := GREATEST(ABS(p_usd_to_gbp / v_active.usd_to_gbp - 1), ABS(p_usd_to_cad / v_active.usd_to_cad - 1));
+    IF v_move > 0.03 AND v_note IS NULL THEN
+      RAISE EXCEPTION 'rates moved more than 3%% from the published version; add a note to confirm' USING ERRCODE = '22023';
+    END IF;
+  END IF;
+
+  SELECT count(*) INTO v_expected
+  FROM public.diamond_inventory_pool p
+  WHERE p.price > 0 AND public.diamond_fx_is_usd_row(p.markup_currency);
+
+  INSERT INTO public.diamond_fx_price_versions (
+    status, usd_to_gbp, usd_to_cad, gbp_buffer_pct, cad_buffer_pct,
+    gbp_effective_rate, cad_effective_rate, rate_source, fetch_id, api_fetched_at,
+    fetched_usd_to_gbp, fetched_usd_to_cad, approval_note, idempotency_key,
+    previous_version_id, requested_by, expected_count
+  ) VALUES (
+    'processing', p_usd_to_gbp, p_usd_to_cad, p_gbp_buffer_pct, p_cad_buffer_pct,
+    ROUND(p_usd_to_gbp * (1 + p_gbp_buffer_pct / 100), 10),
+    ROUND(p_usd_to_cad * (1 + p_cad_buffer_pct / 100), 10),
+    v_source, p_fetch_id, COALESCE(v_fetch.provider_timestamp, v_fetch.fetched_at),
+    v_fetch.usd_to_gbp, v_fetch.usd_to_cad, v_note, p_idempotency_key,
+    v_active.id, auth.uid(), v_expected
+  )
+  RETURNING * INTO v_new;
+
+  PERFORM public._diamond_fx_cron(true);
+  RETURN jsonb_build_object('started', true, 'version', to_jsonb(v_new));
+END;
+$$;
+REVOKE ALL ON FUNCTION public.apply_diamond_fx_rates(numeric, numeric, numeric, numeric, bigint, text, text, boolean) FROM PUBLIC;
+GRANT EXECUTE ON FUNCTION public.apply_diamond_fx_rates(numeric, numeric, numeric, numeric, bigint, text, text, boolean) TO authenticated;
+
+CREATE OR REPLACE FUNCTION public.cancel_diamond_fx_job()
+RETURNS jsonb
+LANGUAGE plpgsql SECURITY DEFINER SET search_path = public AS $$
+DECLARE
+  v public.diamond_fx_price_versions%ROWTYPE;
+BEGIN
+  PERFORM public._diamond_outlier_require_admin(true);
+  UPDATE public.diamond_fx_price_versions SET cancel_requested = true
+   WHERE status IN ('processing', 'verifying')
+  RETURNING * INTO v;
+  IF NOT FOUND THEN
+    RETURN jsonb_build_object('cancelled', false, 'reason', 'no_active_job');
+  END IF;
+  RETURN jsonb_build_object('cancelled', true, 'version', to_jsonb(v));
+END;
+$$;
+REVOKE ALL ON FUNCTION public.cancel_diamond_fx_job() FROM PUBLIC;
+GRANT EXECUTE ON FUNCTION public.cancel_diamond_fx_job() TO authenticated;
+
+-- One step of the run: stage a batch, or verify + publish, or clean up the
+-- rows of versions that are no longer live. Unschedules its cron when idle.
+CREATE OR REPLACE FUNCTION public.diamond_fx_step()
+RETURNS text
+LANGUAGE plpgsql SECURITY DEFINER SET search_path = public AS $body$
+DECLARE
+  v_batch   CONSTANT integer := 200000;
+  v         public.diamond_fx_price_versions%ROWTYPE;
+  v_seen    integer;
+  v_ins     integer;
+  v_last    uuid;
+  v_ok      bigint;
+  v_bad     bigint;
+  v_pool    bigint;
+  v_clean   bigint;
+  v_deleted integer;
+BEGIN
+  IF NOT pg_try_advisory_xact_lock(hashtext('diamond_fx_step')) THEN
+    RETURN 'busy';
+  END IF;
+
+  SELECT * INTO v FROM public.diamond_fx_price_versions
+   WHERE status IN ('processing', 'verifying')
+   ORDER BY id LIMIT 1 FOR UPDATE;
+
+  IF FOUND AND v.cancel_requested THEN
+    UPDATE public.diamond_fx_price_versions
+       SET status = 'cancelled', finished_at = now(),
+           error_summary = COALESCE(error_summary, 'Cancelled by admin')
+     WHERE id = v.id;
+    RETURN 'cancelled';
+  END IF;
+
+  IF FOUND AND v.status = 'processing' THEN
+    WITH b AS (
+      SELECT p.id, p.price::numeric AS price, p.markup_currency
+      FROM public.diamond_inventory_pool p
+      WHERE p.id > COALESCE(v.last_pool_id, '00000000-0000-0000-0000-000000000000'::uuid)
+      ORDER BY p.id
+      LIMIT v_batch
+    ),
+    ins AS (
+      INSERT INTO public.diamond_pool_fx_prices (version_id, pool_id, source_usd_price, price_gbp, price_cad)
+      SELECT v.id, b.id, b.price,
+             ROUND(b.price * v.gbp_effective_rate, 2),
+             ROUND(b.price * v.cad_effective_rate, 2)
+      FROM b
+      WHERE b.price > 0 AND public.diamond_fx_is_usd_row(b.markup_currency)
+      ON CONFLICT (version_id, pool_id) DO NOTHING
+      RETURNING 1
+    )
+    SELECT (SELECT count(*) FROM b),
+           (SELECT count(*) FROM ins),
+           (SELECT b.id FROM b ORDER BY b.id DESC LIMIT 1)
+      INTO v_seen, v_ins, v_last;
+
+    UPDATE public.diamond_fx_price_versions
+       SET processed_count = processed_count + v_ins,
+           scanned_count   = scanned_count + v_seen,
+           skipped_count   = skipped_count + (v_seen - v_ins),
+           last_pool_id    = COALESCE(v_last, last_pool_id),
+           steps_done      = steps_done + 1,
+           last_step_at    = now(),
+           started_at      = COALESCE(started_at, now()),
+           status          = CASE WHEN v_seen < v_batch THEN 'verifying' ELSE 'processing' END
+     WHERE id = v.id;
+    RETURN format('staged %s of %s rows', v_ins, v_seen);
+  END IF;
+
+  IF FOUND AND v.status = 'verifying' THEN
+    -- Every staged price must still belong to an unchanged pool row, every
+    -- USD pool row must be priced, and no price may be zero.
+    SELECT count(*) INTO v_ok
+    FROM public.diamond_pool_fx_prices f
+    JOIN public.diamond_inventory_pool p ON p.id = f.pool_id AND p.price::numeric = f.source_usd_price
+    WHERE f.version_id = v.id;
+
+    SELECT count(*) INTO v_bad
+    FROM public.diamond_pool_fx_prices f
+    WHERE f.version_id = v.id AND (f.price_gbp <= 0 OR f.price_cad <= 0);
+
+    SELECT count(*) INTO v_pool
+    FROM public.diamond_inventory_pool p
+    WHERE p.price > 0 AND public.diamond_fx_is_usd_row(p.markup_currency);
+
+    IF v_bad > 0 OR v_ok <> v.processed_count OR v_pool <> v.processed_count OR v.processed_count = 0 THEN
+      UPDATE public.diamond_fx_price_versions
+         SET status = 'failed', finished_at = now(), verified_count = v_ok, steps_done = steps_done + 1,
+             error_summary = format(
+               'Verification failed: %s prices staged, %s still match the pool, %s USD stones in the pool now, %s invalid prices. '
+               'The pool most likely changed during the run (new upload). The published prices were not touched; apply again.',
+               v.processed_count, v_ok, v_pool, v_bad)
+       WHERE id = v.id;
+      RETURN 'failed';
+    END IF;
+
+    -- Publish: readers switch to the new version in this one transaction.
+    UPDATE public.diamond_fx_price_versions SET status = 'superseded' WHERE status = 'published';
+    UPDATE public.diamond_fx_state SET active_version_id = v.id, updated_at = now() WHERE id = 1;
+    UPDATE public.diamond_fx_price_versions
+       SET status = 'published', published_at = now(), finished_at = now(),
+           verified_count = v_ok, steps_done = steps_done + 1
+     WHERE id = v.id;
+    RETURN 'published';
+  END IF;
+
+  -- No run in progress: drop the per-diamond rows of versions that are no
+  -- longer live (their rates stay in diamond_fx_price_versions for audit).
+  SELECT id INTO v_clean FROM public.diamond_fx_price_versions
+   WHERE status IN ('superseded', 'failed', 'cancelled') AND NOT rows_cleaned
+   ORDER BY id LIMIT 1;
+  IF v_clean IS NOT NULL THEN
+    DELETE FROM public.diamond_pool_fx_prices f
+     WHERE f.ctid IN (SELECT f2.ctid FROM public.diamond_pool_fx_prices f2
+                       WHERE f2.version_id = v_clean LIMIT v_batch);
+    GET DIAGNOSTICS v_deleted = ROW_COUNT;
+    IF v_deleted = 0 THEN
+      UPDATE public.diamond_fx_price_versions SET rows_cleaned = true WHERE id = v_clean;
+    END IF;
+    RETURN format('cleaned %s rows of version %s', v_deleted, v_clean);
+  END IF;
+
+  PERFORM public._diamond_fx_cron(false);
+  RETURN 'idle';
+END;
+$body$;
+REVOKE ALL ON FUNCTION public.diamond_fx_step() FROM PUBLIC;
+GRANT EXECUTE ON FUNCTION public.diamond_fx_step() TO service_role;
+
+CREATE OR REPLACE FUNCTION public.get_diamond_fx_overview()
+RETURNS jsonb
+LANGUAGE plpgsql STABLE SECURITY DEFINER SET search_path = public AS $$
+BEGIN
+  PERFORM public._diamond_outlier_require_admin(false);
+  RETURN jsonb_build_object(
+    'active', (SELECT to_jsonb(v) FROM public.diamond_fx_state s
+                 JOIN public.diamond_fx_price_versions v ON v.id = s.active_version_id
+                WHERE s.id = 1),
+    'job', (SELECT to_jsonb(v) FROM public.diamond_fx_price_versions v
+             WHERE v.status IN ('processing', 'verifying') ORDER BY v.id LIMIT 1),
+    'versions', (SELECT COALESCE(jsonb_agg(to_jsonb(q) ORDER BY q.id DESC), '[]'::jsonb)
+                   FROM (SELECT * FROM public.diamond_fx_price_versions ORDER BY id DESC LIMIT 10) q),
+    'last_fetch', (SELECT to_jsonb(f) FROM public.diamond_fx_rate_fetches f ORDER BY f.id DESC LIMIT 1),
+    'cron_scheduled', EXISTS (SELECT 1 FROM cron.job WHERE jobname = 'diamond-fx-price-job'),
+    'scoring_running', EXISTS (SELECT 1 FROM public.diamond_pipeline_jobs j WHERE j.status IN ('queued', 'running')),
+    'pool_usd_rows', (SELECT count(*) FROM public.diamond_inventory_pool p
+                       WHERE p.price > 0 AND public.diamond_fx_is_usd_row(p.markup_currency)),
+    'pool_last_import_at', (SELECT max(p.imported_at) FROM public.diamond_inventory_pool p)
+  );
+END;
+$$;
+REVOKE ALL ON FUNCTION public.get_diamond_fx_overview() FROM PUBLIC;
+GRANT EXECUTE ON FUNCTION public.get_diamond_fx_overview() TO authenticated;
+
+-- Published effective rates for the catalogue editor (preview labels only;
+-- shoppers always get the stored per-diamond prices).
+CREATE OR REPLACE FUNCTION public.get_diamond_fx_published_rates()
+RETURNS jsonb
+LANGUAGE sql STABLE SECURITY DEFINER SET search_path = public AS $$
+  SELECT jsonb_build_object(
+    'version_id', v.id,
+    'gbp_effective_rate', v.gbp_effective_rate,
+    'cad_effective_rate', v.cad_effective_rate,
+    'published_at', v.published_at
+  )
+  FROM public.diamond_fx_state s
+  JOIN public.diamond_fx_price_versions v ON v.id = s.active_version_id
+  WHERE s.id = 1
+$$;
+GRANT EXECUTE ON FUNCTION public.get_diamond_fx_published_rates() TO authenticated;
+
+-- ----------------------------------------------------------------------------
+-- 5. Diamond presets: currency wrapper over the existing function
+-- ----------------------------------------------------------------------------
+DO $$
+BEGIN
+  IF to_regprocedure('public.get_diamond_presets_filtered_base(uuid,text,text,text,text,text,integer,integer)') IS NULL THEN
+    ALTER FUNCTION public.get_diamond_presets_filtered(uuid,text,text,text,text,text,integer,integer)
+      RENAME TO get_diamond_presets_filtered_base;
+  END IF;
+END $$;
+REVOKE EXECUTE ON FUNCTION public.get_diamond_presets_filtered_base(uuid,text,text,text,text,text,integer,integer) FROM PUBLIC, anon, authenticated;
+
+CREATE OR REPLACE FUNCTION public.get_diamond_presets_filtered(
+  p_client_id   uuid,
+  p_stone_type  text    DEFAULT NULL::text,
+  p_shape_id    text    DEFAULT NULL::text,
+  p_color       text    DEFAULT NULL::text,
+  p_clarity     text    DEFAULT NULL::text,
+  p_carat_range text    DEFAULT NULL::text,
+  p_page_size   integer DEFAULT 50,
+  p_offset      integer DEFAULT 0
+)
+RETURNS TABLE(
+  id           uuid,
+  stone_type   text,
+  shape_id     text,
+  carat_range  text,
+  carat_value  numeric,
+  color        text,
+  clarity      text,
+  base_price   numeric,
+  custom_price numeric,
+  is_enabled   boolean,
+  total_count  bigint,
+  pool_id      uuid,
+  report_no    text
+)
+LANGUAGE plpgsql
+STABLE SECURITY DEFINER
+SET search_path TO 'public'
+AS $function$
+#variable_conflict use_column
+DECLARE
+  v_currency  text := COALESCE(public.get_ring_os_currency(p_client_id), 'USD');
+  v_version   bigint;
+  v_mk_nat    numeric;
+  v_mk_lab    numeric;
+  v_confirmed boolean;
+BEGIN
+  IF v_currency = 'USD' THEN
+    RETURN QUERY
+    SELECT * FROM public.get_diamond_presets_filtered_base(
+      p_client_id, p_stone_type, p_shape_id, p_color, p_clarity, p_carat_range, p_page_size, p_offset);
+    RETURN;
+  END IF;
+
+  -- No published GBP/CAD prices yet: show nothing rather than USD amounts
+  -- labelled with another currency.
+  SELECT s.active_version_id INTO v_version FROM public.diamond_fx_state s WHERE s.id = 1;
+  IF v_version IS NULL THEN
+    RETURN;
+  END IF;
+
+  SELECT f.markup_natural, f.markup_lab INTO v_mk_nat, v_mk_lab
+  FROM public.client_diamond_catalog_filter f
+  WHERE f.client_id = p_client_id AND f.is_confirmed = true;
+  v_confirmed := FOUND;
+
+  -- Same stones and order as the USD result (one rate per currency keeps the
+  -- price order); prices come from the stored version, markup applied on top.
+  RETURN QUERY
+  WITH base AS (
+    SELECT r.*
+    FROM public.get_diamond_presets_filtered_base(
+           p_client_id, p_stone_type, p_shape_id, p_color, p_clarity, p_carat_range, 1000000, 0)
+         WITH ORDINALITY AS r(id, stone_type, shape_id, carat_range, carat_value, color, clarity,
+                              base_price, custom_price, is_enabled, total_count, pool_id, report_no, ord)
+  ),
+  priced AS (
+    SELECT b.*,
+           CASE WHEN v_currency = 'GBP' THEN fx.price_gbp ELSE fx.price_cad END AS fx_price,
+           fx.source_usd_price
+    FROM base b
+    JOIN public.diamond_pool_fx_prices fx
+      ON fx.version_id = v_version AND fx.pool_id = b.pool_id
+  )
+  SELECT
+    p.id, p.stone_type, p.shape_id, p.carat_range, p.carat_value, p.color, p.clarity,
+    CASE
+      WHEN v_confirmed THEN
+        ROUND(p.fx_price * (1 + COALESCE(CASE WHEN p.stone_type = 'lab' THEN v_mk_lab ELSE v_mk_nat END, 0) / 100.0), 2)
+      -- Legacy preset catalogues (no confirmed filter) carry their own price:
+      -- scale it by this stone's stored version ratio.
+      ELSE ROUND(p.base_price * p.fx_price / NULLIF(p.source_usd_price, 0), 2)
+    END AS base_price,
+    CASE WHEN p.custom_price IS NULL THEN NULL
+         ELSE ROUND(p.custom_price * p.fx_price / NULLIF(p.source_usd_price, 0), 2)
+    END AS custom_price,
+    p.is_enabled,
+    COUNT(*) OVER ()::bigint AS total_count,
+    p.pool_id,
+    p.report_no
+  FROM priced p
+  ORDER BY p.ord
+  LIMIT p_page_size OFFSET p_offset;
+END;
+$function$;
+
+GRANT EXECUTE ON FUNCTION public.get_diamond_presets_filtered(uuid,text,text,text,text,text,integer,integer) TO anon, authenticated, service_role;
+
+-- ----------------------------------------------------------------------------
+-- 6. Scoring start: same body as 20261026120000, plus a guard so scoring never
+--    starts while an FX pricing run is staging/verifying (and vice versa above).
+-- ----------------------------------------------------------------------------
+CREATE OR REPLACE FUNCTION public.trigger_diamond_pipeline()
+RETURNS jsonb LANGUAGE plpgsql SECURITY DEFINER SET search_path = public AS $body$
+DECLARE
+  v_job public.diamond_pipeline_jobs%ROWTYPE;
+BEGIN
+  PERFORM public._diamond_outlier_require_admin(true);
+
+  SELECT * INTO v_job FROM public.diamond_pipeline_jobs WHERE status IN ('queued', 'running') LIMIT 1;
+  IF FOUND THEN
+    PERFORM public._diamond_pipeline_cron(true);
+    RETURN jsonb_build_object('started', false, 'reason', 'already_running', 'job', to_jsonb(v_job));
+  END IF;
+
+  IF EXISTS (SELECT 1 FROM public.diamond_fx_price_versions WHERE status IN ('processing', 'verifying')) THEN
+    RETURN jsonb_build_object('started', false, 'reason', 'fx_pricing_running');
+  END IF;
+
+  INSERT INTO public.diamond_pipeline_jobs (status, trigger_source, requested_by, phase, next_step_not_before)
+  VALUES ('queued', 'manual', auth.uid(), 'init', now())
+  RETURNING * INTO v_job;
+
+  UPDATE public.diamond_pipeline_state
+     SET status = 'running', last_error = NULL, updated_at = now()
+   WHERE id = 1;
+
+  PERFORM public._diamond_pipeline_cron(true);
+  RETURN jsonb_build_object('started', true, 'job', to_jsonb(v_job));
+END;
+$body$;
+REVOKE ALL ON FUNCTION public.trigger_diamond_pipeline() FROM PUBLIC;
+GRANT EXECUTE ON FUNCTION public.trigger_diamond_pipeline() TO authenticated, service_role;

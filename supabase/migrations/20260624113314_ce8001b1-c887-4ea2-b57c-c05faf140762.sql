@@ -1,0 +1,2 @@
+DELETE FROM ghl_sync_logs WHERE lead_id IN ('1417cd09-f322-40fc-a2bd-a5883672307b','849bff71-4b93-4864-ad07-9a8c53f4b9c4');
+DELETE FROM diamond_form_leads WHERE email IN ('anon-test-dryrun@example.com','full-dry-2@example.com');

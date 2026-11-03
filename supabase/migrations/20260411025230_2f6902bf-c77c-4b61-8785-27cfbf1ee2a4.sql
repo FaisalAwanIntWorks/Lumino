@@ -1,0 +1,1 @@
+CREATE UNIQUE INDEX idx_cad_resize_unique_order_size ON public.cad_resize_requests (order_id, requested_size);

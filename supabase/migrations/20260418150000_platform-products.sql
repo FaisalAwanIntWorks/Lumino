@@ -1,0 +1,2 @@
+-- (Skipped: never applied in the source project — its policy references a non-existent admin_users table,
+--  and platform_products is not used anywhere in the code.)

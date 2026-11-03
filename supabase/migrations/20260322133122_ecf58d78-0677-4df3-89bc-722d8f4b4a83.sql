@@ -1,0 +1,5 @@
+ALTER TABLE public.cad_resize_requests
+  ADD COLUMN IF NOT EXISTS product_name TEXT,
+  ADD COLUMN IF NOT EXISTS metal_type TEXT,
+  ADD COLUMN IF NOT EXISTS style TEXT,
+  ADD COLUMN IF NOT EXISTS shape TEXT;

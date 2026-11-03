@@ -1,0 +1,1281 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+.diamond-form-font {
+  font-family: 'Jost', sans-serif !important;
+  color: var(--dtt-font, #613623);
+}
+.diamond-form-font * {
+  font-family: inherit !important;
+}
+
+/*
+ * Quote Estimator (DTT) theming layer.
+ * The 15 diamonds-form step components use a fixed, closed set of hard-coded
+ * Tailwind color utilities. Instead of editing every component, we remap those
+ * specific utilities to CSS variables here. The variables are fed per-client
+ * from `client_dtt_form_config.form_colors`, set on the `.diamond-form-font`
+ * wrapper (DiamondsForm.tsx preview + EmbedDiamondsForm.tsx embed). Each utility
+ * maps to exactly one visual role, so client overrides stay glitch-free; when a
+ * variable is unset the fallback preserves the original DTT look.
+ *   --dtt-bg       form background   (bg-[#EDE8E3])
+ *   --dtt-surface  option cards      (bg-white)
+ *   --dtt-font     primary text      (text-gray-900/800/700, text-black)
+ *   --dtt-accent   selection states  (bg-gray-800 badges, ring-gray-400)
+ *   --dtt-btn-bg   action buttons    (any non-card button)
+ *   --dtt-btn-text action button text
+ */
+.diamond-form-font .bg-\[\#EDE8E3\] { background-color: var(--dtt-bg, #EDE8E3); }
+.diamond-form-font .bg-white,
+.diamond-form-font .bg-white\/95 { background-color: var(--dtt-surface, #ffffff); }
+
+.diamond-form-font .text-gray-900,
+.diamond-form-font .text-gray-800,
+.diamond-form-font .text-gray-700,
+.diamond-form-font .text-black { color: var(--dtt-font, #613623); }
+.diamond-form-font .text-gray-600,
+.diamond-form-font .text-gray-500,
+.diamond-form-font .text-gray-400 { color: color-mix(in srgb, var(--dtt-font, #613623) 62%, transparent); }
+
+.diamond-form-font .bg-gray-800 { background-color: var(--dtt-accent, #1f2937); }
+.diamond-form-font .ring-gray-400,
+.diamond-form-font .ring-gray-400\/50 { --tw-ring-color: var(--dtt-accent, #9ca3af); }
+
+/* Action buttons: every button except the white option-card buttons. */
+.diamond-form-font button:not([class*="bg-white"]):not([data-qe-plain]) {
+  background-color: var(--dtt-btn-bg, #000000) !important;
+  color: var(--dtt-btn-text, #ffffff) !important;
+  border-color: var(--dtt-btn-bg, #000000) !important;
+}
+.diamond-form-font button:not([class*="bg-white"]):not([data-qe-plain]):hover {
+  filter: brightness(0.88);
+}
+
+/* Single-box phone field: the dial-code picker and the number share one
+   bordered surface, so the inner controls must stay flat and transparent
+   even under the form-wide input/button rules above. */
+.qe-unified-phone.qe-unified-phone > * { background-color: transparent !important; }
+.qe-unified-phone.qe-unified-phone input[type="tel"],
+.qe-unified-phone.qe-unified-phone input[type="text"],
+.qe-unified-phone.qe-unified-phone button[role="combobox"] {
+  color: inherit !important;
+  background-color: transparent !important;
+  border: 0 !important;
+  border-radius: 0 !important;
+  box-shadow: none !important;
+}
+.qe-unified-phone.qe-unified-phone input[type="tel"],
+.qe-unified-phone.qe-unified-phone input[type="text"] {
+  border-left: 1px solid var(--qe-unified-divider, hsl(var(--border))) !important;
+}
+
+/* Client-set border color for every text field across the whole form (not just
+   the final contact step). Only takes effect when the wrapper carries the
+   `.dtt-input-bordered` class + `--dtt-input-border` value; otherwise inputs
+   keep their built-in look. */
+.diamond-form-font.dtt-input-bordered input[type="text"],
+.diamond-form-font.dtt-input-bordered input[type="email"],
+.diamond-form-font.dtt-input-bordered input[type="tel"],
+.diamond-form-font.dtt-input-bordered input[type="number"],
+.diamond-form-font.dtt-input-bordered input[type="search"],
+.diamond-form-font.dtt-input-bordered input:not([type]),
+.diamond-form-font.dtt-input-bordered textarea {
+  border-color: var(--dtt-input-border) !important;
+  border-width: 1px !important;
+  border-style: solid !important;
+}
+
+/* Phone number field sits on the dark themed row beside the country selector.
+   The base <Input> uses bg-background (dark) but inherits the form's dark font
+   color, so its digits were invisible. Style it like the adjacent button so the
+   value + placeholder stay legible. */
+.diamond-form-font input[type="tel"] {
+  background-color: var(--dtt-btn-bg, #000000);
+  color: var(--dtt-btn-text, #ffffff);
+  border-color: var(--dtt-btn-bg, #000000);
+}
+.diamond-form-font input[type="tel"]::placeholder {
+  color: color-mix(in srgb, var(--dtt-btn-text, #ffffff) 55%, transparent);
+}
+
+/* ------------------------------------------------------------------
+   Quote Estimator glass skin (opt-in, per account).
+   Only applied when the wrapper carries `.qe-glass`, which is set for the
+   accounts listed in QUOTE_ESTIMATOR_GLASS_CLIENTS. Every value comes from a
+   `--qe-*` token; a token that is absent means the effect is simply not
+   rendered, so a flat theme stays flat.
+   ------------------------------------------------------------------ */
+.qe-glass {
+  font-family: var(--qe-font-body, 'Jost', sans-serif) !important;
+  color: var(--qe-font, #1a1a1a);
+}
+.qe-glass h1,
+.qe-glass h2,
+.qe-glass h3 {
+  font-family: var(--qe-font-display, 'Jost', sans-serif) !important;
+}
+/* Option cards + panels pick up the themed surface, radius, blur and hairline. */
+.qe-glass .bg-white,
+.qe-glass .bg-white\/95 {
+  background-color: var(--qe-surface, #ffffff) !important;
+  border-radius: var(--qe-radius, 12px) !important;
+  backdrop-filter: var(--qe-blur, none);
+  -webkit-backdrop-filter: var(--qe-blur, none);
+  border: 1px solid var(--qe-border, transparent);
+}
+/* Personalization is the only multi-select image step. Its saved selected-card
+   fill must win over the generic glass surface, while the accent ring and tick
+   make every selected option unambiguous even with a very pale fill. */
+.qe-glass [data-qe-personalization-selected="true"] {
+  background-color: var(--dtt-highlight, var(--qe-highlight, #cfd3d9)) !important;
+  border-color: var(--dtt-accent, var(--qe-accent, #1f2937)) !important;
+  box-shadow: 0 0 0 2px var(--dtt-accent, var(--qe-accent, #1f2937));
+}
+.qe-glass .qe-personalization-check {
+  display: flex;
+  background-color: var(--dtt-accent, var(--qe-accent, #1f2937));
+  color: var(--dtt-btn-text, var(--qe-btn-text, #ffffff));
+}
+.qe-glass .rounded-lg,
+.qe-glass .rounded-xl,
+.qe-glass .rounded-2xl { border-radius: var(--qe-radius, 12px); }
+.qe-glass .text-gray-900,
+.qe-glass .text-gray-800,
+.qe-glass .text-gray-700,
+.qe-glass .text-black { color: var(--qe-font, #1a1a1a); }
+.qe-glass .text-gray-600,
+.qe-glass .text-gray-500,
+.qe-glass .text-gray-400 { color: var(--qe-muted, #6b7280); }
+.qe-glass .bg-gray-800 { background-color: var(--qe-accent, #1f2937); }
+.qe-glass .ring-gray-400,
+.qe-glass .ring-gray-400\/50 { --tw-ring-color: var(--qe-accent, #9ca3af); }
+.qe-glass button:not([class*="bg-white"]):not([role="checkbox"]):not([role="combobox"]):not([role="radio"]):not([role="switch"]):not([data-qe-plain]) {
+  background-color: var(--qe-btn-bg, #000000) !important;
+  color: var(--qe-btn-text, #ffffff) !important;
+  border-color: var(--qe-btn-bg, #000000) !important;
+  border-radius: var(--qe-btn-radius, 10px) !important;
+  transition: all 200ms cubic-bezier(0.4, 0, 0.2, 1);
+}
+.qe-glass input[type="tel"],
+.qe-glass input[type="text"],
+.qe-glass input[type="email"],
+.qe-glass textarea {
+  background-color: var(--qe-tile, #ffffff) !important;
+  color: var(--qe-font, #1a1a1a) !important;
+  border: 1px solid var(--qe-input-border, #d1d5db) !important;
+  border-radius: var(--qe-btn-radius, 10px) !important;
+}
+.qe-glass input::placeholder,
+.qe-glass textarea::placeholder { color: var(--qe-muted, #6b7280) !important; }
+/* Focus stays visible on both glass and solid surfaces. */
+.qe-glass :focus-visible {
+  outline: 2px solid var(--qe-accent, #1f2937);
+  outline-offset: 2px;
+}
+@media (prefers-reduced-motion: reduce) {
+  .qe-glass * { transition: none !important; animation: none !important; }
+}
+
+/* Option tiles: the artwork, not the frame, is the product. The grey inner
+   box and its padding shrank every ring photo, so the image area goes edge to
+   edge and the artwork itself is scaled up to fill it. */
+.qe-glass .bg-gray-100,
+.qe-glass .bg-gray-50 {
+  background-color: transparent !important;
+  padding: 0 !important;
+}
+.qe-glass .bg-gray-100 img,
+.qe-glass .bg-gray-50 img {
+  transform: scale(1.1);
+}
+
+/* An iframe viewport is itself controlled by our height messages. A screen
+   minimum plus content outside the page (e.g. preview banner) feeds back into
+   that viewport and grows it repeatedly. Standalone desktop sizing stays put. */
+.qe-scroll-page[data-in-frame="true"] { min-height: 0; }
+
+/* Phones: steps size to their own content. Combined with the fluid-height
+   embed snippet this removes both the dead band under short steps and the
+   scroll-inside-a-scroll on tall ones. */
+@media (max-width: 767px) {
+  .qe-content-scroll .min-h-\[100dvh\],
+  .qe-glass .min-h-\[100dvh\] {
+    min-height: 0 !important;
+  }
+  .qe-content-scroll .overflow-y-auto,
+  .qe-glass .overflow-y-auto {
+    overflow-y: visible !important;
+  }
+  /* Upload step: a tall drop zone plus a tall notes box pushed the buttons off
+     screen. Both are trimmed so the whole step fits in one view. */
+  .qe-glass .border-dashed {
+    padding: 1rem !important;
+    margin-bottom: 1rem !important;
+  }
+  .qe-glass .border-dashed > div:first-of-type {
+    width: 2.75rem;
+    height: 2.75rem;
+    margin-bottom: 0.5rem;
+  }
+  .qe-glass textarea {
+    min-height: 6rem !important;
+  }
+}
+
+/* The claim mobile field always renders as a plainly bordered box, whatever
+   the glass tokens are set to: fixed weight, real padding, never translucent,
+   never blurred. It is the one field the whole redesign depends on. */
+.qe-claim-field input,
+.qe-claim-field button {
+  border-width: 1.25px !important;
+  border-style: solid !important;
+  border-color: var(--qe-claim-field-border, #d1d5db) !important;
+  background-color: var(--qe-claim-field-bg, #ffffff) !important;
+  backdrop-filter: none !important;
+  -webkit-backdrop-filter: none !important;
+}
+.qe-claim-field input { padding-top: 0.7rem !important; padding-bottom: 0.7rem !important; }
+
+/* Slow, low-amplitude breathing on the credit halo. Only applied when the
+   theme's glowIntensity is above a moderate threshold, and never under
+   reduced motion. */
+@keyframes qeGlowBreathe {
+  0%, 100% { filter: brightness(1); }
+  50% { filter: brightness(1.06); }
+}
+.qe-glow-breathe { animation: qeGlowBreathe 5.5s ease-in-out infinite; }
+@media (prefers-reduced-motion: reduce) {
+  .qe-glow-breathe { animation: none !important; }
+}
+
+
+/* Placeholder shown inside a Quote Estimator option card while its CDN image
+   is still downloading. Gives every card the same deliberate loading state so
+   a slow step reads as "loading" instead of a ragged, staggered pop-in. */
+@keyframes dttImgSkeleton {
+  0%   { background-position: 200% 0; }
+  100% { background-position: -200% 0; }
+}
+.dtt-img-skeleton {
+  border-radius: inherit;
+  background-image: linear-gradient(
+    100deg,
+    rgba(0, 0, 0, 0.04) 20%,
+    rgba(0, 0, 0, 0.09) 40%,
+    rgba(0, 0, 0, 0.04) 60%
+  );
+  background-size: 200% 100%;
+  animation: dttImgSkeleton 1.4s linear infinite;
+}
+
+/* 24k Ring OS carat hand image: a size-stable light placeholder while the
+   selected CDN image decodes. The veil preserves the previous frame on drag. */
+.carat-img-skeleton,
+.carat-img-loading-veil {
+  background-image: linear-gradient(
+    100deg,
+    hsl(var(--muted) / 0.28) 20%,
+    hsl(var(--muted-foreground) / 0.13) 40%,
+    hsl(var(--muted) / 0.28) 60%
+  );
+  background-size: 200% 100%;
+  animation: dttImgSkeleton 1.4s linear infinite;
+}
+.carat-img-loading-veil { opacity: 0.38; }
+@media (prefers-reduced-motion: reduce) {
+  .dtt-img-skeleton,
+  .carat-img-skeleton,
+  .carat-img-loading-veil { animation: none; }
+}
+
+html, body {
+  overflow: hidden;
+  width: 100%;
+  height: 100%;
+  position: relative;
+}
+
+/* Client override (src/lib/embed-client-overrides.ts → undimmedInfoPopups):
+   option info popups keep the ring viewer fully visible instead of dimming it. */
+body[data-undimmed-popups="true"] .jewlx-info-backdrop {
+  background-color: transparent;
+}
+
+body[data-embed-preload="true"] {
+  background: transparent !important;
+}
+
+body[data-embed-preload="true"] #root {
+  background: transparent !important;
+}
+
+#root {
+  height: 100%;
+  width: 100%;
+  overflow: hidden;
+}
+
+/*
+ * Embed routes: when the widget runs inside a customer's iframe, the iframe
+ * may be capped at a fixed height by the host's snippet. We MUST allow the
+ * iframe document itself to scroll so users can reach the AI render footer,
+ * regenerate panel, comments, etc. — even on stale embed snippets that
+ * haven't been re-copied. Toggled by `<body data-embed="true">`.
+ */
+html:has(body[data-embed="true"]),
+body[data-embed="true"],
+body[data-embed="true"] #root {
+  overflow: auto !important;
+  height: auto !important;
+  min-height: 100%;
+  position: static !important;
+  -webkit-overflow-scrolling: touch;
+}
+
+@layer base {
+  :root {
+    --quote-v3-paper: #000000;
+    --quote-v3-surface: #171717;
+    --quote-v3-ink: #FFFFFF;
+    --quote-v3-muted: #BDBDBD;
+    --quote-v3-line: #464646;
+    --quote-v3-selected: #303030;
+    --quote-v3-accent: #FFFFFF;
+    --quote-v3-button: #FFFFFF;
+    --quote-v3-action-text: #000000;
+    --quote-v3-error: #983B32;
+    --email-header-preview-dark: 0 0% 0%;
+    --email-header-preview-light: 0 0% 100%;
+    --background: 0 0% 100%;
+    --foreground: 0 0% 10%;
+    --card: 0 0% 100%;
+    --card-foreground: 0 0% 10%;
+    --popover: 0 0% 100%;
+    --popover-foreground: 0 0% 10%;
+
+    /* Brand: dark maroon on white */
+    --primary: 348 70% 24%;
+    --primary-foreground: 0 0% 100%;
+    --primary-light: 350 50% 92%;
+    --primary-dark: 348 80% 14%;
+    --secondary: 0 0% 96%;
+    --secondary-foreground: 348 80% 14%;
+    --muted: 0 0% 96%;
+    --muted-foreground: 0 0% 40%;
+    --accent: 345 62% 32%;
+    --accent-foreground: 0 0% 100%;
+    --accent-gold: 43 96% 56%;
+    --accent-gold-foreground: 0 0% 10%;
+    --destructive: 0 84% 50%;
+    --destructive-foreground: 0 0% 100%;
+    --border: 0 0% 90%;
+    --input: 0 0% 88%;
+    --ring: 348 70% 24%;
+    --chart-1: 348 70% 24%;
+    --chart-2: 345 55% 45%;
+    --chart-3: 350 45% 70%;
+    --chart-4: 43 80% 50%;
+    --chart-5: 350 15% 55%;
+    --radius: 0.5rem;
+    --client-accent: 348 70% 24%;
+    --client-accent-foreground: 0 0% 100%;
+    --client-subtle: 348 70% 24%;
+    --surface: 0 0% 100%;
+    --gradient-primary: linear-gradient(135deg, hsl(348 70% 24%), hsl(348 80% 14%));
+    --gradient-subtle: linear-gradient(180deg, hsl(0 0% 100%), hsl(0 0% 100%));
+    --gradient-jewlx: linear-gradient(135deg, hsl(348 70% 24%), hsl(345 62% 32%));
+    --gradient-emerald: linear-gradient(135deg, hsl(348 70% 24%), hsl(348 80% 14%));
+    --gradient-emerald-bright: linear-gradient(135deg, hsl(345 62% 32%), hsl(350 50% 80%));
+    --gradient-luxury: linear-gradient(135deg, hsl(348 70% 24%), hsl(345 62% 32%));
+    --shadow-elegant: 0 4px 16px -6px hsl(0 0% 0% / 0.1);
+    --shadow-card: 0 1px 3px hsl(0 0% 0% / 0.06);
+    --shadow-emerald: 0 10px 30px -10px hsl(348 70% 24% / 0.3);
+    --shadow-emerald-glow: 0 10px 30px -10px hsl(345 62% 32% / 0.3);
+    --shadow-luxury: 0 10px 30px -10px hsl(348 70% 24% / 0.35);
+    --shadow-gold: 0 0 20px hsl(43 96% 56% / 0.3);
+    --shadow-gold-glow: 0 0 30px hsl(43 96% 56% / 0.4);
+    --transition-smooth: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+  }
+
+  .dark {
+    --email-header-preview-dark: 0 0% 0%;
+    --email-header-preview-light: 0 0% 100%;
+    /* Deep maroon dark mode (no pure black) */
+    --background: 348 45% 7%;
+    --foreground: 350 30% 96%;
+    --card: 348 40% 10%;
+    --card-foreground: 350 30% 96%;
+    --popover: 348 40% 9%;
+    --popover-foreground: 350 30% 96%;
+    --primary: 348 60% 42%;
+    --primary-foreground: 0 0% 100%;
+    --primary-light: 350 50% 85%;
+    --primary-dark: 348 80% 14%;
+    --secondary: 348 30% 15%;
+    --secondary-foreground: 350 30% 95%;
+    --muted: 348 30% 14%;
+    --muted-foreground: 350 15% 72%;
+    --accent: 345 55% 35%;
+    --accent-foreground: 0 0% 100%;
+    --accent-gold: 43 96% 56%;
+    --accent-gold-foreground: 0 0% 10%;
+    --destructive: 0 70% 52%;
+    --destructive-foreground: 0 0% 98%;
+    --border: 348 25% 20%;
+    --input: 348 25% 22%;
+    --ring: 348 60% 50%;
+    --chart-1: 348 60% 50%;
+    --chart-2: 345 55% 65%;
+    --chart-3: 350 45% 80%;
+    --chart-4: 43 80% 55%;
+    --chart-5: 348 20% 35%;
+    --surface: 348 40% 9%;
+    --gradient-primary: linear-gradient(135deg, hsl(348 60% 42% / 0.3), hsl(348 45% 7%));
+    --gradient-subtle: linear-gradient(180deg, hsl(348 45% 7%), hsl(348 40% 9%));
+    --gradient-jewlx: linear-gradient(135deg, hsl(348 60% 42%), hsl(345 55% 35%));
+    --gradient-emerald: linear-gradient(135deg, hsl(348 60% 42%), hsl(348 80% 14%));
+    --gradient-emerald-bright: linear-gradient(135deg, hsl(345 55% 35%), hsl(350 50% 80%));
+    --gradient-luxury: linear-gradient(135deg, hsl(348 60% 42%), hsl(345 55% 35%));
+    --shadow-elegant: 0 10px 30px -10px hsl(348 60% 30% / 0.5);
+    --shadow-card: 0 2px 8px hsl(348 60% 20% / 0.3);
+    --shadow-emerald: 0 10px 30px -10px hsl(348 60% 42% / 0.4);
+    --shadow-luxury: 0 10px 30px -10px hsl(348 60% 42% / 0.5);
+  }
+
+  /* Public widget routes keep the original dark palette so client-facing
+     embeds are unaffected by the app's white + maroon redesign. */
+  .dark body[data-embed-preload],
+  .dark body[data-embed="true"] {
+    --email-header-preview-dark: 0 0% 0%;
+    --email-header-preview-light: 0 0% 100%;
+    --background: 0 0% 0%;
+    --foreground: 0 0% 98%;
+    --card: 0 0% 5%;
+    --card-foreground: 0 0% 98%;
+    --popover: 0 0% 3%;
+    --popover-foreground: 0 0% 98%;
+    --primary: 143 52% 55%;
+    --primary-foreground: 0 0% 100%;
+    --primary-light: 167 56% 88%;
+    --primary-dark: 158 96% 10%;
+    --secondary: 0 0% 12%;
+    --secondary-foreground: 0 0% 95%;
+    --muted: 0 0% 12%;
+    --muted-foreground: 0 0% 70%;
+    --accent: 161 82% 24%;
+    --accent-foreground: 0 0% 100%;
+    --accent-gold: 43 96% 56%;
+    --accent-gold-foreground: 0 0% 10%;
+    --destructive: 0 63% 50%;
+    --destructive-foreground: 0 0% 98%;
+    --border: 0 0% 20%;
+    --input: 0 0% 20%;
+    --ring: 143 52% 55%;
+    --chart-1: 143 52% 55%;
+    --chart-2: 161 82% 24%;
+    --chart-3: 158 96% 10%;
+    --chart-4: 45 93% 47%;
+    --chart-5: 0 0% 20%;
+    --surface: 0 0% 4%;
+    --gradient-primary: linear-gradient(135deg, hsl(143 52% 55% / 0.22), hsl(0 0% 0%));
+    --gradient-subtle: linear-gradient(180deg, hsl(0 0% 0%), hsl(0 0% 4%));
+    --gradient-jewlx: linear-gradient(135deg, hsl(143 52% 55%), hsl(161 82% 24%));
+    --gradient-emerald: linear-gradient(135deg, hsl(143 52% 55%), hsl(158 96% 10%));
+    --gradient-emerald-bright: linear-gradient(135deg, hsl(161 82% 24%), hsl(167 56% 88%));
+    --gradient-luxury: linear-gradient(135deg, hsl(143 52% 55%), hsl(161 82% 24%));
+    --shadow-elegant: 0 10px 30px -10px hsl(143 52% 55% / 0.5);
+    --shadow-card: 0 2px 8px hsl(143 52% 55% / 0.3);
+    --shadow-emerald: 0 10px 30px -10px hsl(143 52% 55% / 0.4);
+    --shadow-luxury: 0 10px 30px -10px hsl(143 52% 55% / 0.5);
+  }
+
+  /* ------------------------------------------------------------
+     Widget Theme: UI Option 1 (mapped to data-theme="luxury")
+     Premium Minimal — Black canvas, white strokes, gold accent.
+     Scoped via CSS variable cascading on the embed root container.
+  ------------------------------------------------------------ */
+  [data-theme="luxury"] {
+    /* Canvas */
+    --background: 0 0% 0%;
+    --foreground: 0 0% 100%;
+
+    /* Surfaces — pure black */
+    --card: 0 0% 0%;
+    --card-foreground: 0 0% 100%;
+    --popover: 0 0% 0%;
+    --popover-foreground: 0 0% 100%;
+    --surface: 0 0% 0%;
+
+    /* Muted */
+    --muted: 0 0% 8%;
+    --muted-foreground: 0 0% 72%;
+
+    /* Strokes */
+    --border: 0 0% 100%;
+    --input: 0 0% 100%;
+
+    /* Accent (Gold: #C7A17A) */
+    --accent-gold: 30 39% 63%;
+    --accent-gold-foreground: 0 0% 0%;
+
+    /* Use gold for primary CTAs in Option 1 */
+    --primary: 30 39% 63%;
+    --primary-foreground: 0 0% 0%;
+    --ring: 30 39% 63%;
+
+    /* Client accent (defaults to gold for luxury) */
+    --client-accent: 30 39% 63%;
+    --client-accent-foreground: 0 0% 0%;
+    --client-subtle: 30 39% 63%;
+
+    /* Reduce gradients; keep subtle depth */
+    --gradient-subtle: linear-gradient(180deg, hsl(0 0% 0%), hsl(0 0% 2%));
+    --shadow-elegant: 0 20px 40px hsl(0 0% 0% / 0.6);
+    --shadow-card: 0 20px 40px hsl(0 0% 0% / 0.6);
+    --shadow-gold: 0 10px 30px hsl(30 39% 63% / 0.2);
+
+    /* CTA button overrides (jeweler-customizable) */
+    --cta-bg: 0 0% 100%;
+    --cta-text: 0 0% 0%;
+  }
+
+  /* ------------------------------------------------------------
+     Widget Theme: UI Option 2 (mapped to data-theme="modern")
+     Clean, light, rounded — White canvas, soft shadows, teal accent.
+  ------------------------------------------------------------ */
+  [data-theme="modern"] {
+    /* Light, clean canvas */
+    --background: 0 0% 98%;
+    --foreground: 0 0% 10%;
+
+    /* Surfaces */
+    --card: 0 0% 100%;
+    --card-foreground: 0 0% 10%;
+    --popover: 0 0% 100%;
+    --popover-foreground: 0 0% 10%;
+    --surface: 0 0% 100%;
+
+    /* Muted */
+    --muted: 0 0% 95%;
+    --muted-foreground: 0 0% 45%;
+
+    /* Strokes - subtle gray */
+    --border: 0 0% 88%;
+    --input: 0 0% 88%;
+
+    /* Accent - Teal/Blue */
+    --primary: 200 80% 50%;
+    --primary-foreground: 0 0% 100%;
+    --ring: 200 80% 50%;
+
+    /* Client accent (defaults to teal for modern) */
+    --client-accent: 200 80% 50%;
+    --client-accent-foreground: 0 0% 100%;
+    --client-subtle: 200 80% 50%;
+
+    /* Softer shadows */
+    --shadow-elegant: 0 4px 20px hsl(0 0% 0% / 0.08);
+    --shadow-card: 0 2px 8px hsl(0 0% 0% / 0.05);
+
+    /* Keep gold for specific accents */
+    --accent-gold: 200 80% 50%;
+    --accent-gold-foreground: 0 0% 100%;
+
+    /* CTA button overrides (jeweler-customizable) */
+    --cta-bg: 200 80% 50%;
+    --cta-text: 0 0% 100%;
+  }
+
+  /* ------------------------------------------------------------
+     Widget Theme: UI Option 4 (mapped to data-theme="elegant")
+     Warm Elegant — Cream canvas, gold accents, serif headings.
+  ------------------------------------------------------------ */
+  [data-theme="elegant"] {
+    /* Warm cream canvas */
+    --background: 39 56% 97%;          /* #FDF8F0 */
+    --foreground: 0 0% 18%;            /* #2D2D2D */
+
+    /* Surfaces */
+    --card: 0 0% 100%;                 /* white cards */
+    --card-foreground: 0 0% 18%;
+    --popover: 0 0% 100%;
+    --popover-foreground: 0 0% 18%;
+    --surface: 39 56% 97%;
+
+    /* Muted */
+    --muted: 39 20% 92%;
+    --muted-foreground: 40 27% 37%;    /* #8B7635 */
+
+    /* Strokes */
+    --border: 43 55% 56%;              /* gold border */
+    --input: 0 0% 88%;
+
+    /* Primary — Gold */
+    --primary: 43 55% 56%;             /* #C5A55A */
+    --primary-foreground: 0 0% 100%;
+    --primary-gradient-end: 47 65% 73%; /* #E8D48B */
+    --ring: 43 55% 56%;
+
+    /* Client accent (defaults to gold for elegant) */
+    --client-accent: 43 55% 56%;
+    --client-accent-foreground: 0 0% 100%;
+    --client-subtle: 43 55% 56%;
+
+    /* Gold accents */
+    --accent-gold: 43 55% 56%;
+    --accent-gold-foreground: 0 0% 100%;
+
+    /* Shadows */
+    --shadow-elegant: 0 4px 12px hsl(43 55% 56% / 0.1);
+    --shadow-card: 0 2px 8px hsl(0 0% 0% / 0.05);
+
+    /* CTA button overrides (jeweler-customizable) */
+    --cta-bg: 43 55% 56%;
+    --cta-text: 0 0% 100%;
+  }
+
+  /* ------------------------------------------------------------
+     Widget Theme: 24k Carat Jewelers (exclusive — mapped to data-theme="twentyfourk")
+     Pure black canvas, warm 24k gold accents, serif/light type.
+  ------------------------------------------------------------ */
+  [data-theme="twentyfourk"] {
+    --background: 0 0% 0%;
+    --foreground: 0 0% 100%;
+
+    --card: 0 0% 4%;
+    --card-foreground: 0 0% 100%;
+    --popover: 0 0% 4%;
+    --popover-foreground: 0 0% 100%;
+    --surface: 0 0% 0%;
+
+    --muted: 0 0% 10%;
+    --muted-foreground: 0 0% 60%;
+
+    --border: 0 0% 18%;
+    --input: 0 0% 18%;
+
+    /* 24k gold #C9A84C */
+    --primary: 45 56% 54%;
+    --primary-foreground: 0 0% 0%;
+    --ring: 45 56% 54%;
+
+    --client-accent: 45 56% 54%;
+    --client-accent-foreground: 0 0% 0%;
+    --client-subtle: 45 56% 54%;
+
+    --accent-gold: 45 56% 54%;
+    --accent-gold-foreground: 0 0% 0%;
+
+    --shadow-elegant: 0 4px 20px hsl(0 0% 0% / 0.5);
+    --shadow-card: 0 2px 8px hsl(0 0% 0% / 0.4);
+
+    --cta-bg: 45 56% 54%;
+    --cta-text: 0 0% 0%;
+  }
+
+  /* The 24k media viewer remains black, while its configurator is deliberately
+     light. Scope light semantic roles to that panel so shared Ring OS steps do
+     not inherit white-on-black text and controls onto the pale surface. */
+  [data-theme="twentyfourk"] .twentyfourk-light-panel,
+  /* Self-form needed inside portaled dialogs (mobile carat popup) */
+  [data-theme="twentyfourk"].twentyfourk-light-panel {
+    --background: 0 0% 93%;
+    --foreground: 0 0% 8%;
+    --card: 0 0% 100%;
+    --card-foreground: 0 0% 8%;
+    --popover: 0 0% 100%;
+    --popover-foreground: 0 0% 8%;
+    --muted: 0 0% 88%;
+    --muted-foreground: 0 0% 38%;
+    --border: 0 0% 80%;
+    --input: 0 0% 68%;
+    --accent: 45 56% 42%;
+    --accent-foreground: 0 0% 0%;
+    --primary: 45 56% 38%;
+    --primary-foreground: 0 0% 100%;
+  }
+}
+
+@layer base {
+  * {
+    @apply border-border;
+  }
+
+  /* Premium focus ring (gold) for accessibility */
+  [data-theme="luxury"] :is(button, a, input, textarea, select, [role="button"], [tabindex]):focus-visible {
+    outline: 3px solid hsl(var(--accent-gold) / 0.28);
+    outline-offset: 2px;
+  }
+  
+  body {
+    @apply bg-background text-foreground font-sans;
+    font-weight: 400;
+    line-height: 1.6;
+    font-feature-settings: "rlig" 1, "calt" 1;
+  }
+  
+  h1, h2, h3, h4, h5, h6 {
+    @apply font-sans;
+    line-height: 1.3;
+  }
+  
+  h1 { @apply text-4xl font-bold mb-4; }
+  h2 { @apply text-3xl font-semibold mb-3; }
+  h3 { @apply text-2xl font-semibold mb-2; }
+  h4 { @apply text-xl font-medium mb-2; }
+  h5 { @apply text-lg font-medium mb-1; }
+  h6 { @apply text-base font-medium mb-1; }
+  h3 { @apply text-2xl font-semibold; }
+  h4 { @apply text-xl font-medium; }
+  h5 { @apply text-lg font-medium; }
+  h6 { @apply text-base font-medium; }
+}
+
+/* Scrollbar Styling */
+::-webkit-scrollbar {
+  width: 10px;
+  height: 10px;
+}
+
+::-webkit-scrollbar-track {
+  @apply bg-muted/20 rounded-lg;
+}
+
+::-webkit-scrollbar-thumb {
+  @apply bg-primary/30 rounded-lg;
+  transition: background-color 0.2s;
+}
+
+::-webkit-scrollbar-thumb:hover {
+  @apply bg-primary/50;
+}
+
+/* Firefox Scrollbar */
+* {
+  scrollbar-width: thin;
+  scrollbar-color: hsl(var(--primary) / 0.3) hsl(var(--muted) / 0.2);
+}
+
+/* Public form effects are independent of both platform and client accents.
+   The document marker includes Radix portals and is removed on route exit.
+   Keep these tokens on each element so nested theme scopes cannot restore
+   platform-green shadows. Do not override ring/shadow composition: keyboard
+   focus rings must remain visible. */
+html:has(> body[data-embed="true"]),
+body[data-embed="true"],
+body[data-embed="true"] * {
+  --embed-scrollbar-thumb: 0 0% 55%;
+  --embed-scrollbar-hover: 0 0% 42%;
+  --embed-scrollbar-track: 0 0% 50% / 0.08;
+  --embed-control-shadow: 0 4px 12px -4px hsl(0 0% 0% / 0.16);
+  --shadow-emerald: var(--embed-control-shadow);
+  --shadow-emerald-glow: var(--embed-control-shadow);
+  scrollbar-color: hsl(var(--embed-scrollbar-thumb)) hsl(var(--embed-scrollbar-track));
+}
+
+html:has(> body[data-embed="true"])::-webkit-scrollbar-track,
+body[data-embed="true"]::-webkit-scrollbar-track,
+body[data-embed="true"] *::-webkit-scrollbar-track {
+  background-color: hsl(var(--embed-scrollbar-track));
+}
+
+html:has(> body[data-embed="true"])::-webkit-scrollbar-thumb,
+body[data-embed="true"]::-webkit-scrollbar-thumb,
+body[data-embed="true"] *::-webkit-scrollbar-thumb {
+  background-color: hsl(var(--embed-scrollbar-thumb));
+}
+
+html:has(> body[data-embed="true"])::-webkit-scrollbar-thumb:hover,
+body[data-embed="true"]::-webkit-scrollbar-thumb:hover,
+body[data-embed="true"] *::-webkit-scrollbar-thumb:hover {
+  background-color: hsl(var(--embed-scrollbar-hover));
+}
+
+body[data-embed="true"] :is(button, a, input, textarea, select, label, [role="button"], [role="option"], [role="slider"], [tabindex]) {
+  -webkit-tap-highlight-color: transparent;
+}
+
+body[data-embed="true"] .hover-glow::before {
+  display: none;
+}
+
+/* Radix ScrollArea uses a DOM thumb rather than a native scrollbar. */
+body[data-embed="true"] [data-radix-scroll-area-viewport] ~ div > div {
+  background-color: hsl(var(--embed-scrollbar-thumb));
+}
+
+/* The legacy shadow-emerald utility assigns box-shadow directly; compose
+   the keyboard ring explicitly so neutralizing its glow cannot hide focus. */
+body[data-embed="true"] .shadow-emerald:focus-visible {
+  box-shadow: var(--tw-ring-offset-shadow, 0 0 transparent),
+    var(--tw-ring-shadow, 0 0 transparent), var(--embed-control-shadow);
+}
+
+/* Fixed-contrast picture browsing controls; no platform or client accent. */
+.custom-x-carousel {
+  --carousel-control-surface: 0 0% 100%;
+  --carousel-control-hover: 0 0% 93%;
+  --carousel-control-ink: 0 0% 9%;
+  --carousel-control-border: 0 0% 48%;
+  --carousel-control-shadow: 0 2px 6px hsl(0 0% 0% / 0.18);
+}
+
+.custom-x-carousel .custom-x-carousel-arrow {
+  width: 44px;
+  height: 44px;
+  border-radius: 50%;
+  border: 1px solid hsl(var(--carousel-control-border));
+  color: hsl(var(--carousel-control-ink));
+  background: hsl(var(--carousel-control-surface));
+  box-shadow: var(--carousel-control-shadow);
+  transition: background-color 150ms ease;
+}
+
+.custom-x-carousel .custom-x-carousel-arrow:hover {
+  color: hsl(var(--carousel-control-ink));
+  background: hsl(var(--carousel-control-hover));
+}
+
+.custom-x-carousel .custom-x-carousel-arrow:focus-visible {
+  outline: 2px solid hsl(var(--carousel-control-ink));
+  outline-offset: 2px;
+  box-shadow: 0 0 0 4px hsl(var(--carousel-control-surface)), var(--carousel-control-shadow);
+}
+
+.custom-x-carousel .custom-x-carousel-arrow svg {
+  width: 24px;
+  height: 24px;
+}
+
+/* End cards must reach the physical edges: centre snapping can otherwise
+   leave a few pixels of unreachable scroll and a permanently enabled arrow. */
+.custom-x-carousel > div > button:first-child { scroll-snap-align: start; }
+.custom-x-carousel > div > button:last-child { scroll-snap-align: end; }
+.custom-x-carousel > div { scroll-padding-inline: 16px; }
+@media (min-width: 768px) {
+  .custom-x-carousel > div { scroll-padding-inline: 32px; }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .custom-x-carousel .custom-x-carousel-arrow { transition: none; }
+}
+
+/* Utility Classes */
+.gradient-text {
+  background: var(--gradient-luxury);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+}
+
+.gradient-emerald {
+  background: var(--gradient-emerald);
+}
+
+.gradient-gold {
+  background: var(--gradient-gold);
+}
+
+.gradient-luxury {
+  background: var(--gradient-luxury);
+}
+
+.gradient-jewlx {
+  background: var(--gradient-jewlx);
+}
+
+.shadow-emerald {
+  box-shadow: var(--shadow-emerald);
+}
+
+.shadow-gold {
+  box-shadow: var(--shadow-gold);
+}
+
+.shadow-luxury {
+  box-shadow: var(--shadow-luxury);
+}
+
+.box-shadow-elegant {
+  box-shadow: var(--shadow-elegant);
+}
+
+.glass-card {
+  background: var(--glass-bg);
+  backdrop-filter: blur(12px);
+  border: 1px solid var(--glass-border);
+}
+
+.scrollbar-hide {
+  -ms-overflow-style: none;
+  scrollbar-width: none;
+}
+
+.scrollbar-hide::-webkit-scrollbar {
+  display: none;
+}
+
+/* Premium Animations */
+@keyframes fadeUpIn {
+  from { opacity: 0; transform: translateY(12px); }
+  to   { opacity: 1; transform: translateY(0); }
+}
+
+@keyframes shimmer {
+  0% { background-position: -1000px 0; }
+  100% { background-position: 1000px 0; }
+}
+
+@keyframes float {
+  0%, 100% { transform: translateY(0px); }
+  50% { transform: translateY(-10px); }
+}
+
+@keyframes glow {
+  0%, 100% { opacity: 0.5; }
+  50% { opacity: 1; }
+}
+
+@keyframes fadeInUp {
+  from {
+    opacity: 0;
+    transform: translateY(20px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+@keyframes scaleIn {
+  from {
+    opacity: 0;
+    transform: scale(0.95);
+  }
+  to {
+    opacity: 1;
+    transform: scale(1);
+  }
+}
+
+@keyframes slideIn {
+  from {
+    opacity: 0;
+    transform: translateX(-20px);
+  }
+  to {
+    opacity: 1;
+    transform: translateX(0);
+  }
+}
+
+.animate-shimmer {
+  animation: shimmer 2s infinite linear;
+  background: linear-gradient(to right, transparent 0%, hsl(var(--primary) / 0.1) 50%, transparent 100%);
+  background-size: 1000px 100%;
+}
+
+.animate-float {
+  animation: float 3s ease-in-out infinite;
+}
+
+.animate-glow {
+  animation: glow 2s ease-in-out infinite;
+}
+
+/* Lightweight opacity-only fade for form cards (no layout shift) */
+@keyframes fadeInSimple {
+  from { opacity: 0; }
+  to   { opacity: 1; }
+}
+
+.animate-fade-in {
+  animation: fadeInSimple 0.2s ease-out;
+}
+
+.animate-fade-in-up {
+  animation: fadeInUp 0.6s ease-out forwards;
+}
+
+.animate-scale-in {
+  animation: scaleIn 0.3s ease-out;
+}
+
+.animate-slide-in {
+  animation: slideIn 0.4s ease-out;
+}
+
+/* Stagger animations */
+.animate-fade-in-delay-1 { animation: fadeInUp 0.5s ease-out 0.1s both; }
+.animate-fade-in-delay-2 { animation: fadeInUp 0.5s ease-out 0.2s both; }
+.animate-fade-in-delay-3 { animation: fadeInUp 0.5s ease-out 0.3s both; }
+.animate-fade-in-delay-4 { animation: fadeInUp 0.5s ease-out 0.4s both; }
+
+/* Hover effects */
+.hover-lift {
+  transition: all 0.3s ease;
+}
+
+.hover-lift:hover {
+  transform: translateY(-4px);
+  box-shadow: var(--shadow-luxury);
+}
+
+.hover-glow {
+  transition: all 0.3s ease;
+  position: relative;
+}
+
+.hover-glow::before {
+  content: '';
+  position: absolute;
+  inset: -2px;
+  border-radius: inherit;
+  background: var(--gradient-emerald);
+  opacity: 0;
+  z-index: -1;
+  transition: opacity 0.3s ease;
+  filter: blur(8px);
+}
+
+.hover-glow:hover::before {
+  opacity: 0.7;
+}
+
+/* Typography Utilities */
+.text-luxury {
+  @apply text-foreground font-serif;
+}
+
+.text-accent-gold {
+  @apply text-accent;
+}
+
+.label-luxury {
+  @apply text-xs font-semibold uppercase tracking-wider text-accent;
+}
+
+@keyframes fadeInUp {
+  from {
+    opacity: 0;
+    transform: translateY(30px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+@keyframes scaleIn {
+  from {
+    opacity: 0;
+    transform: scale(0.9);
+  }
+  to {
+    opacity: 1;
+    transform: scale(1);
+  }
+}
+
+@keyframes slideIn {
+  from {
+    opacity: 0;
+    transform: translateX(-20px);
+  }
+  to {
+    opacity: 1;
+    transform: translateX(0);
+  }
+}
+
+/* Safe Area Utilities for iOS */
+.pb-safe {
+  padding-bottom: max(env(safe-area-inset-bottom, 12px), 12px);
+}
+
+.pt-safe {
+  padding-top: env(safe-area-inset-top, 0px);
+}
+
+/* iMessage-style message animations */
+@keyframes messageIn {
+  from {
+    opacity: 0;
+    transform: translateY(10px) scale(0.95);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0) scale(1);
+  }
+}
+
+.message-enter {
+  animation: messageIn 0.2s ease-out forwards;
+}
+
+/* Animated Maroon Lightning Border Effect */
+@keyframes lightning-border {
+  0%, 100% {
+    border-color: hsl(348 65% 38% / 0.8);
+    box-shadow: 
+      0 0 8px hsl(348 70% 30% / 0.6),
+      0 0 16px hsl(348 70% 30% / 0.4),
+      0 0 24px hsl(348 70% 30% / 0.2);
+  }
+  25% {
+    border-color: hsl(348 60% 42%);
+    box-shadow: 
+      0 0 12px hsl(348 70% 30% / 0.8),
+      0 0 24px hsl(348 70% 30% / 0.5),
+      0 0 36px hsl(348 70% 30% / 0.3);
+  }
+  50% {
+    border-color: hsl(345 60% 40% / 0.9);
+    box-shadow: 
+      0 0 15px hsl(345 60% 36% / 0.7),
+      0 0 30px hsl(348 70% 30% / 0.5),
+      0 0 45px hsl(348 70% 30% / 0.25);
+  }
+  75% {
+    border-color: hsl(348 60% 42%);
+    box-shadow: 
+      0 0 14px hsl(348 70% 30% / 0.85),
+      0 0 28px hsl(348 70% 30% / 0.55),
+      0 0 42px hsl(348 70% 30% / 0.3);
+  }
+}
+
+@keyframes lightning-pulse {
+  0%, 100% {
+    opacity: 1;
+    transform: scale(1);
+  }
+  50% {
+    opacity: 1;
+    transform: scale(1.002);
+  }
+}
+
+.chat-lightning-border {
+  position: relative;
+  isolation: isolate;
+  border: 2px solid hsl(348 70% 32% / 0.9);
+  animation: lightning-border 3s ease-in-out infinite;
+}
+
+.chat-lightning-border::before {
+  content: '';
+  position: absolute;
+  inset: -2px;
+  border-radius: inherit;
+  padding: 2px;
+  background: linear-gradient(
+    135deg,
+    hsl(348 70% 30% / 0.5),
+    hsl(345 62% 32% / 0.3),
+    hsl(348 70% 30% / 0.6),
+    hsl(345 62% 32% / 0.4),
+    hsl(348 70% 30% / 0.5)
+  );
+  background-size: 300% 300%;
+  animation: gradient-shift 4s ease infinite;
+  -webkit-mask: 
+    linear-gradient(#fff 0 0) content-box, 
+    linear-gradient(#fff 0 0);
+  -webkit-mask-composite: xor;
+  mask-composite: exclude;
+  pointer-events: none;
+  z-index: 1;
+}
+
+@keyframes gradient-shift {
+  0%, 100% {
+    background-position: 0% 50%;
+  }
+  50% {
+    background-position: 100% 50%;
+  }
+}
+
+/* Platform (non-widget) pages: flat white UI, no frosted-glass blur.
+   Public widget routes keep their own effects. */
+body:not([data-embed-preload]):not([data-embed="true"]) [class*="backdrop-blur"] {
+  -webkit-backdrop-filter: none !important;
+  backdrop-filter: none !important;
+}
+
+/* Faint off-white card surface so cards stand out on the pure white page. */
+:root {
+  --neu-surface: #ededef;
+  --neu-inset-bg: #e2e2e4;
+  --neu-shadow-dark: #c9c9cb;
+  --neu-shadow-soft: #d6d6d8;
+  --neu-shadow-light: #ffffff;
+}
+/* Night mode: cards rise slightly lighter than the deep maroon background. */
+.dark {
+  --neu-surface: #261216;
+  --neu-inset-bg: #1a0a0d;
+  --neu-shadow-dark: #0b0405;
+  --neu-shadow-soft: #120709;
+  --neu-shadow-light: #331a1f;
+}
+/* Neumorphic stat cards (neumorphism.io formula on the white base).
+   Raised soft card; presses in slightly on hover. */
+.neu-card {
+  background: var(--neu-surface);
+  border-radius: 20px;
+  box-shadow: 9px 9px 18px var(--neu-shadow-dark), -9px -9px 18px var(--neu-shadow-light);
+  transition: box-shadow 0.25s ease, transform 0.25s ease;
+}
+.neu-card:hover {
+  box-shadow: inset 6px 6px 12px var(--neu-shadow-soft), inset -6px -6px 12px var(--neu-shadow-light);
+}
+/* Small inset well used for a card's accent icon/dot. */
+.neu-inset {
+  background: var(--neu-inset-bg);
+  box-shadow: inset 3px 3px 6px var(--neu-shadow-dark), inset -3px -3px 6px var(--neu-shadow-light);
+}
+/* Larger list cards (top clients, status groups) stay raised on hover;
+   only their pills react. */
+.neu-card.neu-static:hover {
+  box-shadow: 9px 9px 18px var(--neu-shadow-dark), -9px -9px 18px var(--neu-shadow-light);
+}
+/* Small raised pill for status counts; presses in on hover. */
+.neu-pill {
+  background: var(--neu-surface);
+  border-radius: 9999px;
+  box-shadow: 4px 4px 8px var(--neu-shadow-soft), -4px -4px 8px var(--neu-shadow-light);
+  transition: box-shadow 0.2s ease;
+}
+.neu-pill:hover {
+  box-shadow: inset 3px 3px 6px var(--neu-shadow-soft), inset -3px -3px 6px var(--neu-shadow-light);
+}
+/* Platform-wide neumorphic surface for shared Card and Table containers.
+   Client-facing embeds (marked on <body>) are excluded and keep their look. */
+body:not([data-embed-preload]):not([data-embed="true"]) [data-neu="card"],
+body:not([data-embed-preload]):not([data-embed="true"]) [data-neu="table"] {
+  background-color: var(--neu-surface);
+  border-color: transparent;
+  box-shadow: 9px 9px 18px var(--neu-shadow-dark), -9px -9px 18px var(--neu-shadow-light);
+}
+body:not([data-embed-preload]):not([data-embed="true"]) [data-neu="card"] {
+  border-radius: 20px;
+}
+body:not([data-embed-preload]):not([data-embed="true"]) [data-neu="table"] {
+  border-radius: 16px;
+}
+/* A card or table inside another neumorphic surface stays flat so shadows
+   don't stack; a thin border keeps it separated. */
+body:not([data-embed-preload]):not([data-embed="true"]) :is([data-neu], .neu-card) [data-neu="card"],
+body:not([data-embed-preload]):not([data-embed="true"]) :is([data-neu], .neu-card) [data-neu="table"] {
+  background-color: transparent;
+  border-color: hsl(var(--border));
+  box-shadow: none;
+}
+/* Popovers/dialogs render on top of the page; keep cards inside them flat. */
+body:not([data-embed-preload]):not([data-embed="true"]) [role="dialog"] [data-neu="card"] {
+  box-shadow: none;
+  border-color: hsl(var(--border));
+}
