@@ -5,8 +5,8 @@ import { useEffect } from 'react';
  * can grow to fit dynamic content (e.g. AI render reveal, regenerate panel,
  * comments, etc.). Mirrors the logic used in EmbedConfigurator.
  *
- * - Sends `jewlx-ready` once on mount so hosts can sync immediately.
- * - Observes the documentElement and posts `jewlx-resize` height messages.
+ * - Sends `aurezo-ready` once on mount so hosts can sync immediately.
+ * - Observes the documentElement and posts `aurezo-resize` height messages.
  * - Skips on mobile (host CSS uses 100dvh on mobile).
  */
 export function useEmbedAutoHeight() {
@@ -17,7 +17,7 @@ export function useEmbedAutoHeight() {
 
     // Notify host that the widget is mounted
     try {
-      window.parent?.postMessage(JSON.stringify({ type: 'jewlx-ready' }), '*');
+      window.parent?.postMessage(JSON.stringify({ type: 'aurezo-ready' }), '*');
     } catch { /* cross-origin safety */ }
 
     let resizeTimer: ReturnType<typeof setTimeout> | null = null;
@@ -35,7 +35,7 @@ export function useEmbedAutoHeight() {
         : Math.max(document.documentElement.scrollHeight, document.body?.scrollHeight ?? 0);
       try {
         window.parent?.postMessage(
-          JSON.stringify({ type: 'jewlx-resize', height: h }),
+          JSON.stringify({ type: 'aurezo-resize', height: h }),
           '*'
         );
       } catch { /* cross-origin safety */ }

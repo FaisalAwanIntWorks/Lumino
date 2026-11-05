@@ -30,14 +30,14 @@ import { getEffectiveAiImageDelivery } from '@/lib/ai-image-delivery';
 
 // Category images — served from CDN as WebP; the carousel falls back to the .png twin on error.
 const JEWELRY_CATEGORY_IMAGES: Record<string, string> = {
-  'Pendant': 'https://d2lo9ju43icaaa.cloudfront.net/GrillzBuilder/Custom+Pendant-transparent.webp',
-  'Chain': 'https://d2lo9ju43icaaa.cloudfront.net/GrillzBuilder/chain-transparent.webp',
-  'Ring': 'https://d2lo9ju43icaaa.cloudfront.net/GrillzBuilder/Custom+ring+1.webp',
-  'Earrings': 'https://d2lo9ju43icaaa.cloudfront.net/GrillzBuilder/earrings-updated-transparent.webp',
-  'Grillz': 'https://d2lo9ju43icaaa.cloudfront.net/GrillzBuilder/Iced-out+Transparent-Gold+Diamond+Grillz+without+mold.webp',
-  'Bracelet': 'https://d2lo9ju43icaaa.cloudfront.net/GrillzBuilder/Bracelet-transparent.webp',
-  'Watches': 'https://d2lo9ju43icaaa.cloudfront.net/GrillzBuilder/iced+out+watches-transparent.webp',
-  'Glasses': 'https://d2lo9ju43icaaa.cloudfront.net/GrillzBuilder/icedout-glasses-transparent.webp',
+  'Pendant': `${ASSET_CDN.main}/GrillzBuilder/Custom+Pendant-transparent.webp`,
+  'Chain': `${ASSET_CDN.main}/GrillzBuilder/chain-transparent.webp`,
+  'Ring': `${ASSET_CDN.main}/GrillzBuilder/Custom+ring+1.webp`,
+  'Earrings': `${ASSET_CDN.main}/GrillzBuilder/earrings-updated-transparent.webp`,
+  'Grillz': `${ASSET_CDN.main}/GrillzBuilder/Iced-out+Transparent-Gold+Diamond+Grillz+without+mold.webp`,
+  'Bracelet': `${ASSET_CDN.main}/GrillzBuilder/Bracelet-transparent.webp`,
+  'Watches': `${ASSET_CDN.main}/GrillzBuilder/iced+out+watches-transparent.webp`,
+  'Glasses': `${ASSET_CDN.main}/GrillzBuilder/icedout-glasses-transparent.webp`,
 };
 
 // Fallbacks
@@ -45,6 +45,7 @@ const FALLBACK_JEWELRY_TYPES = ['Pendant', 'Chain', 'Grillz', 'Ring', 'Bracelet'
 const FALLBACK_BUDGETS = [...ENQUIRY_DEFAULT_BUDGET_OPTIONS];
 import { CANONICAL_METALS, normalizeGoldColors, getMetalHex } from '@/lib/custom-enquiry-metals';
 import { ENQUIRY_DEFAULT_TIMELINE_OPTIONS } from '@/lib/form-defaults';
+import { ASSET_CDN } from "@/lib/asset-cdn";
 
 const FALLBACK_GOLD_COLORS = [...CANONICAL_METALS];
 const FALLBACK_KARATS = ['10K', '14K', '18K', '22K', '24K'];

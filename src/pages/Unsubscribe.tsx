@@ -28,7 +28,7 @@ export default function Unsubscribe() {
 
   const msg: Record<string, string> = {
     loading: 'One moment…',
-    subscribed: 'Unsubscribe from JewlX updates? You will stop receiving these emails.',
+    subscribed: 'Unsubscribe from Aurezo updates? You will stop receiving these emails.',
     unsubscribed: 'You are already unsubscribed.',
     done: 'You have been unsubscribed. You will not receive any more of these emails.',
     invalid: 'This unsubscribe link is not valid.',
@@ -38,7 +38,7 @@ export default function Unsubscribe() {
   return (
     <div className="min-h-screen flex items-center justify-center bg-background p-6">
       <div className="max-w-md w-full border border-border rounded-lg p-8 text-center space-y-6">
-        <h1 className="text-xl font-semibold text-foreground">JewlX</h1>
+        <h1 className="text-xl font-semibold text-foreground">Aurezo</h1>
         <p className="text-sm text-muted-foreground">{msg[state]}</p>
         {state === 'subscribed' && <Button onClick={confirm}>Unsubscribe</Button>}
       </div>

@@ -12,7 +12,7 @@ import {
 
 const Resend = (await import("https://esm.sh/resend@2.0.0")).Resend;
 
-const FROM_EMAIL = "JewlX <onboarding@resend.dev>";
+const FROM_EMAIL = "Aurezo <onboarding@resend.dev>";
 const REPLY_TO = Deno.env.get("SUPPORT_EMAIL") || undefined;
 
 const corsHeaders = {

@@ -298,7 +298,7 @@ export function QuoteDiamondConfigurationTab({ clientId, value, onChange, curren
           <div>
             <h3 className="text-lg font-semibold text-foreground">Diamond Configuration</h3>
             <p className="text-xs text-muted-foreground">
-              Which stones from the complete JewlX diamond pool the Quote Estimator may offer. After Natural / Lab, shape and size the
+              Which stones from the complete Aurezo diamond pool the Quote Estimator may offer. After Natural / Lab, shape and size the
               customer filters by colour and clarity and picks an exact diamond; its price, certificate number and certificate PDF go into
               the quote, the lead and both emails. Independent of any Ring OS catalogue. Saved with "Save Configuration".
             </p>

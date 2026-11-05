@@ -3,6 +3,7 @@ import { fallbackToPngOnError } from '@/lib/webp-image-fallback';
 import { Button } from '@/components/ui/button';
 import { ShankOption } from '@/types/ring-builder';
 import { X } from 'lucide-react';
+import { ASSET_CDN } from "@/lib/asset-cdn";
 
 interface ShankInfoDialogProps {
   open: boolean;
@@ -13,12 +14,12 @@ interface ShankInfoDialogProps {
 // Same image URLs as the option cards in steps/ShankStep.tsx
 // Sketches are served as WebP; every <img> showing one falls back to the .png twin on error.
 const SHANK_IMAGES: Record<string, string> = {
-  'high-polish': 'https://d2lo9ju43icaaa.cloudfront.net/JewlxRingsSketches/High-polish-icon.webp',
-  'castel-pave': 'https://d2lo9ju43icaaa.cloudfront.net/JewlxRingsSketches/Castel+Pave-icon.webp',
-  '3-row-pave': 'https://d2lo9ju43icaaa.cloudfront.net/JewlxRingsSketches/3+row+pave-icon.webp',
-  'tapered': 'https://d2lo9ju43icaaa.cloudfront.net/JewlxRingsSketches/Tapered.webp',
-  'eternity': 'https://d2lo9ju43icaaa.cloudfront.net/JewlxRingsSketches/Eternity.webp',
-  'marquise-cut': 'https://d2lo9ju43icaaa.cloudfront.net/JewlxRingsSketches/Marquise+.webp',
+  'high-polish': `${ASSET_CDN.main}/JewlxRingsSketches/High-polish-icon.webp`,
+  'castel-pave': `${ASSET_CDN.main}/JewlxRingsSketches/Castel+Pave-icon.webp`,
+  '3-row-pave': `${ASSET_CDN.main}/JewlxRingsSketches/3+row+pave-icon.webp`,
+  'tapered': `${ASSET_CDN.main}/JewlxRingsSketches/Tapered.webp`,
+  'eternity': `${ASSET_CDN.main}/JewlxRingsSketches/Eternity.webp`,
+  'marquise-cut': `${ASSET_CDN.main}/JewlxRingsSketches/Marquise+.webp`,
 };
 
 const SHANK_DETAILED_INFO: Record<string, string> = {
@@ -38,7 +39,7 @@ export const ShankInfoDialog = ({ open, onOpenChange, shank }: ShankInfoDialogPr
 
   return createPortal(
     <div className="fixed inset-0 z-[60] animate-in fade-in-0 duration-200">
-      <div className="jewlx-info-backdrop fixed inset-0 bg-black/60" onClick={() => onOpenChange(false)} />
+      <div className="aurezo-info-backdrop fixed inset-0 bg-black/60" onClick={() => onOpenChange(false)} />
       
       <div className="fixed inset-0 md:left-[50%] flex items-stretch">
         <div className="relative w-full h-full overflow-y-auto bg-background">

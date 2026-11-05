@@ -98,7 +98,7 @@ export default function Embed() {
   const [clickToContinue, setClickToContinue] = useState(true);
 
   useEffect(() => {
-    document.title = 'Client • Embed | Jewlx';
+    document.title = 'Client • Embed | Aurezo';
     if (isImpersonating && !impersonatedClientId) return;
     loadClient();
   }, [user, role, staffInfo, isImpersonating, impersonatedClientId]);
@@ -401,7 +401,7 @@ export default function Embed() {
               <h3 className="text-base sm:text-lg font-semibold mb-3 sm:mb-4">Features</h3>
               <div className="space-y-3 sm:space-y-4">
                 <div className="flex items-center justify-between gap-2">
-                  <Label className="text-sm flex-1">Enable JewlX Agent Button</Label>
+                  <Label className="text-sm flex-1">Enable Aurezo Agent Button</Label>
                   <Switch checked={showChatAssistant} onCheckedChange={setShowChatAssistant} />
                 </div>
                 <div className="flex items-center justify-between gap-2">

@@ -1,6 +1,7 @@
 import { usesDiamondTypeCheckout } from "../_shared/ring-os-diamond-checkout.ts";
 import { createClient } from 'https://esm.sh/@supabase/supabase-js@2';
 import { dualAuth, checkUnkeyRateLimit, corsHeaders as unkeyCorHeaders } from '../_shared/unkey.ts';
+import { ASSET_CDN } from "../_shared/asset-cdn.ts";
 
 const corsHeaders = {
   ...unkeyCorHeaders,
@@ -60,7 +61,7 @@ function formatProductTitle(combinationId: string): string {
 
 // Generate product description
 function generateProductDescription(item: CatalogItem['my_master_db_data']): string {
-  if (!item) return 'Beautiful handcrafted ring from JewelX.';
+  if (!item) return 'Beautiful handcrafted ring from Aurezo.';
   
   const style = item.style_name || item.style_id;
   const shank = item.shank_name || item.shank_id;
@@ -71,7 +72,7 @@ function generateProductDescription(item: CatalogItem['my_master_db_data']): str
 }
 
 // CloudFront CDN base URL for ring assets (matches frontend cdn-utils.ts)
-const CLOUDFRONT_CDN_BASE = 'https://do2z856wqq7wu.cloudfront.net';
+const CLOUDFRONT_CDN_BASE = `${ASSET_CDN.rings}`;
 
 // Ring styles whose renders also exist on the CDN as `.webp` at the same path
 // (keep in sync with WEBP_RENDER_STYLE_FOLDERS in src/lib/cdn-utils.ts).
@@ -611,10 +612,10 @@ Deno.serve(async (req) => {
             product: {
               title: productTitle,
               body_html: productDescription,
-              vendor: client.company_name || 'JewelX',
+              vendor: client.company_name || 'Aurezo',
               product_type: 'Ring Setting',  // Changed to "Ring Setting" for clarity
               status: 'active', // Active but published only to Headless channel (not visible in Online Store)
-              tags: ['JewelX', masterData.style_id, masterData.shape_id, masterData.visual_color, 'Ring Setting'].join(', '),
+              tags: ['Aurezo', masterData.style_id, masterData.shape_id, masterData.visual_color, 'Ring Setting'].join(', '),
               options: [
                 { name: 'Metal' },
                 { name: 'Carat' }  // Add Carat as second option
@@ -629,11 +630,11 @@ Deno.serve(async (req) => {
               })),
               images: images.map(src => ({ src })),
               metafields: [
-                { namespace: 'jewelx', key: 'combination_id', value: masterData.combination_id, type: 'single_line_text_field' },
-                { namespace: 'jewelx', key: 'style_id', value: masterData.style_id, type: 'single_line_text_field' },
-                { namespace: 'jewelx', key: 'shank_id', value: masterData.shank_id, type: 'single_line_text_field' },
-                { namespace: 'jewelx', key: 'visual_color', value: masterData.visual_color, type: 'single_line_text_field' },
-                { namespace: 'jewelx', key: 'shape_id', value: masterData.shape_id, type: 'single_line_text_field' },
+                { namespace: 'aurezo', key: 'combination_id', value: masterData.combination_id, type: 'single_line_text_field' },
+                { namespace: 'aurezo', key: 'style_id', value: masterData.style_id, type: 'single_line_text_field' },
+                { namespace: 'aurezo', key: 'shank_id', value: masterData.shank_id, type: 'single_line_text_field' },
+                { namespace: 'aurezo', key: 'visual_color', value: masterData.visual_color, type: 'single_line_text_field' },
+                { namespace: 'aurezo', key: 'shape_id', value: masterData.shape_id, type: 'single_line_text_field' },
               ],
             }
           };

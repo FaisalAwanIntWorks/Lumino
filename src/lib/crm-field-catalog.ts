@@ -13,7 +13,7 @@ export interface CrmFieldDef {
   optional?: boolean;
 }
 
-export const CRM_FIELD_FOLDER = 'JewlX';
+export const CRM_FIELD_FOLDER = 'Aurezo';
 
 export const CRM_FIELD_CATALOG: Record<string, CrmFieldDef[]> = {
   diamond: [

@@ -1,13 +1,14 @@
+import { ASSET_CDN } from "@/lib/asset-cdn";
 /**
  * CDN image URL mappings for Diamond Form steps.
  * Images are served directly from CloudFront CDN, not fetched from the database.
  */
 
 /** CDN base for DTT Legacy Form */
-const DTT_LEGACY_CDN_BASE = 'https://d3hry6a3ciae6y.cloudfront.net/DiamondsCatalog';
+const DTT_LEGACY_CDN_BASE = `${ASSET_CDN.diamondCatalog}/DiamondsCatalog`;
 
 /** CDN base for Ring Builder Form (original CDN) */
-const RING_BUILDER_CDN_BASE = 'https://d2ybchbsrb165p.cloudfront.net/GenericDttFormImagesTransparent';
+const RING_BUILDER_CDN_BASE = `${ASSET_CDN.ringBuilder}/GenericDttFormImagesTransparent`;
 
 /** Transparent CDN base used for the Quote Estimator Form (all clients except the legacy ones below). */
 const DTT_TRANSPARENT_CDN_BASE = RING_BUILDER_CDN_BASE;
@@ -17,7 +18,7 @@ const DTT_TRANSPARENT_CDN_BASE = RING_BUILDER_CDN_BASE;
  * the legacy DTT set — only the top-level folder differs — and published as
  * WebP only. See `dttimagesurlset/dtt-form-image-urls-zaiwar.md`.
  */
-const ZAIWAR_CDN_BASE = 'https://d3hry6a3ciae6y.cloudfront.net/DiamondCatalogZaiwar';
+const ZAIWAR_CDN_BASE = `${ASSET_CDN.diamondCatalog}/DiamondCatalogZaiwar`;
 
 /**
  * Quote Estimator clients that keep the ORIGINAL (non-transparent) CDN images.
@@ -104,7 +105,7 @@ export function toZaiwarDiamondCdn(url: string): string {
 const zaiwarFullUrlOverrides: Record<string, Record<string, string>> = {
   ring_metal_options: {
     'white-gold': `${ZAIWAR_CDN_BASE}/ring_metal/Platinum+(%2B%24650).webp`,
-    'silver': 'https://diamondcatalogue.s3.us-east-1.amazonaws.com/DiamondCatalogZaiwar/ring_metal/Silver.webp',
+    'silver': `${ASSET_CDN.diamondCatalogueS3}/DiamondCatalogZaiwar/ring_metal/Silver.webp`,
   },
 };
 
@@ -135,24 +136,24 @@ const dttLegacyFullUrlOverrides: Record<string, Record<string, string>> = {
 /** Full-URL overrides for Ring Builder only (bypasses folder/filename construction) */
 const ringBuilderFullUrlOverrides: Record<string, Record<string, string>> = {
   band_width_options: {
-    'thin-1.8mm': 'https://d2lo9ju43icaaa.cloudfront.net/DTTRingBuilder/57.png',
-    'classic-2mm': 'https://dttringbuildersimages.s3.us-east-1.amazonaws.com/DTTRingBuilder/58.png',
-    'medium-3mm': 'https://dttringbuildersimages.s3.us-east-1.amazonaws.com/DTTRingBuilder/59.png',
-    'thick-4mm': 'https://dttringbuildersimages.s3.us-east-1.amazonaws.com/DTTRingBuilder/60.png',
+    'thin-1.8mm': `${ASSET_CDN.main}/DTTRingBuilder/57.png`,
+    'classic-2mm': `${ASSET_CDN.dttRingBuilderS3}/DTTRingBuilder/58.png`,
+    'medium-3mm': `${ASSET_CDN.dttRingBuilderS3}/DTTRingBuilder/59.png`,
+    'thick-4mm': `${ASSET_CDN.dttRingBuilderS3}/DTTRingBuilder/60.png`,
   },
   ring_metal_options: {
-    '14k-yellow-gold': 'https://d2lo9ju43icaaa.cloudfront.net/DTTRingBuilder/14k+Yellow+Gold+(%2B%240).png',
-    '14k-white-gold': 'https://d2lo9ju43icaaa.cloudfront.net/DTTRingBuilder/14k+White+Gold+(%2B%240).png',
-    '18k-yellow-gold': 'https://d2lo9ju43icaaa.cloudfront.net/DTTRingBuilder/18k+Yellow+Gold+(%2B%24400).png',
-    '18k-white-gold': 'https://d2lo9ju43icaaa.cloudfront.net/DTTRingBuilder/18k+White+Gold+(%2B%24400).png',
-    '14k-rose-gold': 'https://d2lo9ju43icaaa.cloudfront.net/DTTRingBuilder/14k+Rose+Gold+(%2B%240).png',
-    'platinum': 'https://d2lo9ju43icaaa.cloudfront.net/DTTRingBuilder/Platinum+(%2B%24650).png',
-    'two-tone': 'https://d2lo9ju43icaaa.cloudfront.net/DTTRingBuilder/Two+Tone+Ring+(%2B%24500).png',
+    '14k-yellow-gold': `${ASSET_CDN.main}/DTTRingBuilder/14k+Yellow+Gold+(%2B%240).png`,
+    '14k-white-gold': `${ASSET_CDN.main}/DTTRingBuilder/14k+White+Gold+(%2B%240).png`,
+    '18k-yellow-gold': `${ASSET_CDN.main}/DTTRingBuilder/18k+Yellow+Gold+(%2B%24400).png`,
+    '18k-white-gold': `${ASSET_CDN.main}/DTTRingBuilder/18k+White+Gold+(%2B%24400).png`,
+    '14k-rose-gold': `${ASSET_CDN.main}/DTTRingBuilder/14k+Rose+Gold+(%2B%240).png`,
+    'platinum': `${ASSET_CDN.main}/DTTRingBuilder/Platinum+(%2B%24650).png`,
+    'two-tone': `${ASSET_CDN.main}/DTTRingBuilder/Two+Tone+Ring+(%2B%24500).png`,
     // Legacy fallbacks
-    'yellow-gold': 'https://d2lo9ju43icaaa.cloudfront.net/DTTRingBuilder/14k+Yellow+Gold+(%2B%240).png',
-    'white-gold': 'https://d2lo9ju43icaaa.cloudfront.net/DTTRingBuilder/14k+White+Gold+(%2B%240).png',
-    'silver': 'https://d2lo9ju43icaaa.cloudfront.net/DTTRingBuilder/14k+White+Gold+(%2B%240).png',
-    'rose-gold': 'https://d2lo9ju43icaaa.cloudfront.net/DTTRingBuilder/14k+Rose+Gold+(%2B%240).png',
+    'yellow-gold': `${ASSET_CDN.main}/DTTRingBuilder/14k+Yellow+Gold+(%2B%240).png`,
+    'white-gold': `${ASSET_CDN.main}/DTTRingBuilder/14k+White+Gold+(%2B%240).png`,
+    'silver': `${ASSET_CDN.main}/DTTRingBuilder/14k+White+Gold+(%2B%240).png`,
+    'rose-gold': `${ASSET_CDN.main}/DTTRingBuilder/14k+Rose+Gold+(%2B%240).png`,
   },
 };
 

@@ -1,4 +1,5 @@
 import { createClient } from "npm:@supabase/supabase-js@2";
+import { ASSET_CDN } from "./asset-cdn.ts";
 
 /**
  * Shared AI quota enforcement — uses a single gate_ai_request() SQL function
@@ -506,7 +507,7 @@ async function triggerLowBalanceAlertIfNeeded(clientId: string, currentBalance: 
             Authorization: `Bearer ${resendApiKey}`,
           },
           body: JSON.stringify({
-            from: 'JewlX <onboarding@resend.dev>',
+            from: 'Aurezo <onboarding@resend.dev>',
             to: [r.email],
             subject,
             html,
@@ -576,7 +577,7 @@ async function triggerLowBalanceAlertIfNeeded(clientId: string, currentBalance: 
           .filter((e: unknown): e is string => Boolean(e));
 
         if (resendApiKey && adminEmails.length > 0) {
-          const adminUrl = `https://admin.jewlx.ai/clients/${clientId}`;
+          const adminUrl = `https://studioadmin.aurezotech.com/clients/${clientId}`;
           const adminHtml = buildAdminLowBalanceEmailHtml({
             companyName: client.company_name || 'A client',
             balanceCredits,
@@ -595,7 +596,7 @@ async function triggerLowBalanceAlertIfNeeded(clientId: string, currentBalance: 
                   Authorization: `Bearer ${resendApiKey}`,
                 },
                 body: JSON.stringify({
-                  from: 'JewlX <onboarding@resend.dev>',
+                  from: 'Aurezo <onboarding@resend.dev>',
                   to: [email],
                   subject: adminSubject,
                   html: adminHtml,
@@ -649,7 +650,7 @@ function buildLowBalanceEmailHtml(opts: {
     ? 'AI features will stop working very soon. Recharge now to avoid service interruption.'
     : 'Recharge soon to keep AI chat, image previews, and cost estimates running smoothly.';
   const accent = '#50C878';
-  const billingUrl = 'https://admin.jewlx.ai/client/usage';
+  const billingUrl = 'https://studioadmin.aurezotech.com/client/usage';
 
   return `<!DOCTYPE html>
 <html lang="en">
@@ -668,7 +669,7 @@ function buildLowBalanceEmailHtml(opts: {
           <!-- Black header -->
           <tr>
             <td style="background-color:#000000;padding:24px 32px;text-align:center;">
-              <img src="https://d2lo9ju43icaaa.cloudfront.net/jewlx-logo-white.png" alt="JewlX" height="40" style="height:40px;display:inline-block;" />
+              <img src="https://studio.aurezotech.com/images/aurezo-logo-white.png" alt="Aurezo" height="40" style="height:40px;display:inline-block;" />
             </td>
           </tr>
 
@@ -721,7 +722,7 @@ function buildLowBalanceEmailHtml(opts: {
           <tr>
             <td style="padding:20px 32px;background-color:#fafafa;border-top:1px solid #eeeeee;">
               <p style="margin:0;font-size:11px;color:#999999;text-align:center;line-height:1.5;">
-                Automated alert from JewlX. You're receiving this because your AI credit balance dropped below ${opts.thresholdCredits.toLocaleString()} credits.
+                Automated alert from Aurezo. You're receiving this because your AI credit balance dropped below ${opts.thresholdCredits.toLocaleString()} credits.
               </p>
             </td>
           </tr>
@@ -760,7 +761,7 @@ function buildAdminLowBalanceEmailHtml(opts: {
         <table role="presentation" width="640" cellpadding="0" cellspacing="0" style="max-width:640px;width:100%;background-color:#ffffff;border-radius:8px;overflow:hidden;">
           <tr>
             <td style="background-color:#000000;padding:24px 32px;text-align:center;">
-              <img src="https://d2lo9ju43icaaa.cloudfront.net/jewlx-logo-white.png" alt="JewlX" height="40" style="height:40px;display:inline-block;" />
+              <img src="https://studio.aurezotech.com/images/aurezo-logo-white.png" alt="Aurezo" height="40" style="height:40px;display:inline-block;" />
             </td>
           </tr>
           <tr>
@@ -802,7 +803,7 @@ function buildAdminLowBalanceEmailHtml(opts: {
           <tr>
             <td style="padding:20px 32px;background-color:#fafafa;border-top:1px solid #eeeeee;">
               <p style="margin:0;font-size:11px;color:#999999;text-align:center;line-height:1.5;">
-                Automated admin alert from JewlX. Sent because a client's AI credit balance dropped to the critical tier.
+                Automated admin alert from Aurezo. Sent because a client's AI credit balance dropped to the critical tier.
               </p>
             </td>
           </tr>

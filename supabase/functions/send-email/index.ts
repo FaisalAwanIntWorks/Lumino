@@ -18,7 +18,7 @@ try {
   console.error("RESEND_API_KEY not configured - email sending disabled");
 }
 
-const FROM_EMAIL = "JewlX <onboarding@resend.dev>";
+const FROM_EMAIL = "Aurezo <onboarding@resend.dev>";
 const REPLY_TO = Deno.env.get("SUPPORT_EMAIL") || undefined;
 
 interface EmailRequest {

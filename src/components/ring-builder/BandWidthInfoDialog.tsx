@@ -12,7 +12,7 @@ export const BandWidthInfoDialog = ({ open, onOpenChange }: BandWidthInfoDialogP
 
   return createPortal(
     <div className="fixed inset-0 z-[60] animate-in fade-in-0 duration-200">
-      <div className="jewlx-info-backdrop fixed inset-0 bg-black/60" onClick={() => onOpenChange(false)} />
+      <div className="aurezo-info-backdrop fixed inset-0 bg-black/60" onClick={() => onOpenChange(false)} />
 
       <div className="fixed inset-0 md:left-[50%] flex items-stretch">
         <div className="relative w-full h-full overflow-y-auto bg-background">

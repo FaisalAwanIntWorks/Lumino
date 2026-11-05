@@ -9,7 +9,7 @@ const corsHeaders = {
   "Access-Control-Allow-Headers": "authorization, x-client-info, apikey, content-type",
 };
 
-const FROM_EMAIL = "JewlX <onboarding@resend.dev>";
+const FROM_EMAIL = "Aurezo <onboarding@resend.dev>";
 const REPLY_TO = Deno.env.get("SUPPORT_EMAIL") || undefined;
 
 interface OrderUpdateRequest {
@@ -111,7 +111,7 @@ const handler = async (req: Request): Promise<Response> => {
     <tr><td align="center" style="padding:40px 20px;">
       <table role="presentation" style="width:100%;max-width:560px;border-collapse:collapse;background-color:#ffffff;border-radius:8px;overflow:hidden;box-shadow:0 1px 3px rgba(0,0,0,0.08);">
         <tr><td style="padding:32px 40px 24px;text-align:center;background-color:#000000;">
-          <img src="https://vault.jewlx.ai/images/jewelx-email-logo.png" alt="JewlX" style="height:56px;" />
+          <img src="https://studio.aurezotech.com/images/aurezo-email-logo.png" alt="Aurezo" style="height:56px;" />
         </td></tr>
         <tr><td style="padding:40px;">
           <h2 style="margin:0 0 8px;color:#1a1a1a;font-size:22px;font-weight:600;">${headerTitle}</h2>
@@ -122,14 +122,14 @@ const handler = async (req: Request): Promise<Response> => {
           </div>
           <table role="presentation" style="width:100%;border-collapse:collapse;">
             <tr><td align="center" style="padding:16px 0;">
-              <a href="https://vault.jewlx.ai/orders" style="display:inline-block;padding:12px 24px;background-color:#0b6e4f;color:#ffffff;text-decoration:none;font-size:15px;font-weight:600;border-radius:6px;">View Orders</a>
+              <a href="https://studio.aurezotech.com/orders" style="display:inline-block;padding:12px 24px;background-color:#0b6e4f;color:#ffffff;text-decoration:none;font-size:15px;font-weight:600;border-radius:6px;">View Orders</a>
             </td></tr>
           </table>
         </td></tr>
         <tr><td style="padding:24px 40px;background-color:#fafafa;border-top:1px solid #eee;">
           <p style="margin:0;color:#999;font-size:12px;text-align:center;">
-            This is an automated notification from JewlX.<br>&copy; ${new Date().getFullYear()} JewlX. All rights reserved.<br>
-            <a href="https://vault.jewlx.ai" style="color:#0b6e4f;text-decoration:none;font-weight:600;">vault.jewlx.ai</a>
+            This is an automated notification from Aurezo.<br>&copy; ${new Date().getFullYear()} Aurezo. All rights reserved.<br>
+            <a href="https://studio.aurezotech.com" style="color:#0b6e4f;text-decoration:none;font-weight:600;">studio.aurezotech.com</a>
           </p>
         </td></tr>
       </table>

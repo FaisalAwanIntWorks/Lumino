@@ -60,7 +60,7 @@ export function AuthProvider({ children }: { children: ReactNode }) {
   const [loggingOut, setLoggingOut] = useState(false);
   const [rememberMe, setRememberMe] = useState(() => {
     // Load remember me preference from localStorage
-    return localStorage.getItem('jewlx_remember_me') === 'true';
+    return localStorage.getItem('aurezo_remember_me') === 'true';
   });
   const navigate = useNavigate();
   const { toast } = useToast();
@@ -71,7 +71,7 @@ export function AuthProvider({ children }: { children: ReactNode }) {
 
   // Save remember me preference
   useEffect(() => {
-    localStorage.setItem('jewlx_remember_me', String(rememberMe));
+    localStorage.setItem('aurezo_remember_me', String(rememberMe));
   }, [rememberMe]);
 
   // Get session timeout based on role and remember me setting

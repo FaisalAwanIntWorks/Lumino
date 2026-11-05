@@ -301,10 +301,10 @@ Deno.serve(async (req) => {
             product: {
               title: productTitle,
               body_html: productDescription,
-              vendor: client.company_name || 'JewelX',
+              vendor: client.company_name || 'Aurezo',
               product_type: 'Diamond',
               status: 'active', // Active but published only to Headless channel (not visible in Online Store)
-              tags: ['JewelX', 'Diamond', stone.stone_type, stone.color, stone.clarity].join(', '),
+              tags: ['Aurezo', 'Diamond', stone.stone_type, stone.color, stone.clarity].join(', '),
               variants: [{
                 price: String(stone.price),
                 sku: stone.sku || `${stone.stone_type}-${stone.carat}ct-${stone.color}-${stone.clarity}`,
@@ -312,10 +312,10 @@ Deno.serve(async (req) => {
                 inventory_policy: 'continue',
               }],
               metafields: [
-                { namespace: 'jewelx', key: 'stone_type', value: stone.stone_type, type: 'single_line_text_field' },
-                { namespace: 'jewelx', key: 'carat', value: String(stone.carat), type: 'number_decimal' },
-                { namespace: 'jewelx', key: 'color', value: stone.color, type: 'single_line_text_field' },
-                { namespace: 'jewelx', key: 'clarity', value: stone.clarity, type: 'single_line_text_field' },
+                { namespace: 'aurezo', key: 'stone_type', value: stone.stone_type, type: 'single_line_text_field' },
+                { namespace: 'aurezo', key: 'carat', value: String(stone.carat), type: 'number_decimal' },
+                { namespace: 'aurezo', key: 'color', value: stone.color, type: 'single_line_text_field' },
+                { namespace: 'aurezo', key: 'clarity', value: stone.clarity, type: 'single_line_text_field' },
               ],
             }
           };

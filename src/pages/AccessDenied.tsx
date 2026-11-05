@@ -62,7 +62,7 @@ export default function AccessDenied({ reason = 'unauthorized', message }: Acces
       <div className="max-w-md w-full text-center space-y-6">
         {/* Logo */}
         <div className="flex justify-center">
-          <img src={iconBlackBg} alt="JewlX" className="h-16 w-16 object-contain rounded-2xl" />
+          <img src={iconBlackBg} alt="Aurezo" className="h-16 w-16 object-contain rounded-2xl" />
         </div>
 
         {/* Icon */}

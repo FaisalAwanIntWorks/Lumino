@@ -1118,7 +1118,7 @@ const Settings = () => {
               <div className="space-y-2">
                 <Label htmlFor="gtmId" className="text-sm font-medium">Google Tag Manager Container ID (optional)</Label>
                 <p className="text-xs text-muted-foreground">
-                  If you prefer managing tags yourself, add your container ID. Every submission pushes a <span className="font-mono">jewlx_lead</span> event to the dataLayer of the page the widget sits on, so your own tag can fire there.
+                  If you prefer managing tags yourself, add your container ID. Every submission pushes a <span className="font-mono">aurezo_lead</span> event to the dataLayer of the page the widget sits on, so your own tag can fire there.
                 </p>
                 <div className="flex gap-2">
                   <Input

@@ -181,7 +181,7 @@ async function upsertSubscription(
 /**
  * Payment Link auto-onboarding.
  * Triggered by checkout.session.completed when a brand-new customer pays via a
- * Stripe Payment Link (no user_id metadata). Provisions a JewlX account end-to-end.
+ * Stripe Payment Link (no user_id metadata). Provisions an Aurezo account end-to-end.
  */
 async function handlePaymentLinkOnboarding(
   session: Stripe.Checkout.Session,
@@ -542,7 +542,7 @@ async function handlePaymentLinkOnboarding(
     logStep("WARN: failed to upsert client role", { authUserId, error: roleError.message });
   }
 
-  // Generate our own custom recovery token (vault.jewlx.ai domain — no Supabase URL leak)
+  // Generate our own custom recovery token (studio.aurezotech.com domain — no Supabase URL leak)
   let recoveryLink: string | null = null;
   try {
     const tokenBytes = new Uint8Array(32);
@@ -567,7 +567,7 @@ async function handlePaymentLinkOnboarding(
     if (tokenErr) {
       logStep("Failed to store custom recovery token", { error: tokenErr.message });
     } else {
-      recoveryLink = `https://vault.jewlx.ai/reset-password?token=${customToken}`;
+      recoveryLink = `https://studio.aurezotech.com/reset-password?token=${customToken}`;
     }
   } catch (e) {
     logStep("Failed to generate recovery link", { error: String(e) });
@@ -580,7 +580,7 @@ async function handlePaymentLinkOnboarding(
         user_id: authUserId,
         client_email: customerEmail,
         company_name: businessName,
-        redirect_url: "https://vault.jewlx.ai",
+        redirect_url: "https://studio.aurezotech.com",
         plan_name: planName,
         recovery_link: recoveryLink,
       },
@@ -649,7 +649,7 @@ async function handlePaymentLinkOnboarding(
  *
  * Three cases:
  *  A)  mode=subscription with metadata.user_id  → existing in-app upgrade flow
- *  A2) mode=subscription via Payment Link       → auto-create JewlX account
+ *  A2) mode=subscription via Payment Link       → auto-create Aurezo account
  *  B)  type=credit_purchase                     → credit wallet (idempotent)
  */
 async function handleCheckoutCompleted(

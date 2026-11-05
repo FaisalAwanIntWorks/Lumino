@@ -92,14 +92,14 @@ export default function OtpVerify() {
       toast({
         variant: 'destructive',
         title: 'Access Denied',
-        description: 'This portal is for administrators only. Please use vault.jewlx.ai',
+        description: 'This portal is for administrators only. Please use studio.aurezotech.com',
       });
       return;
     }
 
     if (portalType === 'client' && userRole === 'agency_admin') {
       await supabase.auth.signOut();
-      toast({ title: 'Wrong Portal', description: 'Please use admin.jewlx.ai for admin access.' });
+      toast({ title: 'Wrong Portal', description: 'Please use studioadmin.aurezotech.com for admin access.' });
       window.location.href = `https://${PRODUCTION_DOMAINS.admin}/login`;
       return;
     }
@@ -243,11 +243,11 @@ export default function OtpVerify() {
         <div className="relative text-center text-white space-y-8 z-10">
           <div className="flex justify-center mb-8 animate-float">
             <div className="bg-primary-dark p-6 rounded-3xl shadow-2xl">
-              <img src={iconBlackBg} alt="JewlX" className="h-28 w-28 object-contain" />
+              <img src={iconBlackBg} alt="Aurezo" className="h-28 w-28 object-contain" />
             </div>
           </div>
 
-          <h1 className="text-6xl font-bold mb-4 drop-shadow-lg">JewlX</h1>
+          <h1 className="text-6xl font-bold mb-4 drop-shadow-lg">Aurezo</h1>
           <p className="text-2xl font-medium opacity-90 max-w-md mx-auto">
             Premium Jewelry Configurator Platform
           </p>
@@ -290,9 +290,9 @@ export default function OtpVerify() {
           {/* Mobile Logo */}
           <div className="lg:hidden flex flex-col items-center mb-8">
             <div className="bg-primary p-5 rounded-3xl shadow-lg mb-4">
-              <img src={iconBlackBg} alt="JewlX" className="h-20 w-20 object-contain" />
+              <img src={iconBlackBg} alt="Aurezo" className="h-20 w-20 object-contain" />
             </div>
-            <h1 className="text-4xl font-bold gradient-text">JewlX</h1>
+            <h1 className="text-4xl font-bold gradient-text">Aurezo</h1>
           </div>
 
           <Card className="p-8 shadow-luxury border-border bg-card text-card-foreground">

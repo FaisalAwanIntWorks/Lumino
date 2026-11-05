@@ -25,9 +25,9 @@ export function generateGrillBuilderEmbedCode(
 
   return generateEmbedCode({
     embedUrl,
-    containerId: `jewlx-grillz-${clientId.slice(0, 8)}`,
-    iframeTitle: 'JewlX Grill Builder',
-    commentLabel: 'JewlX Grill Builder Widget',
+    containerId: `aurezo-grillz-${clientId.slice(0, 8)}`,
+    iframeTitle: 'Aurezo Grill Builder',
+    commentLabel: 'Aurezo Grill Builder Widget',
     height,
   });
 }

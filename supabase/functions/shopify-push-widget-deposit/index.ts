@@ -174,10 +174,10 @@ Deno.serve(async (req) => {
         body: JSON.stringify({
           product: {
             title: productTitle,
-            vendor: client.company_name || 'JewelX',
+            vendor: client.company_name || 'Aurezo',
             product_type: 'Deposit',
             status: 'active',
-            tags: 'JewelX_widget_deposit',
+            tags: 'Aurezo_widget_deposit',
             variants: [{
               price: depositAmount.toFixed(2),
               inventory_management: null,

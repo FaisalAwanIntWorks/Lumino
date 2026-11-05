@@ -92,7 +92,7 @@ export default function AIConfigurator() {
     (catalogAccessLevel && String(catalogAccessLevel).toLowerCase() === 'edit');
 
   useEffect(() => {
-    document.title = 'Client • AI Configurator | Jewlx';
+    document.title = 'Client • AI Configurator | Aurezo';
     loadData();
   }, [user, role, staffInfo, isImpersonating, impersonatedClientId]);
 
@@ -164,7 +164,7 @@ export default function AIConfigurator() {
       .eq('client_id', clientId);
 
     if (sessions) {
-      // Total Chats = number of unique conversation sessions with the JewlX Agent
+      // Total Chats = number of unique conversation sessions with the Aurezo Agent
       const totalChats = sessions.length;
       
       // Total messages across all sessions
@@ -464,7 +464,7 @@ export default function AIConfigurator() {
           <Lock className="h-4 w-4" />
           <AlertTitle>Access Denied</AlertTitle>
           <AlertDescription className="text-sm">
-            You do not have permission to view the JewlX Agent Training or Catalog. 
+            You do not have permission to view the Aurezo Agent Training or Catalog. 
             Please contact your account administrator to request access.
           </AlertDescription>
         </Alert>
@@ -733,7 +733,7 @@ export default function AIConfigurator() {
                 <div className="px-4 sm:px-6 pb-4 sm:pb-6 border-t border-border pt-4">
                   <p className="text-xs sm:text-sm text-muted-foreground mb-4">
                     {canEdit 
-                      ? "Fill in answers to these frequently asked questions. The JewlX Agent will use these to provide accurate responses to your customers."
+                      ? "Fill in answers to these frequently asked questions. The Aurezo Agent will use these to provide accurate responses to your customers."
                       : "View the FAQ questions and answers configured for your store."
                     }
                   </p>

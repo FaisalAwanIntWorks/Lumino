@@ -145,7 +145,7 @@ export const ActionButtons = ({
               Book
             </button>
 
-            {/* Top Right (spans 2 rows if JewlX Agent is hidden): Next/Add to Cart */}
+            {/* Top Right (spans 2 rows if Aurezo Agent is hidden): Next/Add to Cart */}
             <button
               onClick={isLastStep ? onAddToCart : onNext}
               disabled={!canAdvance}
@@ -190,14 +190,14 @@ export const ActionButtons = ({
               </button>
             )}
 
-            {/* Bottom Right: JewlX Agent */}
+            {/* Bottom Right: Aurezo Agent */}
             {showAIAssistant && (
               <button
                 onClick={onAIAssistant}
                 className="h-8 md:h-10 bg-transparent text-foreground/90 hover:bg-foreground hover:text-background transition-all duration-200 flex items-center justify-center gap-1.5 text-sm font-medium"
               >
                 
-                JewlX Agent
+                Aurezo Agent
               </button>
             )}
           </div>

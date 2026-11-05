@@ -1,19 +1,19 @@
 /**
- * Internal JewlX portals that are always trusted as embed referrers.
+ * Internal Aurezo portals that are always trusted as embed referrers.
  * Used by embed pages to allow the "Test in New Tab" flow from
- * vault.jewlx.ai / admin.jewlx.ai without forcing jewelers to add
+ * studio.aurezotech.com / studioadmin.aurezotech.com without forcing jewelers to add
  * those domains to their public allowed_domains whitelist.
  */
 const TRUSTED_HOSTS = [
-  'vault.jewlx.ai',
-  'admin.jewlx.ai',
-  'builder.jewlx.ai',
-  'jewlx.ai',
+  'studio.aurezotech.com',
+  'studioadmin.aurezotech.com',
+  'widget.aurezotech.com',
+  'aurezotech.com',
 ];
 
 /**
  * Returns true when the request comes from the same hostname as the
- * widget OR from one of our internal JewlX portals.
+ * widget OR from one of our internal Aurezo portals.
  * External embeds still go through the allowed_domains whitelist.
  */
 export function isTrustedReferrer(referrer: string, currentHostname: string): boolean {

@@ -48,7 +48,7 @@ export function QuoteGemstonePickerCard({ value, onChange }: Props) {
         <div>
           <h3 className="text-lg font-semibold text-foreground flex items-center gap-2"><Sparkles className="h-4 w-4" /> Gemstone picker</h3>
           <p className="text-xs text-muted-foreground">
-            After the "Pick your gemstone" card, the customer sees that gemstone's real stones from the JewlX gemstone pool as product cards
+            After the "Pick your gemstone" card, the customer sees that gemstone's real stones from the Aurezo gemstone pool as product cards
             (picture, carat, colour, cut, origin, treatment, lab, measurements, price), sorted by price with a per-page choice and pages. The
             picked stone's details and price go into the quote, the lead and both emails. Saved with "Save Configuration".
           </p>

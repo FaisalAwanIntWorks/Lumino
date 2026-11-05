@@ -146,7 +146,7 @@ const CATEGORY_CONFIG: Record<string, { label: string; badgeLabel: string; class
   orders: { label: 'Orders', badgeLabel: 'ORDERS', className: 'bg-amber-500/10 text-amber-600 border-amber-500/20' },
   design: { label: 'Design', badgeLabel: 'DESIGN', className: 'bg-pink-500/10 text-pink-600 border-pink-500/20' },
   shopify: { label: 'Shopify', badgeLabel: 'SHOPIFY', className: 'bg-emerald-500/10 text-emerald-600 border-emerald-500/20' },
-  ai_configuration: { label: 'JewlX Agent', badgeLabel: 'AI', className: 'bg-violet-500/10 text-violet-600 border-violet-500/20' },
+  ai_configuration: { label: 'Aurezo Agent', badgeLabel: 'AI', className: 'bg-violet-500/10 text-violet-600 border-violet-500/20' },
   documents: { label: 'Documents', badgeLabel: 'DOCS', className: 'bg-cyan-500/10 text-cyan-600 border-cyan-500/20' },
   general: { label: 'General', badgeLabel: 'GENERAL', className: 'bg-slate-500/10 text-slate-600 border-slate-500/20' },
 };

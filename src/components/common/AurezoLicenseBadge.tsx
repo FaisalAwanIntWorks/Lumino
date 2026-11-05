@@ -1,12 +1,12 @@
 import { Badge } from '@/components/ui/badge';
 import { Shield } from 'lucide-react';
 
-interface JewlXLicenseBadgeProps {
+interface AurezoLicenseBadgeProps {
   size?: 'xs' | 'sm' | 'md';
   className?: string;
 }
 
-export function JewlXLicenseBadge({ size = 'sm', className = '' }: JewlXLicenseBadgeProps) {
+export function AurezoLicenseBadge({ size = 'sm', className = '' }: AurezoLicenseBadgeProps) {
   const sizeClasses = {
     xs: 'text-[10px] px-1.5 py-0.5',
     sm: 'text-xs px-2 py-1',
@@ -25,7 +25,7 @@ export function JewlXLicenseBadge({ size = 'sm', className = '' }: JewlXLicenseB
       className={`bg-primary/10 text-primary border-primary/20 flex items-center gap-1 ${sizeClasses[size]} ${className}`}
     >
       <Shield className={iconSizes[size]} />
-      <span>Licensed by JewlX</span>
+      <span>Licensed by Aurezo</span>
     </Badge>
   );
 }

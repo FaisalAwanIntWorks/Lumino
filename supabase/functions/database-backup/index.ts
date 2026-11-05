@@ -2,7 +2,7 @@ import { createClient } from "npm:@supabase/supabase-js@2";
 import { denyReadOnlyAdmin, getAdminAccess } from "../_shared/admin-access.ts";
 
 /**
- * JewlX database backup (weekly cron + admin "Run backup" button).
+ * Aurezo database backup (weekly cron + admin "Run backup" button).
  *
  * Backs up ONLY the configuration / business tables listed in BACKUP_TABLES.
  * The diamond & gemstone pools (re-uploadable CSV data, ~800k rows), AI preview

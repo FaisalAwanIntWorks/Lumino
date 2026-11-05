@@ -1,6 +1,6 @@
 // Edge function: ghl-provision-fields
 //
-// Creates the JewlX standard custom fields inside a client's CRM MVMNT (GHL)
+// Creates the Aurezo standard custom fields inside a client's CRM MVMNT (GHL)
 // location and writes the matching rows into client_ghl_field_mappings, so an
 // admin no longer has to build fields by hand and map them one by one.
 //
@@ -10,7 +10,7 @@
 //   dry_run: true  -> reads the location's existing fields and reports what
 //                     would be created / reused / is already mapped. Writes
 //                     nothing, neither in the CRM nor in our database.
-//   dry_run: false -> ensures the "JewlX" folder, creates only the missing
+//   dry_run: false -> ensures the "Aurezo" folder, creates only the missing
 //                     fields (Single Line text, Contact object), then upserts
 //                     the mappings. Hand-set mappings are never overwritten.
 //
@@ -96,7 +96,7 @@ Deno.serve(async (req) => {
     const catalog = catalogFor(form_type)
       .filter((f) => include_optional || !f.optional);
     if (!catalog.length) {
-      return json({ ok: false, error: `No JewlX field catalog for form "${form_type}" yet` }, 400);
+      return json({ ok: false, error: `No Aurezo field catalog for form "${form_type}" yet` }, 400);
     }
 
     const token = (typeof bodyToken === "string" && bodyToken.trim())
@@ -221,7 +221,7 @@ Deno.serve(async (req) => {
       });
     }
 
-    // ── Ensure the JewlX folder (best effort — degrade to top level) ────────
+    // ── Ensure the Aurezo folder (best effort — degrade to top level) ────────
     let folderId: string | null = null;
     let folderWarning: string | null = null;
     const folderHit = existing.find(

@@ -183,13 +183,13 @@ async function notifyAdminsPlanCreated(
   const resendKey = Deno.env.get("RESEND_API_KEY");
   const adminInbox = Deno.env.get("SUPPORT_EMAIL");
   if (!resendKey || !adminInbox) return;
-  const planEmailSubject = `[JewlX] Plan auto-created from Stripe — ${plan.name}`;
+  const planEmailSubject = `[Aurezo] Plan auto-created from Stripe — ${plan.name}`;
   try {
     const planEmailRes = await fetch("https://api.resend.com/emails", {
       method: "POST",
       headers: { "Content-Type": "application/json", Authorization: `Bearer ${resendKey}` },
       body: JSON.stringify({
-        from: "JewlX <onboarding@resend.dev>",
+        from: "Aurezo <onboarding@resend.dev>",
         to: [adminInbox],
         subject: planEmailSubject,
         html: `

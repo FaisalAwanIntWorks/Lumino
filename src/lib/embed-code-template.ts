@@ -67,7 +67,7 @@ export function generateEmbedCode({
   window.addEventListener('message', function(e) {
     var data;
     try { data = typeof e.data === 'string' ? JSON.parse(e.data) : e.data; } catch(x) { return; }
-    if (data && data.type === 'jewlx-resize' && typeof data.height === 'number') {
+    if (data && data.type === 'aurezo-resize' && typeof data.height === 'number') {
       var isMobile = window.innerWidth < 768;
       if (isMobile) return;
       var h = Math.max(500, Math.min(4000, data.height));

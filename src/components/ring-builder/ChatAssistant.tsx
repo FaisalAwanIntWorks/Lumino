@@ -13,6 +13,7 @@ import { QuickOptionButton } from './QuickOptionButton';
 import { RingCompletionCelebration } from './RingCompletionCelebration';
 import { ConfigurationSummaryCard } from './ConfigurationSummaryCard';
 import { FacetShiftThinking } from '@/components/ui/FacetShiftThinking';
+import { ASSET_CDN } from "@/lib/asset-cdn";
 
 // Typing indicator component (Snapchat-style)
 const TypingIndicator = () => (
@@ -67,7 +68,7 @@ interface RingAngleImages {
 }
 
 // CDN fallback: Solitaire High Polish Rose Gold Round
-const FALLBACK_CDN_BASE = 'https://do2z856wqq7wu.cloudfront.net/Solitaire/high-polish/rose/round';
+const FALLBACK_CDN_BASE = `${ASSET_CDN.rings}/Solitaire/high-polish/rose/round`;
 
 // Build all 4 ring image paths from configuration
 const buildRingImagePaths = (config: { style?: string; shank?: string; metal?: string; shape?: string }): RingAngleImages | null => {
@@ -146,7 +147,7 @@ interface ChatAssistantProps {
   onApplyConfiguration?: (config: any) => void;
   onClose?: () => void;
   clientId?: string;
-  /** Store/company name for personalised greeting (falls back to 'JewlX') */
+  /** Store/company name for personalised greeting (falls back to 'Aurezo') */
   storeName?: string;
   // Current ring configuration — full widget state including stone
   currentConfiguration?: WidgetConfig;
@@ -503,7 +504,7 @@ export const ChatAssistant = ({
   pricingMode
 }: ChatAssistantProps) => {
   const { theme } = useWidgetTheme();
-  const displayName = storeName || 'JewlX';
+  const displayName = storeName || 'Aurezo';
 
   // Context-aware greeting based on current configuration state
   const isDefaultBase = useCallback((cfg?: WidgetConfig): boolean => {

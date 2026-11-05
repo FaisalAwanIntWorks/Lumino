@@ -167,7 +167,7 @@ export const CRM_FORMS: CrmFormDef[] = [
     description: "The Diamond / Quote Estimator widget. Synced by sync-dtt-ghl-lead.",
     table: "diamond_form_leads",
     contact: { firstName: "first_name", email: "email", phone: "phone_number", countryCode: "country_code" },
-    defaultSource: "JewlX Diamond Form",
+    defaultSource: "Aurezo Diamond Form",
     defaultOppTemplate: "Diamond Form — {customer_name}",
     noteTitle: "Diamond Form submission",
     valueColumns: ["estimated_total"],
@@ -187,7 +187,7 @@ export const CRM_FORMS: CrmFormDef[] = [
     description: "Leads from the Grillz configurator widget.",
     table: "grill_form_leads",
     contact: { fullName: "customer_name", email: "customer_email", phone: "customer_phone" },
-    defaultSource: "JewlX Grillz Builder",
+    defaultSource: "Aurezo Grillz Builder",
     defaultOppTemplate: "Grillz — {customer_name}",
     noteTitle: "Grillz Builder submission",
     valueColumns: [],
@@ -204,7 +204,7 @@ export const CRM_FORMS: CrmFormDef[] = [
     description: "Leads from the custom jewellery enquiry widget.",
     table: "custom_enquiry_leads",
     contact: { fullName: "customer_name", email: "customer_email", phone: "customer_phone" },
-    defaultSource: "JewlX Custom Enquiry",
+    defaultSource: "Aurezo Custom Enquiry",
     defaultOppTemplate: "Custom Enquiry — {customer_name}",
     noteTitle: "Custom Enquiry submission",
     valueColumns: [],
@@ -224,7 +224,7 @@ export const CRM_FORMS: CrmFormDef[] = [
     // country_code is stored separately, but customer_phone is already written
     // as `${countryCode}${phone}` — do NOT prefix it again.
     contact: { fullName: "customer_name", email: "customer_email", phone: "customer_phone" },
-    defaultSource: "JewlX Metal IQ",
+    defaultSource: "Aurezo Metal IQ",
     defaultOppTemplate: "Metal IQ — {customer_name}",
     noteTitle: "Metal IQ submission",
     valueColumns: ["estimated_offer", "competitor_offer", "estimated_profit"],
@@ -243,7 +243,7 @@ export const CRM_FORMS: CrmFormDef[] = [
     description: "Leads from the Custom X Ring Builder wizard.",
     table: "design_requests",
     contact: { fullName: "customer_name", email: "customer_email", phone: "customer_phone" },
-    defaultSource: "JewlX Ring Builder",
+    defaultSource: "Aurezo Ring Builder",
     defaultOppTemplate: "Ring Builder — {customer_name}",
     noteTitle: "Ring Builder submission",
     valueColumns: [],
@@ -272,7 +272,7 @@ export const CRM_FORMS: CrmFormDef[] = [
     description: "A ring configured in the Ring OS builder and saved by the customer.",
     table: "saved_designs",
     contact: { fullName: "customer_name", email: "customer_email", phone: "customer_phone" },
-    defaultSource: "JewlX Ring OS — Saved Design",
+    defaultSource: "Aurezo Ring OS — Saved Design",
     defaultOppTemplate: "Ring OS — {product_name}",
     noteTitle: "Ring OS saved design",
     valueColumns: ["configuration.stone.price"],
@@ -290,7 +290,7 @@ export const CRM_FORMS: CrmFormDef[] = [
     description: "Consultation bookings, including the ring the customer was viewing.",
     table: "appointment_bookings",
     contact: { fullName: "customer_name", email: "customer_email", phone: "customer_phone" },
-    defaultSource: "JewlX Appointment Booking",
+    defaultSource: "Aurezo Appointment Booking",
     defaultOppTemplate: "Appointment — {customer_name}",
     noteTitle: "Appointment booking",
     valueColumns: ["ring_configuration.stone.price"],
@@ -306,7 +306,7 @@ export const CRM_FORMS: CrmFormDef[] = [
     formType: "order",
     label: "Shopify Order (Add to Cart)",
     description:
-      "A completed Shopify checkout that started in a JewlX widget. Written by shopify-order-webhook.",
+      "A completed Shopify checkout that started in an Aurezo widget. Written by shopify-order-webhook.",
     table: "orders",
     // `orders` has no phone column of its own — Shopify puts it on the shipping
     // address, so the contact phone is read from that JSONB leaf.
@@ -315,9 +315,9 @@ export const CRM_FORMS: CrmFormDef[] = [
       email: "customer_email",
       phone: "customer_shipping.phone",
     },
-    defaultSource: "JewlX Shopify Order",
+    defaultSource: "Aurezo Shopify Order",
     defaultOppTemplate: "Order {configuration.shopify_order_number} — {customer_name}",
-    noteTitle: "Shopify order (JewlX widget)",
+    noteTitle: "Shopify order (Aurezo widget)",
     valueColumns: ["total_amount"],
     questionKeys: [
       // Real columns on orders.

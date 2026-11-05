@@ -2,6 +2,7 @@ import { useCallback } from 'react';
 import { useQuery } from '@tanstack/react-query';
 import { supabase } from '@/integrations/supabase/client';
 import { toWebpImageUrl } from '@/lib/webp-image-fallback';
+import { ASSET_CDN } from "@/lib/asset-cdn";
 
 export interface CaratSizeImageRow {
   id: string;
@@ -85,7 +86,7 @@ export function useCaratSizeImages() {
       : EXTENDED_CARAT_FILENAMES[shape.toLowerCase()]?.[EXTENDED_CARAT_VALUES.indexOf(caratValue)];
     if (!filename) return undefined;
 
-    return toWebpImageUrl(`https://do2z856wqq7wu.cloudfront.net/${row.folder_path}/${filename}`);
+    return toWebpImageUrl(`${ASSET_CDN.rings}/${row.folder_path}/${filename}`);
   }, [rows]);
 
   return { getCaratImage, isLoading };

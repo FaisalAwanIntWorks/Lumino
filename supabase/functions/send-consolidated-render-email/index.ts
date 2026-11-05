@@ -3,7 +3,7 @@ import {
   loadCustomerBranding,
   renderEmailHeader,
   renderContactCta,
-  POWERED_BY_JEWLX_FOOTER,
+  POWERED_BY_AUREZO_FOOTER,
 } from "../_shared/customer-email-branding.ts";
 import { escapeHtml } from "../_shared/security-utils.ts";
 
@@ -64,7 +64,7 @@ function buildImageRows(imageUrls: string[]): string {
 /**
  * Jeweler copy: every AI generation is also sent to the account holder whose
  * widget produced it, regardless of where the customer receives their render.
- * Styled like the lead notification (JewlX-branded, not customer branding).
+ * Styled like the lead notification (Aurezo-branded, not customer branding).
  */
 function buildJewelerHtml(params: {
   formLabel: string;
@@ -98,7 +98,7 @@ function buildJewelerHtml(params: {
         <table role="presentation" style="width:100%;max-width:640px;border-collapse:collapse;background-color:#ffffff;border-radius:8px;overflow:hidden;box-shadow:0 1px 3px rgba(0,0,0,0.08);">
           <tr>
             <td style="padding:32px 40px 24px;text-align:center;background-color:#000000;">
-              <img src="https://vault.jewlx.ai/images/jewelx-email-logo.png" alt="JewlX" style="height:56px;" />
+              <img src="https://studio.aurezotech.com/images/aurezo-email-logo.png" alt="Aurezo" style="height:56px;" />
             </td>
           </tr>
           <tr>
@@ -128,12 +128,12 @@ function buildJewelerHtml(params: {
               </div>
               ` : ""}
 
-              <p style="margin:0;color:#777;font-size:13px;">Open <a href="https://vault.jewlx.ai/dashboard/leads" style="color:#0b6e4f;text-decoration:none;">Leads &amp; Bookings</a> in your JewlX dashboard to follow up.</p>
+              <p style="margin:0;color:#777;font-size:13px;">Open <a href="https://studio.aurezotech.com/dashboard/leads" style="color:#0b6e4f;text-decoration:none;">Leads &amp; Bookings</a> in your Aurezo dashboard to follow up.</p>
             </td>
           </tr>
           <tr>
             <td style="padding:24px 32px;background-color:#fafafa;border-top:1px solid #eee;">
-              <p style="margin:0;color:#999;font-size:12px;text-align:center;">Automated notification from JewlX.</p>
+              <p style="margin:0;color:#999;font-size:12px;text-align:center;">Automated notification from Aurezo.</p>
             </td>
           </tr>
         </table>
@@ -312,7 +312,7 @@ Deno.serve(async (req) => {
               <p style="margin:0;color:#999;font-size:12px;text-align:center;">
                 Automated notification from ${companyName}.<br>&copy; ${new Date().getFullYear()} ${companyName}. All rights reserved.
               </p>
-              ${POWERED_BY_JEWLX_FOOTER}
+              ${POWERED_BY_AUREZO_FOOTER}
 
             </td>
           </tr>
@@ -328,7 +328,7 @@ Deno.serve(async (req) => {
       ? `Your AI Design Preview${previewLabel} from ${companyName}`
       : `Your ${formLabel} Request Has Been Received — ${companyName}`;
 
-    const fromEmail = `${companyName} via JewlX <onboarding@resend.dev>`;
+    const fromEmail = `${companyName} via Aurezo <onboarding@resend.dev>`;
 
     // ── Customer email ──────────────────────────────────────────────────
     let customerSent = false;
@@ -390,7 +390,7 @@ Deno.serve(async (req) => {
       if (client?.email && !jewelerOptedOut && hasImages) {
         const jewelerSubject = `AI Render${generation_number ? ` #${generation_number}` : ""}: ${pendingData.customer_name || "Customer"} — ${formLabel}`;
         const jewelerFromName = (client.company_name || "").replace(/["\\<>]/g, "").trim();
-        const jewelerFrom = `${jewelerFromName ? `${jewelerFromName} via JewlX` : "JewlX"} <${JEWELER_FROM_ADDRESS}>`;
+        const jewelerFrom = `${jewelerFromName ? `${jewelerFromName} via Aurezo` : "Aurezo"} <${JEWELER_FROM_ADDRESS}>`;
         const jewelerResponse = await resend.emails.send({
           from: jewelerFrom,
           to: [client.email],

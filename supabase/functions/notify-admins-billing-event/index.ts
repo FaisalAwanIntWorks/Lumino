@@ -11,7 +11,7 @@ const corsHeaders = {
     "authorization, x-client-info, apikey, content-type",
 };
 
-const FROM_EMAIL = "JewlX <onboarding@resend.dev>";
+const FROM_EMAIL = "Aurezo <onboarding@resend.dev>";
 const REPLY_TO = Deno.env.get("SUPPORT_EMAIL") || undefined;
 
 type EventType =
@@ -188,8 +188,8 @@ serve(async (req) => {
       "#b91c1c";
 
     const adminUrl = body.client_id
-      ? `https://admin.jewlx.ai/admin/sub-accounts/${body.client_id}`
-      : `https://admin.jewlx.ai/admin/revenue-usage`;
+      ? `https://studioadmin.aurezotech.com/admin/sub-accounts/${body.client_id}`
+      : `https://studioadmin.aurezotech.com/admin/revenue-usage`;
 
     const rows: Array<[string, string]> = [];
     if (body.client_company) rows.push(["Company", body.client_company]);
@@ -223,12 +223,12 @@ serve(async (req) => {
 <table role="presentation" style="width:100%;border-collapse:collapse;"><tr><td align="center" style="padding:24px 12px;">
 <table role="presentation" style="width:100%;max-width:600px;border-collapse:collapse;background-color:#ffffff;border-radius:8px;overflow:hidden;box-shadow:0 1px 3px rgba(0,0,0,0.08);">
   <tr><td class="eh eb-head" style="padding:32px 40px 24px;text-align:center;background-color:#000000;">
-    <img src="https://vault.jewlx.ai/images/jewelx-email-logo.png" alt="JewlX" style="height:56px;" />
+    <img src="https://studio.aurezotech.com/images/aurezo-email-logo.png" alt="Aurezo" style="height:56px;" />
   </td></tr>
   <tr><td class="eb-pad" style="padding:36px 40px 8px;">
     <p style="margin:0 0 6px;color:${accent};font-size:12px;font-weight:700;letter-spacing:1.2px;text-transform:uppercase;">Billing Event</p>
     <h2 style="margin:0 0 12px;color:#1a1a1a;font-size:22px;font-weight:600;line-height:1.3;">${label.title}</h2>
-    <p style="margin:0 0 24px;color:#555;font-size:15px;line-height:1.6;">A new billing event was recorded on the JewlX platform.</p>
+    <p style="margin:0 0 24px;color:#555;font-size:15px;line-height:1.6;">A new billing event was recorded on the Aurezo platform.</p>
   </td></tr>
   <tr><td class="eb-pad2" style="padding:0 40px;">
     <div style="background-color:#f9f9f9;border:1px solid #eee;border-radius:6px;padding:16px 20px;margin-bottom:24px;">
@@ -240,14 +240,14 @@ serve(async (req) => {
     </td></tr></table>
   </td></tr>
   <tr><td class="eb-foot" style="padding:24px 40px;background-color:#fafafa;border-top:1px solid #eee;">
-    <p style="margin:0;color:#999;font-size:12px;text-align:center;">&copy; ${new Date().getFullYear()} JewlX Admin Notification<br>
-      <a href="https://admin.jewlx.ai" style="color:#0b6e4f;text-decoration:none;font-weight:600;">admin.jewlx.ai</a>
+    <p style="margin:0;color:#999;font-size:12px;text-align:center;">&copy; ${new Date().getFullYear()} Aurezo Admin Notification<br>
+      <a href="https://studioadmin.aurezotech.com" style="color:#0b6e4f;text-decoration:none;font-weight:600;">studioadmin.aurezotech.com</a>
     </p>
   </td></tr>
 </table>
 </td></tr></table></body></html>`;
 
-    const subject = `[JewlX] ${label.subject} — ${body.client_company ?? body.client_email ?? "client"} (${amount})`;
+    const subject = `[Aurezo] ${label.subject} — ${body.client_company ?? body.client_email ?? "client"} (${amount})`;
 
     const emailResp = await resend.emails.send({
       from: FROM_EMAIL,

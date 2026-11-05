@@ -137,7 +137,7 @@ function SidebarContent({ items, collapsed, footer, onLinkClick, onNavClick }: {
         )}
         {collapsed && (
           <Link to={logoHref} className="flex items-center justify-center group" onClick={onLinkClick}>
-            <img src={iconTransparent} alt="JewlX" className="h-12 w-12 object-contain transition-transform duration-300 group-hover:scale-110" />
+            <img src={iconTransparent} alt="Aurezo" className="h-12 w-12 object-contain transition-transform duration-300 group-hover:scale-110" />
           </Link>
         )}
       </div>

@@ -22,7 +22,7 @@ const newId = (): string => {
  * the "unique sessions" count inflates to one session per event.
  */
 export const getOrCreateSessionId = (): string => {
-  const KEY = 'jewlx_session_id';
+  const KEY = 'aurezo_session_id';
   try {
     let id = sessionStorage.getItem(KEY);
     if (!id) {
@@ -40,7 +40,7 @@ export const getOrCreateSessionId = (): string => {
 
 /** Widget sources recognised by the traffic dashboard. */
 export type WidgetViewSource =
-  | 'jewlx_widget'
+  | 'aurezo_widget'
   | 'ring_builder'
   | 'grillz_builder'
   | 'custom_enquiry'

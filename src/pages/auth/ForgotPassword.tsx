@@ -65,7 +65,7 @@ export default function ForgotPassword() {
             {/* Logo */}
             <div className="flex flex-col items-center mb-8">
               <div className="mb-4">
-                <img src={iconBlackBg} alt="JewlX" className="h-16 w-16 object-contain rounded-2xl" />
+                <img src={iconBlackBg} alt="Aurezo" className="h-16 w-16 object-contain rounded-2xl" />
               </div>
               <h1 className="text-3xl font-bold text-foreground">Reset Password</h1>
               <p className="text-muted-foreground text-sm mt-2 text-center">

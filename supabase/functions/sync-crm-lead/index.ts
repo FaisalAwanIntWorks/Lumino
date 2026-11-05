@@ -3,7 +3,7 @@
 // Generic CRM MVMNT (GoHighLevel) sync for every lead surface except the
 // Diamond Form: Ring Builder, Grillz, Custom Enquiry, Metal IQ, the Ring OS
 // surfaces (saved designs, appointment bookings) and completed Shopify orders
-// that started in a JewlX widget ('order').
+// that started in an Aurezo widget ('order').
 //
 // Invoked by the AFTER INSERT trigger public.trigger_crm_form_sync(<form_type>)
 // on each lead table. Behaves exactly like sync-dtt-ghl-lead — upsert contact,

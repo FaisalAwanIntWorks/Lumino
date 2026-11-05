@@ -83,7 +83,7 @@ export default function VerifyEmail() {
             <div className="bg-card border border-border rounded-2xl shadow-xl p-8">
               <div className="flex flex-col items-center mb-8">
                 <div className="mb-4">
-                  <img src={iconBlackBg} alt="JewlX" className="h-16 w-16 object-contain rounded-2xl" />
+                  <img src={iconBlackBg} alt="Aurezo" className="h-16 w-16 object-contain rounded-2xl" />
                 </div>
                 <div className="bg-destructive/10 p-4 rounded-full mb-4">
                   <AlertCircle className="h-8 w-8 text-destructive" />
@@ -120,7 +120,7 @@ export default function VerifyEmail() {
           <div className="bg-card border border-border rounded-2xl shadow-xl p-8">
             <div className="flex flex-col items-center mb-8">
               <div className="mb-4">
-                <img src={iconBlackBg} alt="JewlX" className="h-16 w-16 object-contain rounded-2xl" />
+                <img src={iconBlackBg} alt="Aurezo" className="h-16 w-16 object-contain rounded-2xl" />
               </div>
               <div className="bg-green-100 dark:bg-green-900/20 p-4 rounded-full mb-4">
                 <CheckCircle className="h-8 w-8 text-green-600 dark:text-green-400" />

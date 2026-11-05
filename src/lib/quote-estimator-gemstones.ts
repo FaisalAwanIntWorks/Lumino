@@ -2,7 +2,7 @@
  * Quote Estimator V3 gemstone picker.
  *
  * After the "Pick your gemstone" cards (Ruby, Sapphire, Beryl, …) the next
- * screen lists the real stones of that gemstone from the JewlX gemstone pool
+ * screen lists the real stones of that gemstone from the Aurezo gemstone pool
  * (Admin -> Gemstone Pool, the weekly Nivoda gemstone CSV) as product cards:
  * picture, carat, colour, cut, origin, treatment, lab, measurements and
  * price. The customer sorts by price, chooses how many cards to show per page

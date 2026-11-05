@@ -7,8 +7,8 @@
  * parent page and never see it.
  *
  * This snippet is appended to every generated embed code. It listens for the
- * `jewlx-lead` postMessage sent by `conversion-tracking.ts` and re-pushes it
- * as a `jewlx_lead` event into the PARENT page's dataLayer, where the
+ * `aurezo-lead` postMessage sent by `conversion-tracking.ts` and re-pushes it
+ * as a `aurezo_lead` event into the PARENT page's dataLayer, where the
  * client's own GTM tag can fire with full attribution.
  *
  * Hardening:
@@ -21,8 +21,8 @@
  */
 export const LEAD_BRIDGE_SNIPPET = `<script>
 (function(){
-  if (window.__jewlxLeadBridge) return;
-  window.__jewlxLeadBridge = true;
+  if (window.__aurezoLeadBridge) return;
+  window.__aurezoLeadBridge = true;
   var seen = {};
   function isWidgetFrame(source) {
     if (!source) return false;
@@ -37,20 +37,20 @@ export const LEAD_BRIDGE_SNIPPET = `<script>
     try { data = typeof e.data === 'string' ? JSON.parse(e.data) : e.data; } catch(x) { return; }
     if (!data) return;
     if (!isWidgetFrame(e.source)) return;
-    if (data.type === 'jewlx-event' && data.event) {
+    if (data.type === 'aurezo-event' && data.event) {
       var ev = { event: data.event };
       if (data.params) { for (var k in data.params) { if (Object.prototype.hasOwnProperty.call(data.params, k)) ev[k] = data.params[k]; } }
       window.dataLayer = window.dataLayer || [];
       window.dataLayer.push(ev);
       return;
     }
-    if (data.type !== 'jewlx-lead') return;
+    if (data.type !== 'aurezo-lead') return;
     if (data.lead_id) {
       if (seen[data.lead_id]) return;
       seen[data.lead_id] = true;
     }
     var payload = {
-      event: typeof data.event_name === 'string' && data.event_name ? data.event_name : 'jewlx_lead',
+      event: typeof data.event_name === 'string' && data.event_name ? data.event_name : 'aurezo_lead',
       form_type: data.form_type,
       lead_id: data.lead_id,
       sha256_email_address: data.sha256_email_address,

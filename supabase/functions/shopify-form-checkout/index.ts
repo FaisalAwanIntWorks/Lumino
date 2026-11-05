@@ -120,10 +120,10 @@ Deno.serve(async (req) => {
     };
 
     const sourceName = formType === 'grillz'
-      ? 'Grillz-builder-jewlx'
+      ? 'Grillz-builder-aurezo'
       : formType === 'ring_builder'
-        ? 'Ring-builder-jewlx'
-        : 'Custom-inquiry-jewlx';
+        ? 'Ring-builder-aurezo'
+        : 'Custom-inquiry-aurezo';
 
     const cartCreateMutation = `
       mutation cartCreate($input: CartInput!) {
@@ -290,10 +290,10 @@ async function recreateDepositProduct(
       body: JSON.stringify({
         product: {
           title: productTitle,
-          vendor: companyName || 'JewelX',
+          vendor: companyName || 'Aurezo',
           product_type: 'Deposit',
           status: 'active',
-          tags: 'JewelX_form_deposit',
+          tags: 'Aurezo_form_deposit',
           variants: [{
             price: depositAmount.toFixed(2),
             inventory_management: null,

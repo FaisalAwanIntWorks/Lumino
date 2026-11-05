@@ -10,7 +10,7 @@ const corsHeaders = {
   "Access-Control-Allow-Headers": "authorization, x-client-info, apikey, content-type",
 };
 
-const FROM_EMAIL = "JewlX <onboarding@resend.dev>";
+const FROM_EMAIL = "Aurezo <onboarding@resend.dev>";
 const REPLY_TO = Deno.env.get("SUPPORT_EMAIL") || undefined;
 const OTP_EXPIRY_MINUTES = 10;
 
@@ -114,7 +114,7 @@ serve(async (req: Request) => {
 <table role="presentation" style="width:100%;border-collapse:collapse;"><tr><td align="center" style="padding:40px 20px;">
 <table role="presentation" style="width:100%;max-width:560px;background:#fff;border-radius:8px;overflow:hidden;box-shadow:0 1px 3px rgba(0,0,0,0.08);">
 <tr><td style="padding:32px 40px 24px;text-align:center;background:#000;">
-<img src="https://vault.jewlx.ai/images/jewelx-email-logo.png" alt="JewlX" style="height:56px;" />
+<img src="https://studio.aurezotech.com/images/aurezo-email-logo.png" alt="Aurezo" style="height:56px;" />
 </td></tr>
 <tr><td style="padding:40px;">
 <h2 style="margin:0 0 8px;color:#1a1a1a;font-size:22px;font-weight:600;">Confirm Sensitive Action</h2>
@@ -132,7 +132,7 @@ If you did not request this, ignore this email and consider changing your passwo
 </p>
 </td></tr>
 <tr><td style="padding:20px 40px;background:#fafafa;border-top:1px solid #eee;text-align:center;">
-<p style="margin:0;color:#999;font-size:12px;">&copy; ${new Date().getFullYear()} JewlX Admin Security</p>
+<p style="margin:0;color:#999;font-size:12px;">&copy; ${new Date().getFullYear()} Aurezo Admin Security</p>
 </td></tr>
 </table></td></tr></table></body></html>`;
 

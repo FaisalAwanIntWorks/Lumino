@@ -32,7 +32,7 @@ interface OrderDetailDialogProps {
 
 const INTERNAL_KEYS = new Set([
   '_source', 'line_items', 'shopify_order_number', 'currency',
-  '_JewelX', '_jewelx', '_jewlx',
+  '_Aurezo', '_aurezo', '_aurezo',
 ]);
 
 const getDisplayAmount = (order: OrderDetailDialogProps['order']) => {

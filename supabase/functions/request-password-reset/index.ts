@@ -10,7 +10,7 @@ const corsHeaders = {
   "Access-Control-Allow-Headers": "authorization, x-client-info, apikey, content-type",
 };
 
-const FROM_EMAIL = "JewlX <onboarding@resend.dev>";
+const FROM_EMAIL = "Aurezo <onboarding@resend.dev>";
 const REPLY_TO = Deno.env.get("SUPPORT_EMAIL") || undefined;
 
 // Generate a secure random token
@@ -99,7 +99,7 @@ const handler = async (req: Request): Promise<Response> => {
     }
 
     // Build reset URL
-    const baseUrl = redirect_url || "https://vault.jewlx.ai";
+    const baseUrl = redirect_url || "https://studio.aurezotech.com";
     const resetUrl = `${baseUrl}/reset-password?token=${token}`;
 
     // Send reset email
@@ -130,7 +130,7 @@ const handler = async (req: Request): Promise<Response> => {
           <!-- Header -->
           <tr>
             <td class="email-header" style="padding: 32px 40px 24px; text-align: center; background-color: #000000;">
-              <img src="https://vault.jewlx.ai/images/jewelx-email-logo.png" alt="JewlX" style="height: 56px;" />
+              <img src="https://studio.aurezotech.com/images/aurezo-email-logo.png" alt="Aurezo" style="height: 56px;" />
             </td>
           </tr>
           <!-- Content -->
@@ -138,7 +138,7 @@ const handler = async (req: Request): Promise<Response> => {
             <td style="padding: 40px;">
               <h2 style="margin: 0 0 16px 0; color: #1a1a1a; font-size: 22px; font-weight: 600;">Reset Your Password</h2>
               <p style="margin: 0 0 24px 0; color: #555; font-size: 15px; line-height: 1.6;">
-                We received a request to reset the password for your JewlX account. Click the button below to set a new password.
+                We received a request to reset the password for your Aurezo account. Click the button below to set a new password.
               </p>
               <!-- Button -->
               <table role="presentation" style="width: 100%; border-collapse: collapse;">
@@ -159,8 +159,8 @@ const handler = async (req: Request): Promise<Response> => {
           <tr>
             <td style="padding: 24px 40px; background-color: #fafafa; border-top: 1px solid #eee;">
               <p style="margin: 0; color: #999; font-size: 12px; text-align: center;">
-                &copy; ${new Date().getFullYear()} JewlX. All rights reserved.<br>
-                <a href="https://jewlx.ai" style="color: #0b6e4f; text-decoration: none; font-weight: 600;">jewlx.ai</a>
+                &copy; ${new Date().getFullYear()} Aurezo. All rights reserved.<br>
+                <a href="https://aurezotech.com" style="color: #0b6e4f; text-decoration: none; font-weight: 600;">aurezotech.com</a>
               </p>
             </td>
           </tr>
@@ -175,7 +175,7 @@ const handler = async (req: Request): Promise<Response> => {
     const emailResponse = await resend.emails.send({
       from: FROM_EMAIL,
       to: [email],
-      subject: "Reset Your JewlX Password",
+      subject: "Reset Your Aurezo Password",
       html: emailHtml,
       reply_to: REPLY_TO,
     });
@@ -186,7 +186,7 @@ const handler = async (req: Request): Promise<Response> => {
     await supabase.from("email_logs").insert({
       recipient_email: email,
       email_type: "password_reset",
-      subject: "Reset Your JewlX Password",
+      subject: "Reset Your Aurezo Password",
       status: "sent",
       resend_id: emailResponse.data?.id,
     });

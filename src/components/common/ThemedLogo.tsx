@@ -7,7 +7,7 @@ interface ThemedLogoProps {
   alt?: string;
 }
 
-export function ThemedLogo({ className = 'h-12 w-auto', alt = 'JewlX' }: ThemedLogoProps) {
+export function ThemedLogo({ className = 'h-12 w-auto', alt = 'Aurezo' }: ThemedLogoProps) {
   const { resolvedTheme } = useTheme();
   const logo = resolvedTheme === 'dark' ? logoWhite : logoLight;
 

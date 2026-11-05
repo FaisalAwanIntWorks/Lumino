@@ -579,8 +579,8 @@ serve(async (req) => {
       { key: "Shape", value: ringConfiguration.shape?.charAt(0).toUpperCase() + (ringConfiguration.shape?.slice(1) || "") || "" },
       { key: "Size", value: ringConfiguration.size || "" },
       { key: "Carat Range", value: caratLabel },
-      // JewelX identification marker
-      { key: "_source", value: "JewelX Ring Builder" },
+      // Aurezo identification marker
+      { key: "_source", value: "Aurezo Ring Builder" },
       { key: "_pricing_mode", value: isEstimatesMode ? "estimates_deposit" : "custom_pricing" },
       { key: "_catalog_item_id", value: matchingRing?.id ?? "" },
     ];
@@ -718,11 +718,11 @@ serve(async (req) => {
     const cartInput = {
       lines: cartLines,
       attributes: [
-        { key: "_source", value: "JewelX Ring Builder" },
+        { key: "_source", value: "Aurezo Ring Builder" },
         { key: "_client_id", value: clientId },
         { key: "_catalog_item_id", value: matchingRing?.id ?? "" },
       ],
-      note: `JewelX Ring Builder Order - ${client.company_name}`
+      note: `Aurezo Ring Builder Order - ${client.company_name}`
     };
 
     console.log('Creating Shopify cart with', cartLines.length, 'line items...');

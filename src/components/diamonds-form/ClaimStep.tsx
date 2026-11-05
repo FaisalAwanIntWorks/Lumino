@@ -195,7 +195,7 @@ export function ClaimStep({
   }, [lineItems]);
 
   // NOTE: iframe height is reported once, centrally, by useEmbedAutoHeight on
-  // the embed page. This component must not post its own `jewlx-resize`.
+  // the embed page. This component must not post its own `aurezo-resize`.
 
   const money = useMemo(
     () => (v: number) =>

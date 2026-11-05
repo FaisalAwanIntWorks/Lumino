@@ -1,5 +1,6 @@
-const RING_ICON = "https://do2z856wqq7wu.cloudfront.net/Solitaire/high-polish/rose/round/wex20aa6goaktc6150i1r.png";
-const DIAMOND_ICON = "https://d2ybchbsrb165p.cloudfront.net/GenericDttFormImagesTransparent/diamond_shape/Round.png";
+import { ASSET_CDN } from "@/lib/asset-cdn";
+const RING_ICON = `${ASSET_CDN.rings}/Solitaire/high-polish/rose/round/wex20aa6goaktc6150i1r.png`;
+const DIAMOND_ICON = `${ASSET_CDN.ringBuilder}/GenericDttFormImagesTransparent/diamond_shape/Round.png`;
 
 interface Props {
   properties: Record<string, string>;

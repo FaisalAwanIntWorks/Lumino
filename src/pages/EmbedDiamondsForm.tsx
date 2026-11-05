@@ -228,7 +228,7 @@ export default function EmbedDiamondsForm() {
       window.scrollTo({ top: 0, behavior: 'auto' });
       document.documentElement.scrollTop = 0;
       if (document.body) document.body.scrollTop = 0;
-      window.parent?.postMessage(JSON.stringify({ type: 'jewlx-scroll-top' }), '*');
+      window.parent?.postMessage(JSON.stringify({ type: 'aurezo-scroll-top' }), '*');
     } catch { /* cross-origin safety */ }
   }, [currentStep, useQuoteScroll]);
 

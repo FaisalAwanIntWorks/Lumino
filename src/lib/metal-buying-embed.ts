@@ -48,7 +48,7 @@ export const generateMetalBuyingEmbedCode = (
   var iframe = document.getElementById('${containerId}-iframe');
   if (!iframe) return;
   window.addEventListener('message', function(e) {
-    if (!e.data || e.data.type !== 'jewlx-resize') return;
+    if (!e.data || e.data.type !== 'aurezo-resize') return;
     var h = parseInt(e.data.height, 10);
     if (isNaN(h) || h < 500) h = 500;
     if (h > 4000) h = 4000;

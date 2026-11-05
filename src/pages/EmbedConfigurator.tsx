@@ -229,7 +229,7 @@ export default function EmbedConfigurator() {
     window.visualViewport?.addEventListener('resize', updateHeight);
 
     // Notify host page that widget is ready for height sync
-    window.parent?.postMessage(JSON.stringify({ type: 'jewlx-ready' }), '*');
+    window.parent?.postMessage(JSON.stringify({ type: 'aurezo-ready' }), '*');
 
     // --- Auto-height reporting to parent ---
     let resizeTimer: ReturnType<typeof setTimeout> | null = null;
@@ -240,7 +240,7 @@ export default function EmbedConfigurator() {
       );
       if (tabletFit) h = clampTabletFitHeight(h, window.innerWidth);
       try {
-        window.parent?.postMessage(JSON.stringify({ type: 'jewlx-resize', height: h }), '*');
+        window.parent?.postMessage(JSON.stringify({ type: 'aurezo-resize', height: h }), '*');
       } catch { /* cross-origin safety */ }
     };
 
@@ -280,7 +280,7 @@ export default function EmbedConfigurator() {
     };
   }, [tabletFit, clientOverrides.undimmedInfoPopups]);
 
-  // 24k embeds should not expose JewlX in the browser tab title either.
+  // 24k embeds should not expose Aurezo in the browser tab title either.
   useEffect(() => {
     if (currentTheme === 'twentyfourk') {
       document.title = 'Ring Configurator';
@@ -396,7 +396,7 @@ export default function EmbedConfigurator() {
   useEffect(() => {
     if (searchParams.get('preview') === 'true') return;
     if (domainAuthorized && featureEnabled && clientId) {
-      void trackWidgetView(clientId, 'jewlx_widget');
+      void trackWidgetView(clientId, 'aurezo_widget');
     }
   }, [domainAuthorized, featureEnabled, clientId, searchParams]);
 
@@ -927,7 +927,7 @@ export default function EmbedConfigurator() {
       <WidgetThemeProvider theme={currentTheme} styleOverrides={themeStyleOverrides} colors={resolvedThemeColors}>
         <div
           ref={embedRootRef}
-          id="jewlx-embed-root"
+          id="aurezo-embed-root"
           className="bg-background overflow-hidden"
           data-theme={currentTheme}
           style={{ height: 'var(--embed-vh, 100dvh)', ...themeStyleOverrides } as React.CSSProperties}
@@ -993,7 +993,7 @@ export default function EmbedConfigurator() {
         
         <div 
           ref={embedRootRef}
-          id="jewlx-embed-root" 
+          id="aurezo-embed-root" 
           className="bg-background flex flex-col md:flex-row overflow-hidden" 
           data-theme={currentTheme}
           data-tablet-fit={tabletFit ? 'true' : undefined}

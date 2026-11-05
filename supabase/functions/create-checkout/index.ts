@@ -199,7 +199,7 @@ serve(async (req) => {
         : "Email fingerprint clear — no prior trial found"
     );
 
-    const origin = req.headers.get("origin") || "https://vault.jewlx.ai";
+    const origin = req.headers.get("origin") || "https://studio.aurezotech.com";
 
     // Build line items
     const lineItems: Stripe.Checkout.SessionCreateParams.LineItem[] = [

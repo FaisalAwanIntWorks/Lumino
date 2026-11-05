@@ -10,7 +10,7 @@ const corsHeaders = {
   "Access-Control-Allow-Headers": "authorization, x-client-info, apikey, content-type",
 };
 
-const FROM_EMAIL = "JewlX <onboarding@resend.dev>";
+const FROM_EMAIL = "Aurezo <onboarding@resend.dev>";
 const REPLY_TO = Deno.env.get("SUPPORT_EMAIL") || undefined;
 
 // Generate a secure random token
@@ -55,7 +55,7 @@ const handler = async (req: Request): Promise<Response> => {
       );
     }
 
-    const baseUrl = redirect_url || "https://vault.jewlx.ai";
+    const baseUrl = redirect_url || "https://studio.aurezotech.com";
     let setupUrl = recovery_link || "";
 
     // If caller didn't pre-generate a recovery link, fall back to legacy custom token
@@ -96,7 +96,7 @@ const handler = async (req: Request): Promise<Response> => {
 <head>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Welcome to JewlX</title>
+  <title>Welcome to Aurezo</title>
 </head>
 <body style="margin: 0; padding: 0; background-color: #f5f5f5; font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, 'Helvetica Neue', Arial, sans-serif;">
   <table role="presentation" style="width: 100%; border-collapse: collapse;">
@@ -106,15 +106,15 @@ const handler = async (req: Request): Promise<Response> => {
           <!-- Header -->
           <tr>
             <td style="padding: 32px 40px 24px; text-align: center; background-color: #000000;">
-              <img src="https://vault.jewlx.ai/images/jewelx-email-logo.png" alt="JewlX" style="height: 56px;" />
+              <img src="https://studio.aurezotech.com/images/aurezo-email-logo.png" alt="Aurezo" style="height: 56px;" />
             </td>
           </tr>
           <!-- Content -->
           <tr>
             <td style="padding: 40px;">
-              <h2 style="margin: 0 0 16px 0; color: #1a1a1a; font-size: 22px; font-weight: 600;">Welcome to JewlX</h2>
+              <h2 style="margin: 0 0 16px 0; color: #1a1a1a; font-size: 22px; font-weight: 600;">Welcome to Aurezo</h2>
               <p style="margin: 0 0 16px 0; color: #555; font-size: 15px; line-height: 1.6;">
-                Congratulations! Your company <strong style="color: #1a1a1a;">${company_name}</strong> has been registered on the JewlX platform.
+                Congratulations! Your company <strong style="color: #1a1a1a;">${company_name}</strong> has been registered on the Aurezo platform.
               </p>
               ${planLine}
               <!-- Account Details -->
@@ -131,7 +131,7 @@ const handler = async (req: Request): Promise<Response> => {
                   </tr>
                   <tr>
                     <td style="padding: 6px 0; color: #777; font-size: 14px;">Portal:</td>
-                    <td style="padding: 6px 0; color: #1a1a1a; font-size: 14px; font-weight: 500;">vault.jewlx.ai</td>
+                    <td style="padding: 6px 0; color: #1a1a1a; font-size: 14px; font-weight: 500;">studio.aurezotech.com</td>
                   </tr>
                 </table>
               </div>
@@ -153,7 +153,7 @@ const handler = async (req: Request): Promise<Response> => {
               </p>
               <!-- What's Next -->
               <div style="margin-top: 24px; padding: 20px; background-color: #f9f9f9; border: 1px solid #eee; border-radius: 6px;">
-                <p style="margin: 0 0 12px 0; color: #1a1a1a; font-size: 13px; font-weight: 600;">What you can do with JewlX:</p>
+                <p style="margin: 0 0 12px 0; color: #1a1a1a; font-size: 13px; font-weight: 600;">What you can do with Aurezo:</p>
                 <ul style="margin: 0; padding-left: 20px; color: #555; font-size: 14px; line-height: 1.8;">
                   <li>Access your personalized jewelry catalog</li>
                   <li>Customize ring designs for your customers</li>
@@ -168,8 +168,8 @@ const handler = async (req: Request): Promise<Response> => {
           <tr>
             <td style="padding: 24px 40px; background-color: #fafafa; border-top: 1px solid #eee;">
               <p style="margin: 0; color: #999; font-size: 12px; text-align: center;">
-                &copy; ${new Date().getFullYear()} JewlX. All rights reserved.<br>
-                <a href="https://jewlx.ai" style="color: #0b6e4f; text-decoration: none; font-weight: 600;">jewlx.ai</a>
+                &copy; ${new Date().getFullYear()} Aurezo. All rights reserved.<br>
+                <a href="https://aurezotech.com" style="color: #0b6e4f; text-decoration: none; font-weight: 600;">aurezotech.com</a>
               </p>
             </td>
           </tr>
@@ -184,7 +184,7 @@ const handler = async (req: Request): Promise<Response> => {
     const emailResponse = await resend.emails.send({
       from: FROM_EMAIL,
       to: [client_email],
-      subject: `Welcome to JewlX - Your account for ${company_name} is ready`,
+      subject: `Welcome to Aurezo - Your account for ${company_name} is ready`,
       html: emailHtml,
       reply_to: REPLY_TO,
     });
@@ -195,7 +195,7 @@ const handler = async (req: Request): Promise<Response> => {
     await supabase.from("email_logs").insert({
       recipient_email: client_email,
       email_type: "client_welcome",
-      subject: `Welcome to JewlX - Your account for ${company_name} is ready`,
+      subject: `Welcome to Aurezo - Your account for ${company_name} is ready`,
       status: "sent",
       resend_id: emailResponse.data?.id,
       metadata: { 

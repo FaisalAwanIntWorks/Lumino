@@ -87,7 +87,7 @@ const NOTIFICATION_TYPES: NotificationType[] = [
   {
     key: 'system_announcements',
     label: 'System Announcements',
-    description: 'Platform updates, new features, and maintenance notifications from JewlX.',
+    description: 'Platform updates, new features, and maintenance notifications from Aurezo.',
     icon: AlertTriangle,
   },
   {

@@ -125,19 +125,19 @@ export function escapeHtml(s: string): string {
     .replace(/'/g, '&#x27;');
 }
 
-// JewlX internal portals that are always considered trusted embed origins.
+// Aurezo internal portals that are always considered trusted embed origins.
 const INTERNAL_TRUSTED_HOSTS = [
-  'vault.jewlx.ai',
-  'admin.jewlx.ai',
-  'builder.jewlx.ai',
-  'jewlx.ai',
+  'studio.aurezotech.com',
+  'studioadmin.aurezotech.com',
+  'widget.aurezotech.com',
+  'aurezotech.com',
 ];
 
 /**
  * Resolves the correct `Access-Control-Allow-Origin` value for an edge-function response.
  *
  * - No restrictions configured (empty allowedDomains) → return '*' (backwards-compatible).
- * - Origin matches an internal JewlX portal or an allowed domain → echo the specific origin.
+ * - Origin matches an internal Aurezo portal or an allowed domain → echo the specific origin.
  * - Origin is present but NOT in the whitelist → return the literal string 'null', which the
  *   caller must treat as "blocked" and return a 403 (the browser will see no valid ACAO header).
  * - No Origin header → return '*' (non-browser / server-to-server calls).

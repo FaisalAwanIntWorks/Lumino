@@ -20,7 +20,7 @@ export default function Login() {
   const [loading, setLoading] = useState(false);
   const submittingRef = useRef(false);
   const [rememberMe, setRememberMe] = useState(() => {
-    return localStorage.getItem('jewlx_remember_me') === 'true';
+    return localStorage.getItem('aurezo_remember_me') === 'true';
   });
   const [failedAttempts, setFailedAttempts] = useState(0);
   const navigate = useNavigate();
@@ -30,7 +30,7 @@ export default function Login() {
 
   // Save remember me preference
   useEffect(() => {
-    localStorage.setItem('jewlx_remember_me', String(rememberMe));
+    localStorage.setItem('aurezo_remember_me', String(rememberMe));
   }, [rememberMe]);
 
   const handleLogin = async (e: React.FormEvent<HTMLFormElement>) => {
@@ -92,7 +92,7 @@ export default function Login() {
           toast({
             variant: 'destructive',
             title: 'Access Denied',
-            description: 'This portal is for administrators only. Please use vault.jewlx.ai',
+            description: 'This portal is for administrators only. Please use studio.aurezotech.com',
           });
           return;
         }
@@ -102,7 +102,7 @@ export default function Login() {
           await supabase.auth.signOut();
           toast({
             title: 'Wrong Portal',
-            description: 'Please use admin.jewlx.ai for admin access.',
+            description: 'Please use studioadmin.aurezotech.com for admin access.',
           });
           window.location.href = `https://${PRODUCTION_DOMAINS.admin}/login`;
           return;
@@ -153,12 +153,12 @@ export default function Login() {
     if (portalType === 'admin') {
       return {
         title: 'Admin Portal',
-        subtitle: 'Sign in to manage JewlX platform',
+        subtitle: 'Sign in to manage Aurezo platform',
         showSignup: false,
       };
     }
     return {
-      title: 'JewlX',
+      title: 'Aurezo',
       subtitle: 'Sign in to your account',
       showSignup: true,
     };
@@ -174,7 +174,7 @@ export default function Login() {
           {/* Logo */}
           <div className="flex flex-col items-center mb-8">
             <div className="mb-4">
-              <img src={iconBlackBg} alt="JewlX" className="h-16 w-16 object-contain rounded-2xl" />
+              <img src={iconBlackBg} alt="Aurezo" className="h-16 w-16 object-contain rounded-2xl" />
             </div>
             <h1 className="text-3xl font-bold text-foreground">{portalInfo.title}</h1>
             <p className="text-muted-foreground text-sm mt-2">{portalInfo.subtitle}</p>

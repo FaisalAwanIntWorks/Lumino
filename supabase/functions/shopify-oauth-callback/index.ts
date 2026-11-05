@@ -62,8 +62,8 @@ function htmlRedirect(url: string, message: string): Response {
 
 function defaultReturnUrl(shop: string, ok: boolean, errMsg?: string, opts?: { admin?: boolean; clientId?: string }): string {
   const base = opts?.admin && opts?.clientId
-    ? `https://admin.jewlx.ai/admin/clients/${opts.clientId}`
-    : "https://vault.jewlx.ai/settings/shopify";
+    ? `https://studioadmin.aurezotech.com/admin/clients/${opts.clientId}`
+    : "https://studio.aurezotech.com/settings/shopify";
   const params = new URLSearchParams();
   params.set(ok ? "connected" : "error", ok ? "1" : (errMsg || "1"));
   params.set("shop", shop);
@@ -180,7 +180,7 @@ serve(async (req) => {
           "X-Shopify-Access-Token": adminAccessToken,
         },
         body: JSON.stringify({
-          query: `mutation { storefrontAccessTokenCreate(input: { title: "JewlX Storefront ${Date.now()}" }) {
+          query: `mutation { storefrontAccessTokenCreate(input: { title: "Aurezo Storefront ${Date.now()}" }) {
             storefrontAccessToken { accessToken } userErrors { field message } } }`,
         }),
       });

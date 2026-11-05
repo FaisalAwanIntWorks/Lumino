@@ -46,14 +46,14 @@ const getDisplayOrderNumber = (order: Order) => {
 };
 
 const SOURCE_BADGE_MAP: Record<string, { label: string; className: string }> = {
-  'jewlx-widget': { label: 'Ring OS', className: 'bg-blue-500/10 text-blue-600 border-blue-500/20' },
+  'aurezo-widget': { label: 'Ring OS', className: 'bg-blue-500/10 text-blue-600 border-blue-500/20' },
   'ring-builder': { label: 'Ring Builder', className: 'bg-emerald-500/10 text-emerald-600 border-emerald-500/20' },
   'grillz-builder': { label: 'Grillz', className: 'bg-amber-500/10 text-amber-600 border-amber-500/20' },
   'custom-inquiry': { label: 'Custom', className: 'bg-purple-500/10 text-purple-600 border-purple-500/20' },
 };
 
 const getSourceBadge = (order: Order) => {
-  const source = order.order_source || 'jewlx-widget';
+  const source = order.order_source || 'aurezo-widget';
   const info = SOURCE_BADGE_MAP[source] || { label: 'Ring OS', className: 'bg-blue-500/10 text-blue-600 border-blue-500/20' };
   const isDeposit = ['ring-builder', 'grillz-builder', 'custom-inquiry'].includes(source);
   return { ...info, isDeposit };

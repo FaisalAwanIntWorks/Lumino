@@ -303,7 +303,7 @@ export function CadFilesSection({ cadLoading, cadFileUrl, cadFiles, order, clien
                       Resize Request Submitted
                     </p>
                     <p className="text-muted-foreground mt-0.5">
-                      Your resize request for <strong>Size {orderRingSize}</strong> has been submitted to JewlX admin. You will receive an update soon.
+                      Your resize request for <strong>Size {orderRingSize}</strong> has been submitted to Aurezo admin. You will receive an update soon.
                     </p>
                   </div>
                 </div>

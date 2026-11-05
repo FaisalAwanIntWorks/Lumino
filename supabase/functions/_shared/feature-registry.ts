@@ -22,7 +22,7 @@ export const FEATURE_REGISTRY: EdgeFeatureDefinition[] = [
   { key: "product_catalogue", label: "Catalog", fullAccess: true, subscriptionGated: true },
   { key: "orders", label: "Orders", fullAccess: true, subscriptionGated: true },
   { key: "embed_branding", label: "Widget", fullAccess: true, subscriptionGated: false },
-  { key: "jewlx_agent", label: "JewlX Agent", fullAccess: true, subscriptionGated: true },
+  { key: "jewlx_agent", label: "Aurezo Agent", fullAccess: true, subscriptionGated: true },
   { key: "diamond_form", label: "Ring Builder", fullAccess: true, subscriptionGated: true },
   { key: "dtt_v2", label: "Quote Estimator", fullAccess: true, subscriptionGated: true },
   { key: "grillz_builder", label: "Grillz Builder", fullAccess: true, subscriptionGated: true },

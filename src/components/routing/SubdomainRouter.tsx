@@ -12,12 +12,12 @@ interface SubdomainRouterProps {
 
 /**
  * Routes requests based on the current subdomain
- * - admin.jewlx.ai -> Admin routes only
- * - vault.jewlx.ai -> Client routes only
- * - builder.jewlx.ai -> Embed routes only
+ * - studioadmin.aurezotech.com -> Admin routes only
+ * - studio.aurezotech.com -> Client routes only
+ * - widget.aurezotech.com -> Embed routes only
  * - localhost/dev -> All routes (development mode)
  * 
- * Note: Root domain (jewlx.ai) is handled by a separate marketing website project
+ * Note: Root domain (aurezotech.com) is handled by a separate marketing website project
  */
 export function SubdomainRouter({
   children,

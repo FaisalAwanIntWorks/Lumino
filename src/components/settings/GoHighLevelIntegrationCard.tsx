@@ -326,7 +326,7 @@ export function GoHighLevelIntegrationCard({ clientId }: Props) {
     }
   };
 
-  // ── Auto-provision the JewlX standard custom fields in the CRM ───────────
+  // ── Auto-provision the Aurezo standard custom fields in the CRM ───────────
   const startProvision = async () => {
     if (!clientId) return;
     if (!locationId.trim()) { toast.error('Enter a Location ID first'); return; }
@@ -433,7 +433,7 @@ export function GoHighLevelIntegrationCard({ clientId }: Props) {
           CRM MVMNT Integration
         </CardTitle>
         <CardDescription>
-          Push leads from every JewlX form and from Ring OS straight into this client's CRM MVMNT
+          Push leads from every Aurezo form and from Ring OS straight into this client's CRM MVMNT
           sub-account. Connect the sub-account once below, then enable and map each form on its own tab.
           {enabledCount > 0 && ` ${enabledCount} of ${CRM_FORMS.length} surfaces enabled.`}
         </CardDescription>

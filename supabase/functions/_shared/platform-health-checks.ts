@@ -9,6 +9,7 @@
  */
 // deno-lint-ignore-file no-explicit-any
 import { UNKEY_API_BASE } from "./unkey.ts";
+import { ASSET_CDN } from "./asset-cdn.ts";
 
 export type HealthStatus = "operational" | "degraded" | "down";
 
@@ -556,13 +557,13 @@ export async function runExternalChecks(
 
   // CDNs — any HTTP response from the edge proves the distribution is serving.
   checks.push((async () => {
-    const r = await probe("https://do2z856wqq7wu.cloudfront.net/", { method: "HEAD" });
+    const r = await probe(`${ASSET_CDN.rings}/`, { method: "HEAD" });
     const c = classify(r, settings, [400, 403, 404, 405]);
     const message = c.status === "operational" ? "Edge is serving" : c.message;
     return { component: "Product Images CDN", category: CATEGORY.cdn, status: c.status, latency: r.latency, message, details: { http_status: r.status, probe: "HEAD / (distribution root)" } };
   })());
   checks.push((async () => {
-    const r = await probe("https://d2lo9ju43icaaa.cloudfront.net/", { method: "HEAD" });
+    const r = await probe(`${ASSET_CDN.main}/`, { method: "HEAD" });
     const c = classify(r, settings, [400, 403, 404, 405]);
     const message = c.status === "operational" ? "Edge is serving" : c.message;
     return { component: "UI Assets CDN", category: CATEGORY.cdn, status: c.status, latency: r.latency, message, details: { http_status: r.status, probe: "HEAD / (distribution root)" } };

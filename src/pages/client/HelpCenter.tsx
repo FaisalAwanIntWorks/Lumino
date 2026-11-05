@@ -154,7 +154,7 @@ export default function HelpCenter() {
 
     toast({
       title: "Query submitted",
-      description: "The JewlX Technical Team will respond within 24 hours. Check your email for confirmation.",
+      description: "The Aurezo Technical Team will respond within 24 hours. Check your email for confirmation.",
     });
     setSubject(""); setMessage(""); setCategory("general");
     setComposeOpen(false);
@@ -210,7 +210,7 @@ export default function HelpCenter() {
         <div>
           <h1 className="text-3xl font-bold mb-1">Help Center</h1>
           <p className="text-muted-foreground text-sm">
-            Submit a query and the JewlX Technical Team will respond within 24 hours.
+            Submit a query and the Aurezo Technical Team will respond within 24 hours.
           </p>
         </div>
         <Button onClick={() => setComposeOpen(true)} className="gap-2">
@@ -226,7 +226,7 @@ export default function HelpCenter() {
         <Card className="p-12 text-center border-dashed">
           <Inbox className="h-10 w-10 mx-auto mb-3 text-muted-foreground" />
           <h3 className="font-semibold mb-1">No queries yet</h3>
-          <p className="text-sm text-muted-foreground mb-5">Click "New Query" to ask the JewlX team anything about the platform.</p>
+          <p className="text-sm text-muted-foreground mb-5">Click "New Query" to ask the Aurezo team anything about the platform.</p>
           <Button onClick={() => setComposeOpen(true)} variant="outline" className="gap-2">
             <MessageSquarePlus className="h-4 w-4" /> Submit your first query
           </Button>
@@ -249,7 +249,7 @@ export default function HelpCenter() {
                     Submitted {format(new Date(t.created_at), "MMM d, yyyy 'at' h:mm a")}
                     {t.last_admin_reply_at && (
                       <span className="ml-2 inline-flex items-center gap-1 text-emerald-500">
-                        <CheckCircle2 className="h-3 w-3" /> JewlX replied {format(new Date(t.last_admin_reply_at), "MMM d")}
+                        <CheckCircle2 className="h-3 w-3" /> Aurezo replied {format(new Date(t.last_admin_reply_at), "MMM d")}
                       </span>
                     )}
                   </p>
@@ -272,7 +272,7 @@ export default function HelpCenter() {
                       <AlertDialogHeader>
                         <AlertDialogTitle>Delete this query?</AlertDialogTitle>
                         <AlertDialogDescription>
-                          This will permanently remove the query and all replies for both you and the JewlX team. This action cannot be undone.
+                          This will permanently remove the query and all replies for both you and the Aurezo team. This action cannot be undone.
                         </AlertDialogDescription>
                       </AlertDialogHeader>
                       <AlertDialogFooter>
@@ -320,7 +320,7 @@ export default function HelpCenter() {
             </div>
             <p className="text-xs text-muted-foreground flex items-start gap-1.5">
               <Clock className="h-3.5 w-3.5 mt-0.5 shrink-0" />
-              You'll receive an email confirmation. The JewlX Technical Team typically responds within 24 hours.
+              You'll receive an email confirmation. The Aurezo Technical Team typically responds within 24 hours.
             </p>
             <div className="flex justify-end gap-2 pt-2">
               <Button variant="ghost" onClick={() => setComposeOpen(false)} disabled={submitting}>Cancel</Button>
@@ -360,7 +360,7 @@ export default function HelpCenter() {
                     className={`pl-3 py-1 border-l-2 ${m.author_role === "admin" ? "border-emerald-500/60 bg-emerald-500/5 rounded-r" : "border-primary/40"}`}
                   >
                     <div className="text-xs text-muted-foreground mb-1">
-                      {m.author_role === "admin" ? "JewlX Technical Team" : (m.author_name || "You")} — {format(new Date(m.created_at), "MMM d, h:mm a")}
+                      {m.author_role === "admin" ? "Aurezo Technical Team" : (m.author_name || "You")} — {format(new Date(m.created_at), "MMM d, h:mm a")}
                     </div>
                     <p className="text-sm whitespace-pre-wrap">{m.body}</p>
                   </div>

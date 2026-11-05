@@ -31,9 +31,9 @@ const corsHeaders = {
   "Access-Control-Allow-Headers": "authorization, x-client-info, apikey, content-type",
 };
 
-const FROM_EMAIL = "JewlX <onboarding@resend.dev>";
+const FROM_EMAIL = "Aurezo <onboarding@resend.dev>";
 const REPLY_TO = Deno.env.get("SUPPORT_EMAIL") || undefined;
-const ADMIN_BASE_URL = "https://admin.jewlx.ai";
+const ADMIN_BASE_URL = "https://studioadmin.aurezotech.com";
 
 const log = (s: string, d?: unknown) =>
   console.log(`[ALERT-ACCESS-CHANGE] ${s}${d ? " - " + JSON.stringify(d) : ""}`);
@@ -150,7 +150,7 @@ function renderEmail(spec: EmailSpec): string {
 <table role="presentation" style="width:100%;border-collapse:collapse;"><tr><td align="center" style="padding:24px 12px;">
 <table role="presentation" style="width:100%;max-width:600px;border-collapse:collapse;background-color:#ffffff;border-radius:8px;overflow:hidden;box-shadow:0 1px 3px rgba(0,0,0,0.08);">
   <tr><td class="eh eb-head" style="padding:32px 40px 24px;text-align:center;background-color:#000000;">
-    <img src="https://vault.jewlx.ai/images/jewelx-email-logo.png" alt="JewlX" style="height:56px;" />
+    <img src="https://studio.aurezotech.com/images/aurezo-email-logo.png" alt="Aurezo" style="height:56px;" />
   </td></tr>
   <tr><td class="eb-pad" style="padding:36px 40px 8px;">
     <p style="margin:0 0 6px;color:${spec.accent};font-size:12px;font-weight:700;letter-spacing:1.2px;text-transform:uppercase;">${spec.kicker}</p>
@@ -167,8 +167,8 @@ function renderEmail(spec: EmailSpec): string {
     </td></tr></table>
   </td></tr>
   <tr><td class="eb-foot" style="padding:24px 40px;background-color:#fafafa;border-top:1px solid #eee;">
-    <p style="margin:0;color:#999;font-size:12px;text-align:center;">&copy; ${new Date().getFullYear()} JewlX Admin Notification<br>
-      <a href="${ADMIN_BASE_URL}" style="color:#0b6e4f;text-decoration:none;font-weight:600;">admin.jewlx.ai</a>
+    <p style="margin:0;color:#999;font-size:12px;text-align:center;">&copy; ${new Date().getFullYear()} Aurezo Admin Notification<br>
+      <a href="${ADMIN_BASE_URL}" style="color:#0b6e4f;text-decoration:none;font-weight:600;">studioadmin.aurezotech.com</a>
     </p>
   </td></tr>
 </table>
@@ -524,7 +524,7 @@ serve(async (req) => {
         });
         await sendEmail(
           to,
-          `[JewlX] ${widgetAlert.title}`,
+          `[Aurezo] ${widgetAlert.title}`,
           html,
           `admin_widget_${widgetAlert.deactivated ? "deactivated" : "activated"}`,
         );
@@ -559,7 +559,7 @@ serve(async (req) => {
           rows,
           clientId: event.client_id,
         });
-        await sendEmail(to, `[JewlX] ${title} — ${clientName}`, html, `admin_access_${event.event_type}`);
+        await sendEmail(to, `[Aurezo] ${title} — ${clientName}`, html, `admin_access_${event.event_type}`);
       }
     }
 

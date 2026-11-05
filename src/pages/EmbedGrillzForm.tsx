@@ -8,7 +8,7 @@ import AccessDenied from './AccessDenied';
 
 /**
  * Public embeddable Grillz Builder Form page.
- * Route: /embed-grillz/:clientId (dev) or /grillz/:clientId (builder.jewlx.ai)
+ * Route: /embed-grillz/:clientId (dev) or /grillz/:clientId (widget.aurezotech.com)
  * This page is designed to be embedded in an iframe on external websites.
  */
 export default function EmbedGrillzForm() {

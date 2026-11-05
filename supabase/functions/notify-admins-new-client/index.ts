@@ -10,7 +10,7 @@ const corsHeaders = {
   "Access-Control-Allow-Headers": "authorization, x-client-info, apikey, content-type",
 };
 
-const FROM_EMAIL = "JewlX <onboarding@resend.dev>";
+const FROM_EMAIL = "Aurezo <onboarding@resend.dev>";
 const REPLY_TO = Deno.env.get("SUPPORT_EMAIL") || undefined;
 
 interface NotifyAdminsRequest {
@@ -95,12 +95,12 @@ const handler = async (req: Request): Promise<Response> => {
       <table role="presentation" style="width:100%;max-width:560px;border-collapse:collapse;background-color:#ffffff;border-radius:8px;overflow:hidden;box-shadow:0 1px 3px rgba(0,0,0,0.08);">
         <!-- Header -->
         <tr><td class="eh" style="padding:32px 40px 24px;text-align:center;background-color:#000000;">
-          <img src="https://vault.jewlx.ai/images/jewelx-email-logo.png" alt="JewlX" style="height:56px;" />
+          <img src="https://studio.aurezotech.com/images/aurezo-email-logo.png" alt="Aurezo" style="height:56px;" />
         </td></tr>
         <!-- Content -->
         <tr><td style="padding:40px;">
           <h2 style="margin:0 0 16px;color:#1a1a1a;font-size:22px;font-weight:600;">New Client Registered</h2>
-          <p style="margin:0 0 24px;color:#555;font-size:15px;line-height:1.6;">A new client has been registered on the JewlX platform.</p>
+          <p style="margin:0 0 24px;color:#555;font-size:15px;line-height:1.6;">A new client has been registered on the Aurezo platform.</p>
           <!-- Client Details -->
           <div style="background-color:#f9f9f9;border:1px solid #eee;border-radius:6px;padding:20px;margin-bottom:20px;">
             <p style="margin:0 0 12px;color:#1a1a1a;font-size:13px;font-weight:600;text-transform:uppercase;">New Client Information</p>
@@ -123,7 +123,7 @@ const handler = async (req: Request): Promise<Response> => {
           <!-- Button -->
           <table role="presentation" style="width:100%;border-collapse:collapse;">
             <tr><td align="center" style="padding:16px 0;">
-              <a href="https://admin.jewlx.ai/clients" style="display:inline-block;padding:12px 24px;background-color:#0b6e4f;color:#ffffff;text-decoration:none;font-size:15px;font-weight:600;border-radius:6px;">View All Clients</a>
+              <a href="https://studioadmin.aurezotech.com/clients" style="display:inline-block;padding:12px 24px;background-color:#0b6e4f;color:#ffffff;text-decoration:none;font-size:15px;font-weight:600;border-radius:6px;">View All Clients</a>
             </td></tr>
           </table>
           <p style="margin:16px 0 0;color:#777;font-size:13px;text-align:center;">The client has received a welcome email with setup instructions.</p>
@@ -131,8 +131,8 @@ const handler = async (req: Request): Promise<Response> => {
         <!-- Footer -->
         <tr><td style="padding:24px 40px;background-color:#fafafa;border-top:1px solid #eee;">
           <p style="margin:0;color:#999;font-size:12px;text-align:center;">
-            &copy; ${new Date().getFullYear()} JewlX Admin Notification<br>
-            <a href="https://admin.jewlx.ai" style="color:#0b6e4f;text-decoration:none;font-weight:600;">admin.jewlx.ai</a>
+            &copy; ${new Date().getFullYear()} Aurezo Admin Notification<br>
+            <a href="https://studioadmin.aurezotech.com" style="color:#0b6e4f;text-decoration:none;font-weight:600;">studioadmin.aurezotech.com</a>
           </p>
         </td></tr>
       </table>

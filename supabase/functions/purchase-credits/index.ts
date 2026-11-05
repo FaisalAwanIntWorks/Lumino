@@ -97,7 +97,7 @@ serve(async (req) => {
       logStep("Stripe customer found in DB", { customerId });
     }
 
-    const origin = req.headers.get("origin") || "https://vault.jewlx.ai";
+    const origin = req.headers.get("origin") || "https://studio.aurezotech.com";
 
     // Idempotency key: one session per user+pack per day (v2 = card-saving sessions)
     const dateBucket = new Date().toISOString().slice(0, 10);

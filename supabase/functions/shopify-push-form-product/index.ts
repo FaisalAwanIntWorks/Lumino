@@ -184,7 +184,7 @@ Deno.serve(async (req) => {
     const shopCheck = await checkShopAccess(shopifyDomain, adminToken);
     if (!shopCheck.ok) {
       const msg = shopCheck.status === 401 || shopCheck.status === 403
-        ? 'Shopify admin token is invalid or revoked. Please re-paste the custom app Admin API access token in JewlX → Settings → Shopify.'
+        ? 'Shopify admin token is invalid or revoked. Please re-paste the custom app Admin API access token in Aurezo → Settings → Shopify.'
         : shopCheck.status === 404
           ? `Shopify store "${shopifyDomain}" not reachable (404). Check the store URL is correct.`
           : `Shopify shop.json check failed (status ${shopCheck.status}).`;
@@ -241,10 +241,10 @@ Deno.serve(async (req) => {
         body: JSON.stringify({
           product: {
             title: productTitle,
-            vendor: client.company_name || 'JewelX',
+            vendor: client.company_name || 'Aurezo',
             product_type: 'Deposit',
             status: 'active',
-            tags: 'JewelX_form_deposit',
+            tags: 'Aurezo_form_deposit',
             variants: [{
               price: depositAmount.toFixed(2),
               inventory_management: null,
@@ -264,7 +264,7 @@ Deno.serve(async (req) => {
           createRes.status === 403 ||
           (createRes.status === 404 && errText.includes('Not Found'));
         const msg = scopeLikely
-          ? 'Shopify token is missing required scopes. Open the custom app in Shopify Admin, enable write_products, read_publications, write_publications, then re-install and paste the new Admin API access token into JewlX → Settings → Shopify.'
+          ? 'Shopify token is missing required scopes. Open the custom app in Shopify Admin, enable write_products, read_publications, write_publications, then re-install and paste the new Admin API access token into Aurezo → Settings → Shopify.'
           : `Failed to create Shopify product (status ${createRes.status}).`;
 
         return new Response(JSON.stringify({ error: msg, shopify_status: createRes.status, shopify_body: errText.slice(0, 500) }), {

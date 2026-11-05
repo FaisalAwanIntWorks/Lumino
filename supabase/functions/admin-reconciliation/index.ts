@@ -10,7 +10,7 @@ import { logEmail } from "../_shared/email-log.ts";
 
 const Resend = (await import("npm:resend@2.0.0")).Resend;
 
-const FROM_EMAIL = "JewlX <onboarding@resend.dev>";
+const FROM_EMAIL = "Aurezo <onboarding@resend.dev>";
 const ADMIN_EMAIL = Deno.env.get("SUPPORT_EMAIL") || "";
 
 const logStep = (step: string, details?: unknown) => {
@@ -372,7 +372,7 @@ serve(async (req) => {
         )
         .join("");
 
-      const reconSubject = `[JewlX] Nightly Reconciliation — ${fixes.length} fixes, ${plansLinked.length} plans linked, ${errors.length} errors`;
+      const reconSubject = `[Aurezo] Nightly Reconciliation — ${fixes.length} fixes, ${plansLinked.length} plans linked, ${errors.length} errors`;
       const reconRes = await resend.emails.send({
         from: FROM_EMAIL,
         to: ADMIN_EMAIL,

@@ -14,8 +14,8 @@ const corsHeaders = {
   'Access-Control-Allow-Headers': 'authorization, x-client-info, apikey, content-type, x-supabase-client-platform, x-supabase-client-platform-version, x-supabase-client-runtime, x-supabase-client-runtime-version',
 };
 
-const JEWELX_KNOWLEDGE = `
-You are a helpful assistant for JewelX, a jewelry platform that helps jewelry businesses create custom configurators.
+const AUREZO_KNOWLEDGE = `
+You are a helpful assistant for Aurezo, a jewelry platform that helps jewelry businesses create custom configurators.
 
 KEY FEATURES:
 1. Product Management:
@@ -32,7 +32,7 @@ KEY FEATURES:
    - Enable/disable manufacturing options per client
 
 3. Manufacturing:
-   - Allow JewelX manufacturing or self-manufacturing
+   - Allow Aurezo manufacturing or self-manufacturing
    - Track manufacturing status and CAD files
    - Manage manufacturing requests from clients
    - View manufacturing timeline and delivery estimates
@@ -108,7 +108,7 @@ type RetrievedContext = {
 function isPlatformHelpQuery(text: string): boolean {
   const t = (text || '').toLowerCase();
   const keywords = [
-    'jewelx',
+    'aurezo',
     'dashboard',
     'embed',
     'configurator',
@@ -353,7 +353,7 @@ If the answer is not in the context at all, say: "I couldn't find that in your u
 
     const systemPrompt = isDocumentChat
       ? `${documentChatPrompt}${retrieved.context || '\n\n--- DOCUMENT CONTEXT ---\n(No relevant context found in uploaded documents.)\n--- END DOCUMENT CONTEXT ---\n'}`
-      : `${JEWELX_KNOWLEDGE}${retrieved.context}
+      : `${AUREZO_KNOWLEDGE}${retrieved.context}
 
 User is currently on: ${context}
 Provide contextual help based on their location. If DOCUMENT CONTEXT is present and relevant, prioritize it for the answer.`;
@@ -420,7 +420,7 @@ Provide contextual help based on their location. If DOCUMENT CONTEXT is present 
     );
   } catch (error) {
     // SECURITY: Never leak internal error details
-    console.error('Error in jewelx-help function');
+    console.error('Error in aurezo-help function');
     return new Response(
       JSON.stringify({ error: 'An error occurred processing your request' }),
       {

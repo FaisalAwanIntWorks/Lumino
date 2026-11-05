@@ -1221,9 +1221,9 @@ export default function DiamondsForm() {
                       <Button
                         onClick={() => {
                           const hostname = window.location.hostname;
-                          const isProduction = hostname.endsWith('.jewlx.ai');
+                          const isProduction = hostname.endsWith('.aurezotech.com');
                           const url = isProduction
-                            ? `https://builder.jewlx.ai/grillz/${effectiveClientId}`
+                            ? `https://widget.aurezotech.com/grillz/${effectiveClientId}`
                             : `${window.location.origin}/embed-grillz/${effectiveClientId}`;
                           window.open(url, '_blank');
                         }}
@@ -1414,9 +1414,9 @@ export default function DiamondsForm() {
                       <Button
                         onClick={() => {
                           const hostname = window.location.hostname;
-                          const isProduction = hostname.endsWith('.jewlx.ai');
+                          const isProduction = hostname.endsWith('.aurezotech.com');
                           const url = isProduction
-                            ? `https://builder.jewlx.ai/custom-enquiry/${effectiveClientId}`
+                            ? `https://widget.aurezotech.com/custom-enquiry/${effectiveClientId}`
                             : `${window.location.origin}/embed-custom-enquiry/${effectiveClientId}`;
                           window.open(url, '_blank');
                         }}

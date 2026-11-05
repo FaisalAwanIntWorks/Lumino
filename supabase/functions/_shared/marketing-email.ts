@@ -149,7 +149,7 @@ function renderBlock(b: MarketingBlock): string {
 }
 
 export function footerHtml(): string {
-  return `<tr><td style="padding:24px 32px;border-top:1px solid ${BRAND.line};text-align:center;font-size:12px;line-height:1.6;color:#999999;">You're receiving this because you showed interest in JewlX.<br><a href="{{unsubscribe_url}}" style="color:#999999;text-decoration:underline;">Unsubscribe</a> &middot; <a href="https://jewlx.ai" style="color:${BRAND.accent};text-decoration:none;">jewlx.ai</a></td></tr>`;
+  return `<tr><td style="padding:24px 32px;border-top:1px solid ${BRAND.line};text-align:center;font-size:12px;line-height:1.6;color:#999999;">You're receiving this because you showed interest in Aurezo.<br><a href="{{unsubscribe_url}}" style="color:#999999;text-decoration:underline;">Unsubscribe</a> &middot; <a href="https://aurezotech.com" style="color:${BRAND.accent};text-decoration:none;">aurezotech.com</a></td></tr>`;
 }
 
 /** Template (with {{vars}} still in place) → full email HTML. */
@@ -159,7 +159,7 @@ export function buildEmailHtml(opts: { mode: 'blocks' | 'html'; blocks: Marketin
     : '';
   const body = opts.mode === 'html'
     ? `<tr><td style="padding:0;">${opts.html}</td></tr>`
-    : `<tr><td style="padding:28px 32px 12px;text-align:center;background:#000000;"><img src="https://vault.jewlx.ai/images/jewelx-email-logo.png" alt="JewlX" height="40" style="height:40px;border:0;"></td></tr><tr><td style="height:16px;"></td></tr>${opts.blocks.map(renderBlock).join('')}<tr><td style="height:16px;"></td></tr>`;
+    : `<tr><td style="padding:28px 32px 12px;text-align:center;background:#000000;"><img src="https://studio.aurezotech.com/images/aurezo-email-logo.png" alt="Aurezo" height="40" style="height:40px;border:0;"></td></tr><tr><td style="height:16px;"></td></tr>${opts.blocks.map(renderBlock).join('')}<tr><td style="height:16px;"></td></tr>`;
   return `<!DOCTYPE html><html><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><meta name="color-scheme" content="light only"><meta name="supported-color-schemes" content="light only"></head><body style="margin:0;padding:0;background:#f4f4f4;font-family:-apple-system,BlinkMacSystemFont,'Segoe UI',Roboto,Arial,sans-serif;">${pre}<table role="presentation" width="100%" cellpadding="0" cellspacing="0" style="background:#f4f4f4;"><tr><td align="center" style="padding:24px 12px;"><table role="presentation" width="100%" cellpadding="0" cellspacing="0" style="max-width:600px;background:#ffffff;border-radius:8px;overflow:hidden;">${body}${footerHtml()}</table></td></tr></table></body></html>`;
 }
 

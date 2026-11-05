@@ -566,7 +566,7 @@ export function DiamondCatalogLive({ clientId, shapeNameLookup, ringCurrency, fx
             </div>
             <p className="text-[10px] leading-snug text-muted-foreground">
               {ringCurrency !== 'USD' && !showConverted
-                ? `No ${ringCurrency} diamond prices are published yet: Ring OS shows no diamonds in ${ringCurrency} until the JewlX admin applies exchange rates. Prices below are USD.`
+                ? `No ${ringCurrency} diamond prices are published yet: Ring OS shows no diamonds in ${ringCurrency} until the Aurezo admin applies exchange rates. Prices below are USD.`
                 : 'Set once for Ring OS: your ring steps and these diamonds use the same currency.'}
             </p>
           </div>
@@ -1009,7 +1009,7 @@ export function DiamondCatalogLive({ clientId, shapeNameLookup, ringCurrency, fx
         {missingFxCount > 0 && (
           <p className="text-xs text-amber-600 dark:text-amber-400">
             {missingFxCount} diamond(s) on this page have no published {currency} price yet (shown in USD). Ring OS hides
-            them until the JewlX admin applies exchange rates again.
+            them until the Aurezo admin applies exchange rates again.
           </p>
         )}
 

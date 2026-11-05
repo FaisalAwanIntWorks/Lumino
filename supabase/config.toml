@@ -7,7 +7,7 @@ verify_jwt = false
 [functions.ring-chat]
 verify_jwt = false
 
-[functions.jewelx-help]
+[functions.aurezo-help]
 verify_jwt = false
 
 # Shopify Integration

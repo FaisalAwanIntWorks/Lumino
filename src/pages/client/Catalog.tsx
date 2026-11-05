@@ -2040,7 +2040,7 @@ const Catalog = () => {
         <Alert className="bg-amber-500/10 border-amber-500/30">
           <AlertTriangle className="h-4 w-4 text-amber-500" />
           <AlertDescription className="text-xs sm:text-sm">
-            No {catalogCurrency} diamond prices are published yet. Ring OS shows no diamonds in {catalogCurrency} until the JewlX
+            No {catalogCurrency} diamond prices are published yet. Ring OS shows no diamonds in {catalogCurrency} until the Aurezo
             admin applies exchange rates (Admin → Diamond Pool → Currency Pricing).
           </AlertDescription>
         </Alert>
@@ -2580,7 +2580,7 @@ const Catalog = () => {
                               disabled={isPushingToShopify || !shopifyConnected || pendingCount === 0 || (skipsShopifyCatalog(pricingMode) && !usesDiamondTypeCheckout(clientId))}
                               title={
                                 pricingMode === 'estimates'
-                                  ? "Disabled in Estimates mode — ring products stay in JewlX. Only the deposit is sent to Shopify at checkout."
+                                  ? "Disabled in Estimates mode — ring products stay in Aurezo. Only the deposit is sent to Shopify at checkout."
                                   : pricingMode === 'no_deposit'
                                   ? "Disabled in No-Deposit mode — the widget captures a lead instead of sending customers to Shopify checkout."
                                   : !shopifyConnected
@@ -2601,7 +2601,7 @@ const Catalog = () => {
                             <AlertDialogHeader>
                               <AlertDialogTitle>Push Catalog to Shopify?</AlertDialogTitle>
                               <AlertDialogDescription>
-                                This will create {pendingCount} new products in your Shopify store as draft products (hidden from storefront). Products will only be accessible through your JewelX widget.
+                                This will create {pendingCount} new products in your Shopify store as draft products (hidden from storefront). Products will only be accessible through your Aurezo widget.
                               </AlertDialogDescription>
                             </AlertDialogHeader>
                             <AlertDialogFooter>
@@ -2662,7 +2662,7 @@ const Catalog = () => {
                 <Alert>
                   <AlertCircle className="h-4 w-4" />
                   <AlertDescription>
-                    Deposit-based pricing is active. Your {clientCatalog.length} ring products stay in JewlX and are not pushed to Shopify. When a customer checks out, their full ring + diamond configuration is passed to Shopify as line item details, and the order total is your fixed deposit{depositAmount > 0 ? ` (${getCurrencySymbol(liveCurrency)}${depositAmount.toLocaleString()})` : ''}.
+                    Deposit-based pricing is active. Your {clientCatalog.length} ring products stay in Aurezo and are not pushed to Shopify. When a customer checks out, their full ring + diamond configuration is passed to Shopify as line item details, and the order total is your fixed deposit{depositAmount > 0 ? ` (${getCurrencySymbol(liveCurrency)}${depositAmount.toLocaleString()})` : ''}.
                   </AlertDescription>
                 </Alert>
               )}
@@ -2672,7 +2672,7 @@ const Catalog = () => {
                 <Alert>
                   <AlertCircle className="h-4 w-4" />
                   <AlertDescription>
-                    No-Deposit mode is active. Your {clientCatalog.length} ring products stay in JewlX and are not pushed to Shopify. At the last step of the widget, customers submit a short contact form instead of checking out — each submission is saved as a lead with the full ring + diamond configuration and synced to your CRM.
+                    No-Deposit mode is active. Your {clientCatalog.length} ring products stay in Aurezo and are not pushed to Shopify. At the last step of the widget, customers submit a short contact form instead of checking out — each submission is saved as a lead with the full ring + diamond configuration and synced to your CRM.
                   </AlertDescription>
                 </Alert>
               )}

@@ -77,7 +77,7 @@ export default function PaymentSuccess() {
             <Mail className="h-16 w-16 text-primary mx-auto mb-6" />
             <h1 className="text-2xl font-bold text-foreground mb-2">Payment received 🎉</h1>
             <p className="text-muted-foreground mb-4">
-              We've created your JewlX account. Check your inbox — we just sent you an email
+              We've created your Aurezo account. Check your inbox — we just sent you an email
               to <strong>set your password</strong> and sign in.
             </p>
             <p className="text-sm text-muted-foreground">

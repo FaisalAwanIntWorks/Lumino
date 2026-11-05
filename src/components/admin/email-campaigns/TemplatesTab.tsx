@@ -19,7 +19,7 @@ const NEW_BLOCK: Record<MarketingBlock['type'], () => MarketingBlock> = {
   heading: () => ({ id: uid(), type: 'heading', text: 'Hi {{first_name|there}},' }),
   text: () => ({ id: uid(), type: 'text', text: 'Write your message here.' }),
   image: () => ({ id: uid(), type: 'image', src: 'https://', alt: '' }),
-  button: () => ({ id: uid(), type: 'button', label: 'Book a demo', href: 'https://jewlx.ai' }),
+  button: () => ({ id: uid(), type: 'button', label: 'Book a demo', href: 'https://aurezotech.com' }),
   divider: () => ({ id: uid(), type: 'divider' }),
   spacer: () => ({ id: uid(), type: 'spacer', height: 24 }),
 };
@@ -195,7 +195,7 @@ export function TemplatesTab() {
         </div>
         {canWrite && (
           <div className="flex gap-2">
-            <Input value={testTo} onChange={(e) => setTestTo(e.target.value)} placeholder="you@jewlx.ai" />
+            <Input value={testTo} onChange={(e) => setTestTo(e.target.value)} placeholder="you@aurezotech.com" />
             <Button variant="outline" onClick={sendTest}>Send test</Button>
           </div>
         )}

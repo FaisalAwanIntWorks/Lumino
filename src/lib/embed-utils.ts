@@ -31,11 +31,11 @@ export const generateEmbedCode = (
   }
   
   // Generate responsive embed code with mobile-first approach
-  const containerId = `jewlx-widget-${clientId.slice(0, 8)}`;
+  const containerId = `aurezo-widget-${clientId.slice(0, 8)}`;
   const isTwentyFourK = isTwentyFourKClient(clientId);
   const desktopHeight = isTwentyFourK ? '100dvh' : height;
   
-  return `<!-- JewlX Ring Builder Widget -->
+  return `<!-- Aurezo Ring Builder Widget -->
 <style>
   #${containerId} {
     position: relative;
@@ -70,7 +70,7 @@ export const generateEmbedCode = (
   <iframe 
     id="${containerId}-iframe"
     src="${embedUrl}" 
-    title="${isTwentyFourKClient(clientId) ? 'Ring Configurator' : 'JewlX Ring Builder'}"
+    title="${isTwentyFourKClient(clientId) ? 'Ring Configurator' : 'Aurezo Ring Builder'}"
     loading="lazy"
     allow="fullscreen; shared-autofill"
     allowfullscreen
@@ -98,7 +98,7 @@ export const generateEmbedCode = (
   window.addEventListener('message', function(e) {
     var data;
     try { data = typeof e.data === 'string' ? JSON.parse(e.data) : e.data; } catch(x) { return; }
-    if (data && data.type === 'jewlx-resize' && typeof data.height === 'number') {
+    if (data && data.type === 'aurezo-resize' && typeof data.height === 'number') {
       if (viewportFit) {
         fitAvailableHeight();
         return;

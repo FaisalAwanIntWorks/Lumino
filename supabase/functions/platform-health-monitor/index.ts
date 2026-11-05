@@ -36,9 +36,9 @@ const corsHeaders = {
   "Access-Control-Allow-Headers": "authorization, x-client-info, apikey, content-type",
 };
 
-const FROM_EMAIL = "JewlX Platform Health <onboarding@resend.dev>";
-const DASHBOARD_URL = "https://admin.jewlx.ai/admin/platform-health";
-const LOGO_URL = "https://vault.jewlx.ai/images/jewelx-email-logo.png";
+const FROM_EMAIL = "Aurezo Platform Health <onboarding@resend.dev>";
+const DASHBOARD_URL = "https://studioadmin.aurezotech.com/admin/platform-health";
+const LOGO_URL = "https://studio.aurezotech.com/images/aurezo-email-logo.png";
 
 const json = (body: unknown, status = 200) =>
   new Response(JSON.stringify(body), { status, headers: { ...corsHeaders, "Content-Type": "application/json" } });
@@ -113,7 +113,7 @@ async function sendAlert(supabase: any, settings: HealthSettings, input: AlertIn
         const resp: any = await resend.emails.send({
           from: FROM_EMAIL,
           to: recipients,
-          subject: `${prefix}${input.title} · JewlX Platform Health`,
+          subject: `${prefix}${input.title} · Aurezo Platform Health`,
           html: input.html,
         });
         if (resp?.error) {
@@ -174,12 +174,12 @@ const esc = (s: unknown) => String(s ?? "").replace(/[&<>"']/g, (c) => ({ "&": "
 function shell(accent: string, heading: string, body: string): string {
   return `<!doctype html><html><body style="margin:0;background:#f4f4f5;font-family:Inter,Segoe UI,Arial,sans-serif;color:#18181b;">
   <div style="max-width:640px;margin:0 auto;padding:32px 16px;">
-    <div style="text-align:center;margin-bottom:20px;"><img src="${LOGO_URL}" alt="JewlX" style="height:48px;" /></div>
+    <div style="text-align:center;margin-bottom:20px;"><img src="${LOGO_URL}" alt="Aurezo" style="height:48px;" /></div>
     <div style="background:#fff;border-radius:14px;overflow:hidden;border:1px solid #e4e4e7;">
       <div style="background:${accent};color:#fff;padding:18px 24px;font-size:18px;font-weight:700;">${esc(heading)}</div>
       <div style="padding:24px;font-size:14px;line-height:1.6;">${body}</div>
       <div style="padding:16px 24px;border-top:1px solid #e4e4e7;font-size:12px;color:#71717a;">
-        Sent by JewlX Platform Health monitoring · <a href="${DASHBOARD_URL}" style="color:#0f766e;">Open dashboard</a>
+        Sent by Aurezo Platform Health monitoring · <a href="${DASHBOARD_URL}" style="color:#0f766e;">Open dashboard</a>
       </div>
     </div>
   </div></body></html>`;
@@ -828,7 +828,7 @@ Deno.serve(async (req) => {
         severity: "info",
         title: "Test alert from Platform Health",
         message: "If you received this, outage and quota alerts will reach this inbox.",
-        html: shell("#0f766e", "Test alert", `<p>This is a test alert from JewlX Platform Health monitoring.</p>${kvTable([["Recipients", recipients.join(", ") || "none"], ["Alerts enabled", settings.alerts_enabled ? "yes" : "no"], ["Sent", fmtWhen(new Date())]])}`),
+        html: shell("#0f766e", "Test alert", `<p>This is a test alert from Aurezo Platform Health monitoring.</p>${kvTable([["Recipients", recipients.join(", ") || "none"], ["Alerts enabled", settings.alerts_enabled ? "yes" : "no"], ["Sent", fmtWhen(new Date())]])}`),
         inApp: false,
       });
       return json({ sent: r.sent, error: r.error, recipients });

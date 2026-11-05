@@ -29,7 +29,7 @@ Deno.serve(async (req) => {
       const { data: t } = await supabase.from("marketing_templates").select("*").eq("id", body.template_id).maybeSingle();
       if (!t) return json({ error: "Template not found." }, 404);
       const sample = { first_name: "Alex", last_name: "Taylor", company: "Sample Jewelers", city: "New York", email: to };
-      const vars = leadToVars(sample, { unsubscribe_url: "https://vault.jewlx.ai/unsubscribe" });
+      const vars = leadToVars(sample, { unsubscribe_url: "https://studio.aurezotech.com/unsubscribe" });
       const html = personalize(buildEmailHtml({ mode: t.mode, blocks: t.blocks, html: t.html, previewText: body.preview_text ?? t.preview_text }), vars);
       const subject = "[Test] " + applyVariables(body.subject || t.subject || t.name, vars, false);
       await sendBatch([{ to, subject, html, token: "test" }]);

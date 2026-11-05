@@ -82,7 +82,7 @@ export function GemstonePickerStep({ clientId, gemstone, size, config, selected,
     if (target === page) return;
     setPage(target);
     window.scrollTo({ top: 0, behavior: 'instant' });
-    window.parent?.postMessage(JSON.stringify({ type: 'jewlx-scroll-top' }), '*');
+    window.parent?.postMessage(JSON.stringify({ type: 'aurezo-scroll-top' }), '*');
   };
 
   const from = total === 0 ? 0 : (page - 1) * pageSize + 1;

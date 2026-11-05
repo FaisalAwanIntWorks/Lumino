@@ -56,7 +56,7 @@ export function HelpCenterDialog({ open, onOpenChange }: HelpCenterDialogProps) 
               <AccordionTrigger>Getting Started</AccordionTrigger>
               <AccordionContent>
                 <div className="space-y-3 text-sm text-muted-foreground">
-                  <p>Welcome to JewlX! Here's how to get started:</p>
+                  <p>Welcome to Aurezo! Here's how to get started:</p>
                   <ul className="list-disc list-inside space-y-2">
                     <li><strong>Dashboard:</strong> View analytics, recent orders, and quick actions</li>
                     <li><strong>Catalog:</strong> Browse and configure products for your store</li>
@@ -104,7 +104,7 @@ export function HelpCenterDialog({ open, onOpenChange }: HelpCenterDialogProps) 
                   <ul className="list-disc list-inside space-y-2">
                     <li><strong>Toggle Products:</strong> Enable/disable products for your storefront</li>
                     <li><strong>Set Pricing:</strong> Configure markup or custom retail prices</li>
-                    <li><strong>Manufacturing:</strong> Choose self-manufacturing or JewlX manufacturing</li>
+                    <li><strong>Manufacturing:</strong> Choose self-manufacturing or Aurezo manufacturing</li>
                   </ul>
                 </div>
               </AccordionContent>

@@ -1,5 +1,6 @@
 import { isWebpCdnUrl } from '@/lib/webp-image-fallback';
 import { usesLegacyDiamondImages, usesZaiwarDiamondImages } from '@/lib/diamond-form-cdn';
+import { ASSET_CDN } from "@/lib/asset-cdn";
 
 /** Reference-image contract for the later V3 bucket. Keys are real Sandbox option values, never demo fixture IDs. */
 export const V3_IMAGE_KEYS: Record<string, Record<string, string>> = {
@@ -13,7 +14,7 @@ export const V3_IMAGE_KEYS: Record<string, Record<string, string>> = {
   personalization: { 'initials-engraving': 'feature-initials' },
 };
 
-const V3_STOCK_BASE = 'https://d1cekhbdtlmikd.cloudfront.net/jewlx3updatedtransparentimages';
+const V3_STOCK_BASE = `${ASSET_CDN.quoteV3}/jewlx3updatedtransparentimages`;
 
 /**
  * V3-only stock pictures (transparent WebP), keyed by step and real Sandbox option value.

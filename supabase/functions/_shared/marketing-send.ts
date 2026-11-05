@@ -1,9 +1,9 @@
 // deno-lint-ignore-file no-explicit-any
 /** Resend sending for admin marketing campaigns (separate sender from app emails). */
 
-export const MARKETING_FROM = Deno.env.get("MARKETING_FROM_EMAIL") ?? "JewlX <onboarding@resend.dev>";
+export const MARKETING_FROM = Deno.env.get("MARKETING_FROM_EMAIL") ?? "Aurezo <onboarding@resend.dev>";
 export const MARKETING_REPLY_TO = Deno.env.get("SUPPORT_EMAIL") || undefined;
-export const UNSUBSCRIBE_BASE = "https://vault.jewlx.ai/unsubscribe";
+export const UNSUBSCRIBE_BASE = "https://studio.aurezotech.com/unsubscribe";
 
 export function unsubscribeUrl(token: string) {
   return `${UNSUBSCRIBE_BASE}?token=${encodeURIComponent(token)}`;

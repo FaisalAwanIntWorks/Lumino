@@ -1,10 +1,11 @@
+import { ASSET_CDN } from "@/lib/asset-cdn";
 // Shared grillz metal image map.
 // Source of truth for both the customer widget (GrillBuilderForm) and the
 // admin Grillz configurator preview (GrillStepEditor). Keep these constants
 // in sync with the customer widget so admin previews always match what the
 // customer sees.
 
-const GRILLZ_CDN = 'https://d2lo9ju43icaaa.cloudfront.net/GrillzBuilder';
+const GRILLZ_CDN = `${ASSET_CDN.main}/GrillzBuilder`;
 
 export const GRILLZ_BASIC_IMAGES: Record<string, string> = {
   gold: `${GRILLZ_CDN}/Transparent-Gold+Grillz+without+mold.png`,

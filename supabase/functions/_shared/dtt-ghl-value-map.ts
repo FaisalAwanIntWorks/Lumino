@@ -173,7 +173,7 @@ export const DTT_SLUG_TO_LABEL: DttSlugMap = {
     "rose-platinum": "Rose Gold + Platinum",
   },
 
-  // TEXT — Would you like natural or lab diamonds? (JewlX)
+  // TEXT — Would you like natural or lab diamonds? (Aurezo)
   // Field is TEXT but we still normalise so it reads cleanly.
   diamond_type: {
     "lab": "Lab",

@@ -116,7 +116,7 @@ const isWidgetRoute = () => {
   if (typeof window === 'undefined') return false;
   const pathname = window.location.pathname;
   const hostname = window.location.hostname;
-  return hostname.startsWith('builder.') || /^\/(embed\/|[a-f0-9-]{8,}|diamonds\/|quote\/|grillz\/|custom-enquiry\/|metal-buying\/)/i.test(pathname);
+  return hostname.startsWith('widget.') || /^\/(embed\/|[a-f0-9-]{8,}|diamonds\/|quote\/|grillz\/|custom-enquiry\/|metal-buying\/)/i.test(pathname);
 };
 
 // Suspense fallback for lazy-loaded 3D pages
@@ -138,7 +138,7 @@ function StartupRedirector() {
     const hostname = window.location.hostname;
     
     // Skip on production domains - SubdomainRouter handles routing
-    if (hostname.endsWith('jewlx.ai')) {
+    if (hostname.endsWith('aurezotech.com')) {
       return;
     }
     
@@ -316,7 +316,7 @@ function SubdomainRoutes() {
   // Production routing based on subdomain
   const currentPath = location.pathname;
 
-  // Admin portal (admin.jewlx.ai)
+  // Admin portal (studioadmin.aurezotech.com)
   if (portalType === 'admin') {
     if (
       currentPath === '/' ||
@@ -411,7 +411,7 @@ function SubdomainRoutes() {
     return <Navigate to="/admin/dashboard" replace />;
   }
 
-  // Client portal (vault.jewlx.ai)
+  // Client portal (studio.aurezotech.com)
   if (portalType === 'client') {
     if (
       currentPath === '/' ||
@@ -490,11 +490,11 @@ function SubdomainRoutes() {
     return <Navigate to="/login" replace />;
   }
 
-  // Builder portal (builder.jewlx.ai) - public widget
+  // Builder portal (widget.aurezotech.com) - public widget
   if (portalType === 'builder') {
     return (
       <Routes>
-        {/* Simplified route: builder.jewlx.ai/:clientId */}
+        {/* Simplified route: widget.aurezotech.com/:clientId */}
         <Route path="/:clientId" element={<Suspense fallback={<LazyFallback />}><EmbedConfigurator /></Suspense>} />
         <Route path="/diamonds/:clientId" element={<Suspense fallback={<LazyFallback />}><EmbedDiamondsForm /></Suspense>} />
         <Route path="/quote/:clientId" element={<Suspense fallback={<LazyFallback />}><EmbedDiamondsForm /></Suspense>} />
@@ -524,7 +524,7 @@ const App = () => {
 
   return (
     <QueryClientProvider client={queryClient}>
-      <ThemeProvider attribute="class" defaultTheme="light" enableSystem={false} storageKey="jewlx-theme" forcedTheme={isWidgetRoute() ? "dark" : undefined}>
+      <ThemeProvider attribute="class" defaultTheme="light" enableSystem={false} storageKey="aurezo-theme" forcedTheme={isWidgetRoute() ? "dark" : undefined}>
         <TooltipProvider>
           <Toaster />
           <Sonner />

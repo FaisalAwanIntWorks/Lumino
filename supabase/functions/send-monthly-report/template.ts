@@ -1,10 +1,10 @@
 // Pure rendering layer for the monthly client report email.
 // Kept free of Deno/Supabase imports so it can be rendered and inspected standalone.
 
-const PORTAL_URL = "https://vault.jewlx.ai";
-const LOGO_URL = "https://vault.jewlx.ai/images/jewelx-email-logo.png";
+const PORTAL_URL = "https://studio.aurezotech.com";
+const LOGO_URL = "https://studio.aurezotech.com/images/aurezo-email-logo.png";
 export const WIDGET_VIEW_SOURCES = [
-  { key: "jewlx_widget", label: "Ring OS widget" },
+  { key: "aurezo_widget", label: "Ring OS widget" },
   { key: "ring_builder", label: "Ring builder form" },
   { key: "grillz_builder", label: "Grillz builder" },
   { key: "custom_enquiry", label: "Custom enquiry" },
@@ -249,7 +249,7 @@ export function buildEmailHtml(input: TemplateInput): string {
           <!-- Header -->
           <tr>
             <td style="padding:32px 40px 24px;text-align:center;background-color:#000000;">
-              <img src="${LOGO_URL}" alt="JewlX" style="height:56px;" />
+              <img src="${LOGO_URL}" alt="Aurezo" style="height:56px;" />
             </td>
           </tr>
           <!-- Intro -->
@@ -321,7 +321,7 @@ export function buildEmailHtml(input: TemplateInput): string {
                 </tr>
               </table>
               <p style="margin:8px 0 36px;color:#999;font-size:13px;line-height:1.6;text-align:center;">
-                Full lead details, follow-ups and exports live in your JewlX dashboard.
+                Full lead details, follow-ups and exports live in your Aurezo dashboard.
               </p>
             </td>
           </tr>
@@ -331,8 +331,8 @@ export function buildEmailHtml(input: TemplateInput): string {
               <p style="margin:0;color:#999;font-size:12px;line-height:1.7;text-align:center;">
                 You're receiving this because monthly reports are on for ${esc(companyName)}.<br>
                 Turn them off any time under <a href="${PORTAL_URL}/dashboard/settings" style="color:#0b6e4f;text-decoration:none;">Settings &rsaquo; Notifications</a>.<br><br>
-                &copy; ${new Date().getFullYear()} JewlX. All rights reserved.<br>
-                <a href="https://jewlx.ai" style="color:#0b6e4f;text-decoration:none;font-weight:600;">jewlx.ai</a>
+                &copy; ${new Date().getFullYear()} Aurezo. All rights reserved.<br>
+                <a href="https://aurezotech.com" style="color:#0b6e4f;text-decoration:none;font-weight:600;">aurezotech.com</a>
               </p>
             </td>
           </tr>

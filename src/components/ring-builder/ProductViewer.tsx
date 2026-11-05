@@ -11,6 +11,7 @@ import { fallbackToPngOnError } from '@/lib/webp-image-fallback';
 import { Skeleton } from '@/components/ui/skeleton';
 import { useWidgetTheme } from '@/contexts/WidgetThemeContext';
 import { motion, AnimatePresence } from 'framer-motion';
+import { ASSET_CDN } from "@/lib/asset-cdn";
 
 interface ProductViewerProps {
   configuration: RingConfiguration;
@@ -202,7 +203,7 @@ export const ProductViewer = ({
 
 
   // Default fallback image only used when no selection at all AND not in chat mode
-  const INITIAL_FALLBACK_CDN_BASE = 'https://do2z856wqq7wu.cloudfront.net/Solitaire/high-polish/rose/round';
+  const INITIAL_FALLBACK_CDN_BASE = `${ASSET_CDN.rings}/Solitaire/high-polish/rose/round`;
   // Served as WebP (the Solitaire set has WebP twins); usePreloadedImage and the
   // <img> onError handler fall back to the .png if it cannot load.
   const INITIAL_FALLBACK_IMAGE = `${INITIAL_FALLBACK_CDN_BASE}/wex20aa6goaktc6150i1r.webp`;
@@ -657,7 +658,7 @@ export const ProductViewer = ({
                 {productTitleText}
               </h2>
               <p className={`text-[6px] md:text-[9px] tracking-widest uppercase ${isVideoActive ? 'text-white' : brandColor}`}>
-                Powered By JewlX
+                Powered By Aurezo
               </p>
             </div>
           )}

@@ -118,7 +118,7 @@ export const RingSizeGuideDialog = ({ open, onOpenChange, selectedSize, onSelect
       aria-modal="true"
       aria-labelledby="ring-size-guide-title"
     >
-      <div className="jewlx-info-backdrop fixed inset-0 bg-black/60" onClick={close} />
+      <div className="aurezo-info-backdrop fixed inset-0 bg-black/60" onClick={close} />
 
       {/* Same side-panel placement as the "i" info popups: right half on desktop, full screen on mobile. */}
       <div className="fixed inset-0 md:left-[50%] flex items-stretch">

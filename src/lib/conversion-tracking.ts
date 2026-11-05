@@ -1,5 +1,5 @@
 /**
- * Unified lead conversion tracking for JewlX widgets.
+ * Unified lead conversion tracking for Aurezo widgets.
  *
  * One place that fires, on a successful lead submission:
  *   1. a Google Ads conversion (with Enhanced Conversions user data), and
@@ -110,9 +110,9 @@ function normalizeValue(value?: number | null): number | null {
 }
 
 /** Appointments must not trigger the retailer's Lead tag, so they carry their
- * own dataLayer event name. Every other form keeps `jewlx_lead`. */
+ * own dataLayer event name. Every other form keeps `aurezo_lead`. */
 function dataLayerEventName(formType: LeadFormType): string {
-  return formType === 'appointment_booking' ? 'jewlx_appointment' : 'jewlx_lead';
+  return formType === 'appointment_booking' ? 'aurezo_appointment' : 'aurezo_lead';
 }
 
 /**
@@ -182,8 +182,8 @@ function postLeadToParent(
     if (typeof window === 'undefined' || window.parent === window) return;
     window.parent.postMessage(
       {
-        type: 'jewlx-lead',
-        // Older embed snippets ignore this and keep pushing `jewlx_lead`.
+        type: 'aurezo-lead',
+        // Older embed snippets ignore this and keep pushing `aurezo_lead`.
         event_name: event.eventName,
         form_type: formType,
         value: event.value ?? undefined,
@@ -212,7 +212,7 @@ export function trackInteraction(eventName: string, params: Record<string, any> 
     }
     if (typeof window === 'undefined' || window.parent === window) return;
     window.parent.postMessage(
-      { type: 'jewlx-event', event: eventName, params },
+      { type: 'aurezo-event', event: eventName, params },
       '*',
     );
   } catch (err) {

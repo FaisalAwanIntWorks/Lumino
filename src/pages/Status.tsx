@@ -88,7 +88,7 @@ export default function Status() {
           <div className="mb-8 text-center">
             <h1 className="text-4xl font-bold mb-4">System Status</h1>
             <p className="text-lg text-muted-foreground mb-6">
-              Current operational status of all JewlX systems
+              Current operational status of all Aurezo systems
             </p>
             
             <Card className="mb-8">

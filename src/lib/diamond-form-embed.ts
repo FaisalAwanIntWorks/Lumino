@@ -17,7 +17,7 @@ export function getDiamondsFormUrl(clientId: string): string {
 
 /**
  * Public Quote Estimator Form URL for a client. The Quote Estimator has its own
- * path (builder.jewlx.ai/quote/<id>) so links no longer carry `?variant=dtt`;
+ * path (widget.aurezotech.com/quote/<id>) so links no longer carry `?variant=dtt`;
  * the embed page still honours that legacy parameter for snippets already
  * installed on client websites.
  */
@@ -72,10 +72,10 @@ export function generateDiamondsFormEmbedCode(
   // The Quote Estimator lives on its own path; the Ring Builder keeps /diamonds.
   const embedUrl = variant === 'dtt' ? getQuoteEstimatorUrl(clientId) : getDiamondsFormUrl(clientId);
 
-  const containerId = `jewlx-${variant === 'dtt' ? 'quote' : 'diamonds'}-${clientId.slice(0, 8)}`;
+  const containerId = `aurezo-${variant === 'dtt' ? 'quote' : 'diamonds'}-${clientId.slice(0, 8)}`;
 
 
-  return `<!-- JewlX Diamonds Form Widget -->
+  return `<!-- Aurezo Diamonds Form Widget -->
 <style>
   #${containerId} {
     position: relative;
@@ -119,7 +119,7 @@ ${variant === 'dtt' ? `  @media (prefers-reduced-motion: reduce) {
   <iframe 
     id="${containerId}-iframe"
     src="${embedUrl}" 
-    title="${variant === 'dtt' ? 'JewlX Quote Estimator Form' : 'JewlX Diamonds Form'}"
+    title="${variant === 'dtt' ? 'Aurezo Quote Estimator Form' : 'Aurezo Diamonds Form'}"
     loading="lazy"
     allow="fullscreen; shared-autofill"
     allowfullscreen
@@ -132,14 +132,14 @@ ${variant === 'dtt' ? `  @media (prefers-reduced-motion: reduce) {
   window.addEventListener('message', function(e) {
     var data;
     try { data = typeof e.data === 'string' ? JSON.parse(e.data) : e.data; } catch(x) { return; }
-    if (data && data.type === 'jewlx-resize' && typeof data.height === 'number') {
+    if (data && data.type === 'aurezo-resize' && typeof data.height === 'number') {
       var isMobile = window.innerWidth < 768;
       if (isMobile && !${fluidMobileHeight ? 'true' : 'false'}) return;
       var min = isMobile ? 260 : 500;
       var h = Math.max(min, Math.min(6000, data.height));
       iframe.style.height = h + 'px';
     }
-    if (data && data.type === 'jewlx-scroll-top') {
+    if (data && data.type === 'aurezo-scroll-top') {
       var r = iframe.getBoundingClientRect();
       if (r.top < 0) window.scrollTo({ top: window.scrollY + r.top - 12, behavior: ${variant === 'dtt' ? "window.matchMedia('(prefers-reduced-motion: reduce)').matches ? 'auto' : 'smooth'" : "'smooth'"} });
     }

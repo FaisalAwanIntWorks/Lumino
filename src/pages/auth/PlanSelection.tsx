@@ -55,7 +55,7 @@ export default function PlanSelection() {
   const handleSelectPlan = async (plan: Plan) => {
     if (!plan.stripe_price_id) {
       window.location.href =
-        'mailto:sales@jewlx.ai?subject=' + encodeURIComponent(plan.name + ' Plan Inquiry');
+        'mailto:sales@aurezotech.com?subject=' + encodeURIComponent(plan.name + ' Plan Inquiry');
       return;
     }
 

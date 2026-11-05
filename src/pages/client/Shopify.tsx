@@ -41,7 +41,7 @@ export default function ShopifyPage() {
 
 
   useEffect(() => {
-    document.title = 'Client • Shopify Integration | Jewlx';
+    document.title = 'Client • Shopify Integration | Aurezo';
     if (isImpersonating && !impersonatedClientId) return;
     loadShopifySettings();
   }, [isImpersonating, impersonatedClientId]);
@@ -412,7 +412,7 @@ export default function ShopifyPage() {
       <div>
         <h1 className="text-2xl font-bold mb-2">Shopify Integration</h1>
         <p className="text-muted-foreground">
-          Connect your Shopify store to enable the JewlX ring builder on your site
+          Connect your Shopify store to enable the Aurezo ring builder on your site
         </p>
       </div>
 
@@ -676,7 +676,7 @@ export default function ShopifyPage() {
             <Alert>
               <Info className="h-4 w-4" />
               <AlertDescription className="text-xs">
-                Only orders tagged with a JewlX source (Ring Builder, Grillz Builder, or Custom Inquiry) will be processed. All other Shopify orders are ignored.
+                Only orders tagged with an Aurezo source (Ring Builder, Grillz Builder, or Custom Inquiry) will be processed. All other Shopify orders are ignored.
               </AlertDescription>
             </Alert>
           </div>
@@ -768,7 +768,7 @@ export default function ShopifyPage() {
           <div>
             <h4 className="font-medium mb-2">Step 2: Create a Custom App</h4>
             <p className="text-muted-foreground">
-              Click <strong>"Create an app"</strong> and name it "JewlX Ring Builder"
+              Click <strong>"Create an app"</strong> and name it "Aurezo Ring Builder"
             </p>
           </div>
 
@@ -810,7 +810,7 @@ export default function ShopifyPage() {
           </div>
 
           <div>
-            <h4 className="font-medium mb-2">Step 6: Connect to JewlX</h4>
+            <h4 className="font-medium mb-2">Step 6: Connect to Aurezo</h4>
             <p className="text-muted-foreground">
               Paste your Store URL and Admin API token in the form above, then click <strong>Test Connection</strong> and <strong>Connect</strong>
             </p>

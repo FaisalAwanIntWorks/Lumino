@@ -19,7 +19,7 @@ const TAB_CONFIG: Record<TabKey, {
 }> = {
   ring_builder: {
     label: 'Ring Builder',
-    viewSources: ['ring_builder', 'jewlx_widget'],
+    viewSources: ['ring_builder', 'aurezo_widget'],
     aiFeatures: ['ring_chat', 'ring_preview', 'cost_estimate'],
     leadTable: 'diamond_form_leads',
   },

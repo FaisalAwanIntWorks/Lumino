@@ -22,7 +22,7 @@ const Ring3DDemo = () => {
         <div className="absolute top-4 left-4 right-4 flex items-center justify-between">
           <div className="text-white">
             <h1 className="text-2xl font-bold tracking-tight">Radiant Ring</h1>
-            <p className="text-sm text-white/70">Explore in 3D • Powered by JewlX AI</p>
+            <p className="text-sm text-white/70">Explore in 3D • Powered by Aurezo AI</p>
           </div>
           
           {!showChat && (

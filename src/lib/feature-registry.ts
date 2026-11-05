@@ -37,7 +37,7 @@ export const FEATURE_REGISTRY: FeatureDefinition[] = [
   { key: 'product_catalogue', label: 'Catalog', group: 'RingOS', defaultEnabled: true, subscriptionGated: true, showInMatrix: true },
   { key: 'orders', label: 'Orders', group: 'RingOS', defaultEnabled: true, subscriptionGated: true, showInMatrix: true },
   { key: 'embed_branding', label: 'Widget', group: 'RingOS', defaultEnabled: true, subscriptionGated: false, showInMatrix: true },
-  { key: 'jewlx_agent', label: 'JewlX Agent', group: 'RingOS', defaultEnabled: true, subscriptionGated: true, showInMatrix: true },
+  { key: 'jewlx_agent', label: 'Aurezo Agent', group: 'RingOS', defaultEnabled: true, subscriptionGated: true, showInMatrix: true },
 
   // Custom X
   { key: 'diamond_form', label: 'Ring Builder', group: 'CustomX', defaultEnabled: true, subscriptionGated: true, showInMatrix: true },

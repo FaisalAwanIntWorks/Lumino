@@ -23,7 +23,7 @@ export interface EmbedClientOverrides {
   /**
    * Option info popups (Style/Shank/Metal/Shape/Stone "i" buttons) must not
    * dim the ring viewer behind them. Applied via `body[data-undimmed-popups]`
-   * + `.jewlx-info-backdrop` in index.css because the popups portal to body.
+   * + `.aurezo-info-backdrop` in index.css because the popups portal to body.
    */
   undimmedInfoPopups: boolean;
   /**

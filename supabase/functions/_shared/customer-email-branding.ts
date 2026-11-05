@@ -1,10 +1,10 @@
 // Shared helper for customer-facing email branding (logo, Contact CTA, Powered-by footer).
 // Used ONLY for emails that are sent to the client's customers — not for emails
-// sent to the client themselves or to JewlX admins.
+// sent to the client themselves or to Aurezo admins.
 
 import { escapeHtml } from "./security-utils.ts";
 
-const JEWLX_DEFAULT_LOGO = "https://vault.jewlx.ai/images/jewelx-email-logo.png";
+const AUREZO_DEFAULT_LOGO = "https://studio.aurezotech.com/images/aurezo-email-logo.png";
 
 export interface CustomerBranding {
   logoUrl: string;
@@ -12,7 +12,7 @@ export interface CustomerBranding {
   ctaUrl: string | null;
   companyName: string;
   headerAppearance: "dark" | "light";
-  /** Client's own inbox — used as Reply-To so customer replies reach the jeweler, not JewlX. */
+  /** Client's own inbox — used as Reply-To so customer replies reach the jeweler, not Aurezo. */
   replyTo: string | null;
 }
 
@@ -29,7 +29,7 @@ export async function loadCustomerBranding(
 ): Promise<CustomerBranding> {
   if (!clientId) {
     return {
-      logoUrl: JEWLX_DEFAULT_LOGO,
+      logoUrl: AUREZO_DEFAULT_LOGO,
       ctaLabel: null,
       ctaUrl: null,
       companyName: "",
@@ -44,7 +44,7 @@ export async function loadCustomerBranding(
     .eq("id", clientId)
     .maybeSingle();
 
-  const logoUrl = (data?.email_logo_url || data?.logo_url || JEWLX_DEFAULT_LOGO) as string;
+  const logoUrl = (data?.email_logo_url || data?.logo_url || AUREZO_DEFAULT_LOGO) as string;
   const ctaLabel = (data?.customer_email_cta_label || "").trim() || null;
   const ctaUrlRaw = (data?.customer_email_cta_url || "").trim();
   const ctaUrl = isSafeCtaUrl(ctaUrlRaw) ? ctaUrlRaw : null;
@@ -63,7 +63,7 @@ export async function loadCustomerBranding(
 
 /** Renders the header (logo) row — drop into a <table> cell. */
 export function renderEmailHeader(branding: CustomerBranding): string {
-  const alt = branding.companyName ? escapeHtml(branding.companyName) : "JewlX";
+  const alt = branding.companyName ? escapeHtml(branding.companyName) : "Aurezo";
   const src = escapeHtml(branding.logoUrl);
   const isLight = branding.headerAppearance === "light";
   const className = isLight ? "email-header email-header-light" : "email-header email-header-dark";
@@ -86,5 +86,5 @@ export function renderContactCta(branding: CustomerBranding): string {
   </table>`;
 }
 
-/** Powered-by JewlX footer line — append inside footer cell of customer emails. */
-export const POWERED_BY_JEWLX_FOOTER = `<p style="margin:8px 0 0;color:#999;font-size:12px;text-align:center;">Powered by <a href="https://jewlx.ai" style="color:#0b6e4f;text-decoration:none;">JewlX</a></p>`;
+/** Powered-by Aurezo footer line — append inside footer cell of customer emails. */
+export const POWERED_BY_AUREZO_FOOTER = `<p style="margin:8px 0 0;color:#999;font-size:12px;text-align:center;">Powered by <a href="https://aurezotech.com" style="color:#0b6e4f;text-decoration:none;">Aurezo</a></p>`;

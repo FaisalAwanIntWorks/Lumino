@@ -96,7 +96,7 @@ export const CRM_FORMS: CrmFormUiDef[] = [
     description: 'Diamond / Quote Estimator widget leads.',
     table: 'diamond_form_leads',
     defaultOppTemplate: 'Diamond Form — {customer_name}',
-    defaultSource: 'JewlX Diamond Form',
+    defaultSource: 'Aurezo Diamond Form',
     valueColumns: ['estimated_total'],
     legacyDiamondPath: true,
     questionKeys: [
@@ -114,7 +114,7 @@ export const CRM_FORMS: CrmFormUiDef[] = [
     description: 'Leads from the Custom X Ring Builder wizard.',
     table: 'design_requests',
     defaultOppTemplate: 'Ring Builder — {customer_name}',
-    defaultSource: 'JewlX Ring Builder',
+    defaultSource: 'Aurezo Ring Builder',
     valueColumns: [],
     questionKeys: [
       // Real columns on design_requests.
@@ -135,7 +135,7 @@ export const CRM_FORMS: CrmFormUiDef[] = [
     description: 'Leads from the Grillz configurator widget.',
     table: 'grill_form_leads',
     defaultOppTemplate: 'Grillz — {customer_name}',
-    defaultSource: 'JewlX Grillz Builder',
+    defaultSource: 'Aurezo Grillz Builder',
     valueColumns: [],
     questionKeys: [
       'grillz_type', 'metal_type', 'metal_purity', 'budget',
@@ -149,7 +149,7 @@ export const CRM_FORMS: CrmFormUiDef[] = [
     description: 'Leads from the custom jewellery enquiry widget (CustomX).',
     table: 'custom_enquiry_leads',
     defaultOppTemplate: 'Custom Enquiry — {customer_name}',
-    defaultSource: 'JewlX Custom Enquiry',
+    defaultSource: 'Aurezo Custom Enquiry',
     valueColumns: [],
     questionKeys: [
       'jewelry_type', 'gold_color', 'karat', 'budget',
@@ -164,7 +164,7 @@ export const CRM_FORMS: CrmFormUiDef[] = [
     description: 'Sell-your-gold leads, including the calculated offer.',
     table: 'metal_buying_leads',
     defaultOppTemplate: 'Metal IQ — {customer_name}',
-    defaultSource: 'JewlX Metal IQ',
+    defaultSource: 'Aurezo Metal IQ',
     valueColumns: ['estimated_offer', 'competitor_offer', 'estimated_profit'],
     questionKeys: [
       'metal_type', 'karat', 'weight_grams', 'condition', 'location',
@@ -180,7 +180,7 @@ export const CRM_FORMS: CrmFormUiDef[] = [
     description: 'A ring configured in the Ring OS builder and saved by the customer.',
     table: 'saved_designs',
     defaultOppTemplate: 'Ring OS — {product_name}',
-    defaultSource: 'JewlX Ring OS — Saved Design',
+    defaultSource: 'Aurezo Ring OS — Saved Design',
     valueColumns: ['configuration.stone.price'],
     questionKeys: [
       'product_name', 'notes', 'product_id',
@@ -193,7 +193,7 @@ export const CRM_FORMS: CrmFormUiDef[] = [
     description: 'Consultation bookings, including the ring the customer was viewing.',
     table: 'appointment_bookings',
     defaultOppTemplate: 'Appointment — {customer_name}',
-    defaultSource: 'JewlX Appointment Booking',
+    defaultSource: 'Aurezo Appointment Booking',
     valueColumns: ['ring_configuration.stone.price'],
     questionKeys: [
       'preferred_date', 'preferred_time', 'customer_timezone', 'message', 'status',
@@ -204,10 +204,10 @@ export const CRM_FORMS: CrmFormUiDef[] = [
     formType: 'order',
     label: 'Ring OS — Shopify Order',
     description:
-      'Completed Shopify checkouts that started in a JewlX widget — the Ring OS "Add to Cart" flow, Grillz Builder and Custom Enquiry.',
+      'Completed Shopify checkouts that started in an Aurezo widget — the Ring OS "Add to Cart" flow, Grillz Builder and Custom Enquiry.',
     table: 'orders',
     defaultOppTemplate: 'Order {configuration.shopify_order_number} — {customer_name}',
-    defaultSource: 'JewlX Shopify Order',
+    defaultSource: 'Aurezo Shopify Order',
     valueColumns: ['total_amount'],
     questionKeys: [
       'order_source', 'status', 'total_amount', 'shopify_order_id',

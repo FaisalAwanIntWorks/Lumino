@@ -143,7 +143,7 @@ export default function ClientQueries() {
       ticket_id: openTicket.id,
       author_user_id: user.id,
       author_role: "admin",
-      author_name: profile.full_name || "JewlX Technical Team",
+      author_name: profile.full_name || "Aurezo Technical Team",
       author_email: user.email,
       body,
     });
@@ -303,7 +303,7 @@ export default function ClientQueries() {
                     className={`pl-3 py-1 border-l-2 ${m.author_role === "admin" ? "border-emerald-500/60 bg-emerald-500/5 rounded-r" : "border-primary/40"}`}
                   >
                     <div className="text-xs text-muted-foreground mb-1">
-                      {m.author_role === "admin" ? `JewlX Technical Team (${m.author_name || "Admin"})` : (m.author_name || "Client")} — {format(new Date(m.created_at), "MMM d, h:mm a")}
+                      {m.author_role === "admin" ? `Aurezo Technical Team (${m.author_name || "Admin"})` : (m.author_name || "Client")} — {format(new Date(m.created_at), "MMM d, h:mm a")}
                     </div>
                     <p className="text-sm whitespace-pre-wrap">{m.body}</p>
                   </div>

@@ -32,7 +32,7 @@ serve(async (req) => {
       await supabase.from("clients").update({ stripe_customer_id: customerId }).eq("id", clientId).is("stripe_customer_id", null);
     }
 
-    const origin = req.headers.get("origin") || "https://vault.jewlx.ai";
+    const origin = req.headers.get("origin") || "https://studio.aurezotech.com";
     const session = await stripe.checkout.sessions.create({
       mode: "setup",
       customer: customerId,

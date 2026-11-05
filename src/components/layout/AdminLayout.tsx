@@ -30,7 +30,7 @@ import {
 } from 'lucide-react';
 
 const SANDBOX_CLIENT_ID = 'dcd952fc-783b-4a92-be7f-62751265c650';
-const SANDBOX_CLIENT_NAME = 'JewlX';
+const SANDBOX_CLIENT_NAME = 'Aurezo';
 
 const adminNavItems = [
   {
@@ -119,7 +119,7 @@ export function AdminLayout() {
             >
               <Menu className="h-5 w-5" />
             </Button>
-            <span className="font-semibold text-lg truncate">JewlX Admin</span>
+            <span className="font-semibold text-lg truncate">Aurezo Admin</span>
           </div>
         )}
         <TopBar />

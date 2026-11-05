@@ -88,19 +88,19 @@ interface ShopifyOrder {
 }
 
 const SOURCE_MAP: Record<string, string> = {
-  // "JewelX Ring Builder" is the marker the Ring OS widget puts on its cart
-  // (shopify-add-to-cart). Every dashboard reads Ring OS as 'jewlx-widget';
+  // "Aurezo Ring Builder" is the marker the Ring OS widget puts on its cart
+  // (shopify-add-to-cart). Every dashboard reads Ring OS as 'aurezo-widget';
   // 'ring-builder' is the CustomX Ring Builder form deposit.
-  'JewelX Ring Builder': 'jewlx-widget',
+  'Aurezo Ring Builder': 'aurezo-widget',
   // Marker shopify-form-checkout sends for the Ring Builder form deposit. It
-  // was missing here, so those paid deposits were ignored as non-JewelX orders.
-  'Ring-builder-jewlx': 'ring-builder',
-  'Grillz-builder-jewlx': 'grillz-builder',
-  'Custom-inquiry-jewlx': 'custom-inquiry',
+  // was missing here, so those paid deposits were ignored as non-Aurezo orders.
+  'Ring-builder-aurezo': 'ring-builder',
+  'Grillz-builder-aurezo': 'grillz-builder',
+  'Custom-inquiry-aurezo': 'custom-inquiry',
 };
 
-// Returns the order_source string or null if not a JewelX order
-function getJewelXOrderSource(orderData: ShopifyOrder): string | null {
+// Returns the order_source string or null if not an Aurezo order
+function getAurezoOrderSource(orderData: ShopifyOrder): string | null {
   // Check note_attributes first
   const noteAttributes = orderData.note_attributes || [];
   const sourceAttr = noteAttributes.find(attr => attr.name === '_source');
@@ -213,14 +213,14 @@ serve(async (req) => {
 
     console.log('Received Shopify webhook for order:', orderData.id);
 
-    // Detect JewelX source
-    const orderSource = getJewelXOrderSource(orderData);
+    // Detect Aurezo source
+    const orderSource = getAurezoOrderSource(orderData);
     if (!orderSource) {
-      console.log('Ignoring non-JewelX order:', orderData.id);
+      console.log('Ignoring non-Aurezo order:', orderData.id);
       return new Response('OK', { status: 200, headers: corsHeaders });
     }
 
-    console.log('Processing JewelX order:', orderData.id, 'source:', orderSource);
+    console.log('Processing Aurezo order:', orderData.id, 'source:', orderSource);
 
     // Identify client: prefer client_id query param, fall back to domain matching
     const url = new URL(req.url);
@@ -483,7 +483,7 @@ serve(async (req) => {
         success: true, 
         order_id: newOrder.id,
         order_source: orderSource,
-        message: 'JewelX order synced successfully' 
+        message: 'Aurezo order synced successfully' 
       }),
       { 
         status: 200, 

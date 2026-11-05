@@ -18,7 +18,7 @@ export default function Help() {
           <div className="mb-12 text-center">
             <h1 className="text-4xl font-bold mb-4">Help Center</h1>
             <p className="text-lg text-muted-foreground">
-              Everything you need to know about using the JewlX platform
+              Everything you need to know about using the Aurezo platform
             </p>
             <div className="flex gap-3 justify-center mt-6">
               <Button onClick={() => navigate('/status')} variant="outline">
@@ -83,13 +83,13 @@ export default function Help() {
                   <AccordionItem value="manufacturing">
                     <AccordionTrigger className="text-sm">Manufacturing Options</AccordionTrigger>
                     <AccordionContent className="text-sm text-muted-foreground">
-                      Choose whether you'll manufacture products yourself or use JewlX manufacturing services. 
+                      Choose whether you'll manufacture products yourself or use Aurezo manufacturing services. 
                       You can enable both options and let customers choose.
                     </AccordionContent>
                   </AccordionItem>
                 </Accordion>
                 <p className="text-xs text-muted-foreground italic mt-4">
-                  Note: All products in our catalog are licensed exclusively to JewlX
+                  Note: All products in our catalog are licensed exclusively to Aurezo
                 </p>
               </CardContent>
             </Card>

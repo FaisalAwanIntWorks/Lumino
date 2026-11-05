@@ -7,6 +7,7 @@ import { StepHeader } from './StepHeader';
 import { StyleInfoDialog } from '../StyleInfoDialog';
 import { useWidgetTheme } from '@/contexts/WidgetThemeContext';
 import { TwentyFourKCardGrid } from '../twentyfourk/TwentyFourKCardGrid';
+import { ASSET_CDN } from "@/lib/asset-cdn";
 
 
 interface StyleStepProps {
@@ -17,10 +18,10 @@ interface StyleStepProps {
 
 // Sketches are served as WebP; every <img> showing one falls back to the .png twin on error.
 const STYLE_IMAGES: Record<string, string> = {
-  'solitaire': 'https://d2lo9ju43icaaa.cloudfront.net/JewlxRingsSketches/Solitaire.webp',
-  'three-stone': 'https://d2lo9ju43icaaa.cloudfront.net/JewlxRingsSketches/Three+stone.webp',
-  'halo': 'https://d2lo9ju43icaaa.cloudfront.net/JewlxRingsSketches/Halo.webp',
-  'pave-rail': 'https://d2lo9ju43icaaa.cloudfront.net/JewlxRingsSketches/Pave+Rail.webp',
+  'solitaire': `${ASSET_CDN.main}/JewlxRingsSketches/Solitaire.webp`,
+  'three-stone': `${ASSET_CDN.main}/JewlxRingsSketches/Three+stone.webp`,
+  'halo': `${ASSET_CDN.main}/JewlxRingsSketches/Halo.webp`,
+  'pave-rail': `${ASSET_CDN.main}/JewlxRingsSketches/Pave+Rail.webp`,
 };
 
 export const StyleStep = ({ selected, onSelect, options }: StyleStepProps) => {

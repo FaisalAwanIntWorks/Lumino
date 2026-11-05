@@ -24,9 +24,9 @@ export function generateCustomEnquiryEmbedCode(
 
   return generateEmbedCode({
     embedUrl,
-    containerId: `jewlx-enquiry-${clientId.slice(0, 8)}`,
-    iframeTitle: 'JewlX Custom Enquiry',
-    commentLabel: 'JewlX Custom Enquiry Widget',
+    containerId: `aurezo-enquiry-${clientId.slice(0, 8)}`,
+    iframeTitle: 'Aurezo Custom Enquiry',
+    commentLabel: 'Aurezo Custom Enquiry Widget',
     height,
   });
 }

@@ -82,12 +82,12 @@ export function getClientNavItems({
 
 
   // Ring OS access — when staff lacks catalog_access, hide ALL three tabs
-  // (Catalog, Widget, JewlX Agent) per the unified Ring OS permission.
+  // (Catalog, Widget, Aurezo Agent) per the unified Ring OS permission.
   const showRingOS = role !== 'staff' || hasCatalogAccess;
   const ringOSItems: NavItem[] = showRingOS ? [
     { label: 'Catalog', icon: Package, href: `${p}/catalog`, locked: !features.product_catalogue },
     { label: 'Widget', icon: Code, href: `${p}/embed`, locked: !features.embed_branding },
-    { label: 'JewlX Agent', icon: Bot, href: `${p}/ai-configurator`, locked: !features.jewlx_agent },
+    { label: 'Aurezo Agent', icon: Bot, href: `${p}/ai-configurator`, locked: !features.jewlx_agent },
   ] : [];
 
   const items: NavSection[] = [

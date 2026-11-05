@@ -1,6 +1,6 @@
 // Ring OS catalogue currency (USD / GBP / CAD).
 //
-// Only allow-listed accounts (currently the Sandbox account JewlX) can pick a
+// Only allow-listed accounts (currently the Sandbox account Aurezo) can pick a
 // catalogue currency; every other account keeps today's behaviour. Ring step
 // prices (styles, shanks, metals) are typed in the chosen currency and never
 // converted. Diamond prices in GBP / CAD come from the admin-approved FX
@@ -11,7 +11,7 @@
 // in sync.
 
 export const RING_OS_CURRENCY_CLIENT_IDS: ReadonlySet<string> = new Set([
-  'dcd952fc-783b-4a92-be7f-62751265c650', // Sandbox · JewlX
+  'dcd952fc-783b-4a92-be7f-62751265c650', // Sandbox · Aurezo
 ]);
 
 export const RING_OS_CURRENCIES = ['USD', 'GBP', 'CAD'] as const;

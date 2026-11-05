@@ -1,3 +1,4 @@
+import { ASSET_CDN } from "@/lib/asset-cdn";
 /**
  * Gemstone choices for the Quote Estimator V3 "Pick your gemstone" screen.
  *
@@ -13,7 +14,7 @@ export const GEMSTONE_SHAPE_VALUE = 'ruby-sapphire-emerald';
 export const COLORED_DIAMOND_SHAPE_VALUE = 'colored-diamond';
 
 /** Folder on the V3 stock CDN that holds `<file>.webp` for every gemstone below. */
-export const V3_GEMSTONE_IMAGE_BASE = 'https://d1cekhbdtlmikd.cloudfront.net/jewlx3updatedtransparentimages/gemstones';
+export const V3_GEMSTONE_IMAGE_BASE = `${ASSET_CDN.quoteV3}/jewlx3updatedtransparentimages/gemstones`;
 
 export interface QuoteGemstone {
   /** Stable value stored on the form data and lead note. */

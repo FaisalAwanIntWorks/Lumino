@@ -1,10 +1,10 @@
-// Domain configuration for JewlX multi-subdomain architecture
-// Note: Root domain (jewlx.ai) is now handled by a separate marketing website project
+// Domain configuration for Aurezo multi-subdomain architecture
+// Note: Root domain (aurezotech.com) is now handled by a separate marketing website project
 
 export const PRODUCTION_DOMAINS = {
-  admin: 'admin.jewlx.ai',
-  client: 'vault.jewlx.ai',
-  builder: 'builder.jewlx.ai',
+  admin: 'studioadmin.aurezotech.com',
+  client: 'studio.aurezotech.com',
+  builder: 'widget.aurezotech.com',
 } as const;
 
 export type PortalType = 'admin' | 'client' | 'builder' | 'development';
@@ -21,7 +21,7 @@ export function getSubdomain(hostname: string): string | null {
   // Handle production domains
   const parts = hostname.split('.');
   if (parts.length >= 3) {
-    return parts[0]; // Return subdomain (e.g., 'admin' from 'admin.jewlx.ai')
+    return parts[0]; // Return subdomain (e.g., 'studioadmin' from 'studioadmin.aurezotech.com')
   }
 
   return null; // Root domain
@@ -38,9 +38,9 @@ export function getPortalType(hostname: string): PortalType {
   
   // Then check subdomain extraction as fallback for flexibility
   const subdomain = getSubdomain(hostname);
-  if (subdomain === 'admin') return 'admin';
-  if (subdomain === 'vault') return 'client';
-  if (subdomain === 'builder') return 'builder';
+  if (subdomain === 'studioadmin' || subdomain === 'admin') return 'admin';
+  if (subdomain === 'studio') return 'client';
+  if (subdomain === 'widget') return 'builder';
   
   // Development environments - allow all routes
   if (hostname === 'localhost') {
@@ -59,7 +59,7 @@ export function isProductionDomain(hostname: string): boolean {
     hostname === PRODUCTION_DOMAINS.admin ||
     hostname === PRODUCTION_DOMAINS.client ||
     hostname === PRODUCTION_DOMAINS.builder ||
-    hostname.endsWith('.jewlx.ai') // Include all jewlx.ai subdomains
+    hostname.endsWith('.aurezotech.com') // Include all aurezotech.com subdomains
   );
 }
 

@@ -4,7 +4,7 @@
  * Runs once a day at 12:00 AM US Eastern time (America/New_York, DST-aware).
  * pg_cron fires at 04:00 and 05:00 UTC (migration 20261102120000) and only
  * the run that lands on Eastern midnight sends; the other one skips. It emails
- * JewlX super admins (never admin staff) how many leads every client
+ * Aurezo super admins (never admin staff) how many leads every client
  * account received on each form during the day that just ended. Internal /
  * dummy accounts are left out.
  *
@@ -26,15 +26,15 @@ const corsHeaders = {
   "Access-Control-Allow-Headers": "authorization, x-client-info, apikey, content-type",
 };
 
-const FROM_EMAIL = "JewlX Daily Leads <onboarding@resend.dev>";
-const DASHBOARD_URL = "https://admin.jewlx.ai/admin";
-const LOGO_URL = "https://vault.jewlx.ai/images/jewelx-email-logo.png";
+const FROM_EMAIL = "Aurezo Daily Leads <onboarding@resend.dev>";
+const DASHBOARD_URL = "https://studioadmin.aurezotech.com/admin";
+const LOGO_URL = "https://studio.aurezotech.com/images/aurezo-email-logo.png";
 
 // The nightly report goes to every active super admin
 // (admin_staff_members.is_super_admin). "[TEST]" sends go only to this inbox.
 const TEST_RECIPIENT = "faisala@wavesmvmnt.com";
 
-// Every JewlX super admin (same list as migration 20260903150000). Always
+// Every Aurezo super admin (same list as migration 20260903150000). Always
 // emailed, even when their admin_staff_members row is missing or not flagged
 // is_super_admin, so a stale staff table can never drop the report.
 const SUPER_ADMIN_EMAILS = [
@@ -59,7 +59,7 @@ const REPORT_TZ_LABEL = "Eastern Time";
 const EXCLUDED_CLIENT_EMAILS = new Set([
   "demo@lumierejewelry.com",    // Lumière Fine Jewelry
   "creatives@wavesmvmnt.com",   // WAVES MVMNT
-  "gsk@crmmvmnt.com",           // JewlX
+  "gsk@crmmvmnt.com",           // Aurezo
   "faisal914awan@gmail.com",    // fbe
   "client@demo.com",            // Demo Client
   "emailflows@wavesmvmnt.com",  // Top G
@@ -236,12 +236,12 @@ function reportHtml(report: Awaited<ReturnType<typeof buildReport>>, isTest: boo
 
   return `<!doctype html><html><body style="margin:0;background:#f4f4f5;font-family:Inter,Segoe UI,Arial,sans-serif;color:#18181b;">
   <div style="max-width:640px;margin:0 auto;padding:32px 16px;">
-    <div style="text-align:center;margin-bottom:20px;"><img src="${LOGO_URL}" alt="JewlX" style="height:48px;" /></div>
+    <div style="text-align:center;margin-bottom:20px;"><img src="${LOGO_URL}" alt="Aurezo" style="height:48px;" /></div>
     <div style="background:#fff;border-radius:14px;overflow:hidden;border:1px solid #e4e4e7;">
       <div style="background:#0f766e;color:#fff;padding:18px 24px;font-size:18px;font-weight:700;">${report.partial ? "Leads Report (so far)" : "Daily Leads Report"} · ${esc(report.date_label)}</div>
       <div style="padding:24px;font-size:14px;line-height:1.6;">${body}</div>
       <div style="padding:16px 24px;border-top:1px solid #e4e4e7;font-size:12px;color:#71717a;">
-        Sent to JewlX super admins and the leads team · internal and demo accounts are excluded · <a href="${DASHBOARD_URL}" style="color:#0f766e;">Open admin dashboard</a>
+        Sent to Aurezo super admins and the leads team · internal and demo accounts are excluded · <a href="${DASHBOARD_URL}" style="color:#0f766e;">Open admin dashboard</a>
       </div>
     </div>
   </div></body></html>`;

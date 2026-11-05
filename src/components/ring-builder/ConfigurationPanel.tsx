@@ -103,7 +103,7 @@ export const ConfigurationPanel = ({
   const [viewerEl, setViewerEl] = useState<HTMLElement | null>(null);
   const [mobileCaratDone, setMobileCaratDone] = useState(false);
   useEffect(() => {
-    const root = scrollRef.current?.closest<HTMLElement>('#jewlx-embed-root');
+    const root = scrollRef.current?.closest<HTMLElement>('#aurezo-embed-root');
     setViewerEl(root?.querySelector<HTMLElement>('[data-adaptive-viewer]') ?? null);
   }, []);
 

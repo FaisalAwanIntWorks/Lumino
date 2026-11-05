@@ -179,7 +179,7 @@ Deno.serve(async (req) => {
           <!-- Header -->
           <tr>
             <td class="email-header" style="padding: 40px 40px 20px; text-align: center; background: linear-gradient(135deg, #013220 0%, #0b6e4f 100%); border-radius: 12px 12px 0 0;">
-              <img src="https://vault.jewlx.ai/images/jewelx-email-logo.png" alt="JewlX" style="height: 50px; width: auto;">
+              <img src="https://studio.aurezotech.com/images/aurezo-email-logo.png" alt="Aurezo" style="height: 50px; width: auto;">
             </td>
           </tr>
           
@@ -236,10 +236,10 @@ Deno.serve(async (req) => {
           <tr>
             <td style="padding: 30px 40px; background-color: #d1f2eb; border-radius: 0 0 12px 12px; text-align: center;">
               <p style="color: #0b6e4f; font-size: 14px; margin: 0;">
-                This export was requested from your JewlX dashboard.
+                This export was requested from your Aurezo dashboard.
               </p>
               <p style="color: #0b6e4f; font-size: 12px; margin: 10px 0 0;">
-                © ${new Date().getFullYear()} JewlX. All rights reserved.
+                © ${new Date().getFullYear()} Aurezo. All rights reserved.
               </p>
             </td>
           </tr>
@@ -254,7 +254,7 @@ Deno.serve(async (req) => {
 
     // Send email via Resend with CSV as attachment
     const emailResponse = await resend.emails.send({
-      from: "JewlX <onboarding@resend.dev>",
+      from: "Aurezo <onboarding@resend.dev>",
       to: [recipientEmail],
       subject: `Your Leads Export is Ready - ${leads.length} Lead${leads.length > 1 ? "s" : ""}`,
       html: emailHtml,

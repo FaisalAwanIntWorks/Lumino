@@ -32,22 +32,22 @@ describe('Quote Estimator embed sizing scope', () => {
 
 describe('Quote Estimator URLs carry no variant parameter', () => {
   it('uses the dedicated /quote path on production and never ?variant=dtt', () => {
-    vi.stubGlobal('window', { location: { hostname: 'vault.jewlx.ai', origin: 'https://vault.jewlx.ai' } });
-    expect(getQuoteEstimatorUrl('abc')).toBe('https://builder.jewlx.ai/quote/abc');
-    expect(getQuoteEstimatorThemePreviewUrl('abc', 'glass')).toBe('https://builder.jewlx.ai/quote/abc?quoteTheme=glass');
-    expect(getQuoteEstimatorVersionPreviewUrl('abc', 'v3')).toBe('https://builder.jewlx.ai/quote/abc?quoteVersion=v3');
-    expect(getDiamondsFormUrl('abc')).toBe('https://builder.jewlx.ai/diamonds/abc');
+    vi.stubGlobal('window', { location: { hostname: 'studio.aurezotech.com', origin: 'https://studio.aurezotech.com' } });
+    expect(getQuoteEstimatorUrl('abc')).toBe('https://widget.aurezotech.com/quote/abc');
+    expect(getQuoteEstimatorThemePreviewUrl('abc', 'glass')).toBe('https://widget.aurezotech.com/quote/abc?quoteTheme=glass');
+    expect(getQuoteEstimatorVersionPreviewUrl('abc', 'v3')).toBe('https://widget.aurezotech.com/quote/abc?quoteVersion=v3');
+    expect(getDiamondsFormUrl('abc')).toBe('https://widget.aurezotech.com/diamonds/abc');
     const snippet = generateDiamondsFormEmbedCode('abcdefgh-1234', '800px', [], 'dtt');
-    expect(snippet).toContain('src="https://builder.jewlx.ai/quote/abcdefgh-1234"');
+    expect(snippet).toContain('src="https://widget.aurezotech.com/quote/abcdefgh-1234"');
     expect(snippet).not.toContain('variant=dtt');
-    expect(snippet).toContain('id="jewlx-quote-abcdefgh"');
+    expect(snippet).toContain('id="aurezo-quote-abcdefgh"');
   });
 
   it('keeps the Ring Builder snippet on /diamonds', () => {
-    vi.stubGlobal('window', { location: { hostname: 'vault.jewlx.ai', origin: 'https://vault.jewlx.ai' } });
+    vi.stubGlobal('window', { location: { hostname: 'studio.aurezotech.com', origin: 'https://studio.aurezotech.com' } });
     const snippet = generateDiamondsFormEmbedCode('abcdefgh-1234');
-    expect(snippet).toContain('src="https://builder.jewlx.ai/diamonds/abcdefgh-1234"');
-    expect(snippet).toContain('id="jewlx-diamonds-abcdefgh"');
+    expect(snippet).toContain('src="https://widget.aurezotech.com/diamonds/abcdefgh-1234"');
+    expect(snippet).toContain('id="aurezo-diamonds-abcdefgh"');
   });
 
   it('falls back to /embed-quote in development', () => {

@@ -179,7 +179,7 @@ const AssetSheet = () => {
     const url = URL.createObjectURL(blob);
     
     link.setAttribute('href', url);
-    link.setAttribute('download', `jewelx-master-asset-sheet-${new Date().toISOString().split('T')[0]}.csv`);
+    link.setAttribute('download', `aurezo-master-asset-sheet-${new Date().toISOString().split('T')[0]}.csv`);
     link.style.visibility = 'hidden';
     
     document.body.appendChild(link);

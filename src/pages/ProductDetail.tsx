@@ -10,7 +10,7 @@ import { useCart } from "@/hooks/useCart";
 import { formatCurrency } from "@/lib/pricing-utils";
 import { Heart, Share2, ShoppingCart, ArrowLeft } from "lucide-react";
 import { useToast } from "@/hooks/use-toast";
-import { JewlXLicenseBadge } from "@/components/common/JewlXLicenseBadge";
+import { AurezoLicenseBadge } from "@/components/common/AurezoLicenseBadge";
 
 interface Product {
   id: string;
@@ -129,7 +129,7 @@ export default function ProductDetail() {
                 alt={product.name}
               />
               <div className="absolute top-4 right-4 z-10">
-                <JewlXLicenseBadge size="sm" />
+                <AurezoLicenseBadge size="sm" />
               </div>
             </div>
 

@@ -12,7 +12,7 @@ const corsHeaders = {
 
 // A6: From / Reply-To are now derived per-jeweler. Defaults preserve current
 // behaviour when client.company_name / client.email are missing.
-const DEFAULT_FROM_NAME = "JewlX";
+const DEFAULT_FROM_NAME = "Aurezo";
 const FROM_ADDRESS = "onboarding@resend.dev";
 const DEFAULT_REPLY_TO = Deno.env.get("SUPPORT_EMAIL") || undefined;
 
@@ -38,12 +38,12 @@ function buildFromHeader(companyName?: string | null): string {
   return `${display} <${FROM_ADDRESS}>`;
 }
 
-// G4: JewlX-internal hosts are always trusted regardless of allowed_domains.
-const JEWLX_TRUSTED_HOSTS = [
-  "vault.jewlx.ai",
-  "admin.jewlx.ai",
-  "builder.jewlx.ai",
-  "jewlx.ai",
+// G4: Aurezo-internal hosts are always trusted regardless of allowed_domains.
+const AUREZO_TRUSTED_HOSTS = [
+  "studio.aurezotech.com",
+  "studioadmin.aurezotech.com",
+  "widget.aurezotech.com",
+  "aurezotech.com",
   "localhost",
 ];
 
@@ -65,7 +65,7 @@ async function validateRequestOrigin(
   let originHost = "";
   try { originHost = new URL(origin).hostname; } catch { return null; }
 
-  if (JEWLX_TRUSTED_HOSTS.some(h => originHost === h || originHost.endsWith(`.${h}`))) {
+  if (AUREZO_TRUSTED_HOSTS.some(h => originHost === h || originHost.endsWith(`.${h}`))) {
     return null;
   }
 
@@ -351,7 +351,7 @@ const handler = async (req: Request): Promise<Response> => {
         <table role="presentation" style="width:100%;max-width:560px;border-collapse:collapse;background-color:#ffffff;border-radius:8px;overflow:hidden;box-shadow:0 1px 3px rgba(0,0,0,0.08);">
           <tr>
             <td class="email-header" style="padding:28px 24px 20px;text-align:center;background-color:#000000;">
-              <img src="https://vault.jewlx.ai/images/jewelx-email-logo.png" alt="JewlX" style="height:56px;" />
+              <img src="https://studio.aurezotech.com/images/aurezo-email-logo.png" alt="Aurezo" style="height:56px;" />
             </td>
           </tr>
           <tr>
@@ -383,7 +383,7 @@ const handler = async (req: Request): Promise<Response> => {
               <table role="presentation" style="width:100%;border-collapse:collapse;">
                 <tr>
                   <td align="center" style="padding:16px 0;">
-                    <a href="https://vault.jewlx.ai/saved-designs" style="display:inline-block;padding:12px 24px;background-color:#0b6e4f;color:#ffffff;text-decoration:none;font-size:15px;font-weight:600;border-radius:6px;">
+                    <a href="https://studio.aurezotech.com/saved-designs" style="display:inline-block;padding:12px 24px;background-color:#0b6e4f;color:#ffffff;text-decoration:none;font-size:15px;font-weight:600;border-radius:6px;">
                       View All Leads
                     </a>
                   </td>
@@ -395,8 +395,8 @@ const handler = async (req: Request): Promise<Response> => {
           <tr>
             <td style="padding:20px 24px;background-color:#fafafa;border-top:1px solid #eee;">
               <p style="margin:0;color:#999;font-size:12px;text-align:center;">
-                This is an automated notification from JewlX.<br>&copy; ${new Date().getFullYear()} JewlX. All rights reserved.<br>
-                <a href="https://vault.jewlx.ai" style="color:#0b6e4f;text-decoration:none;font-weight:600;">vault.jewlx.ai</a>
+                This is an automated notification from Aurezo.<br>&copy; ${new Date().getFullYear()} Aurezo. All rights reserved.<br>
+                <a href="https://studio.aurezotech.com" style="color:#0b6e4f;text-decoration:none;font-weight:600;">studio.aurezotech.com</a>
               </p>
             </td>
           </tr>
@@ -412,7 +412,7 @@ const handler = async (req: Request): Promise<Response> => {
     const subject = `New ${formLabel} Lead: ${customer_name}`;
 
     // FROM uses the jeweler's company name so the inbox preview reads as
-    // "{Jeweler} via JewlX". Reply-To is the customer so the jeweler can hit
+    // "{Jeweler} via Aurezo". Reply-To is the customer so the jeweler can hit
     // reply directly from this lead notification.
     const fromHeader = buildFromHeader(client.company_name);
     const replyTo = customer_email || DEFAULT_REPLY_TO;

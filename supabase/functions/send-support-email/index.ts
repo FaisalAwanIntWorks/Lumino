@@ -11,7 +11,7 @@ const corsHeaders = {
   "Access-Control-Allow-Headers": "authorization, x-client-info, apikey, content-type",
 };
 
-const FROM_EMAIL = "JewlX Support <onboarding@resend.dev>";
+const FROM_EMAIL = "Aurezo Support <onboarding@resend.dev>";
 const REPLY_TO = Deno.env.get("SUPPORT_EMAIL") || undefined;
 // Used when no agency_admin email is found. Empty when neither secret is set.
 const ADMIN_INBOX_FALLBACK: string[] = [Deno.env.get("SUPPORT_ADMIN_INBOX") || Deno.env.get("SUPPORT_EMAIL") || ""].filter(Boolean);
@@ -37,9 +37,9 @@ async function getAllAdminEmails(supabase: any): Promise<string[]> {
     return ADMIN_INBOX_FALLBACK;
   }
 }
-const LOGO_URL = "https://vault.jewlx.ai/images/jewelx-email-logo.png";
-const ADMIN_QUERIES_URL = "https://admin.jewlx.ai/admin/client-queries";
-const CLIENT_HELP_URL = "https://vault.jewlx.ai/dashboard/help-center";
+const LOGO_URL = "https://studio.aurezotech.com/images/aurezo-email-logo.png";
+const ADMIN_QUERIES_URL = "https://studioadmin.aurezotech.com/admin/client-queries";
+const CLIENT_HELP_URL = "https://studio.aurezotech.com/dashboard/help-center";
 
 interface Payload {
   ticket_id: string;
@@ -101,7 +101,7 @@ function shell(opts: {
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <meta name="color-scheme" content="light only">
   <meta name="supported-color-schemes" content="light only">
-  <title>${escape(heading)} - JewlX</title>
+  <title>${escape(heading)} - Aurezo</title>
   <style>
     :root { color-scheme: light only; }
     @media (prefers-color-scheme: dark) {
@@ -117,7 +117,7 @@ function shell(opts: {
         <table role="presentation" style="width: 100%; max-width: 560px; border-collapse: collapse; background-color: #ffffff; border-radius: 8px; overflow: hidden; box-shadow: 0 1px 3px rgba(0,0,0,0.08);">
           <tr>
             <td class="email-header" style="padding: 32px 40px 24px; text-align: center; background-color: #000000;">
-              <img src="${LOGO_URL}" alt="JewlX" style="height: 56px;" />
+              <img src="${LOGO_URL}" alt="Aurezo" style="height: 56px;" />
             </td>
           </tr>
           <tr>
@@ -133,7 +133,7 @@ function shell(opts: {
           <tr>
             <td style="padding: 20px 40px; background-color: #fafafa; border-top: 1px solid #eeeeee;">
               <p style="margin: 0; color: #999999; font-size: 12px; text-align: center;">
-                Automated notification from JewlX.<br>&copy; ${new Date().getFullYear()} JewlX. All rights reserved.
+                Automated notification from Aurezo.<br>&copy; ${new Date().getFullYear()} Aurezo. All rights reserved.
               </p>
             </td>
           </tr>
@@ -224,7 +224,7 @@ serve(async (req: Request) => {
         `We received your query: ${ticket.subject}`,
         shell({
           heading: "Your query has been received",
-          intro: `Hi ${escape(firstName)}, thank you for reaching out. The <strong>JewlX Technical Team</strong> will respond to your request within 24 hours.`,
+          intro: `Hi ${escape(firstName)}, thank you for reaching out. The <strong>Aurezo Technical Team</strong> will respond to your request within 24 hours.`,
           sections: [{
             label: "Query Details",
             rows: [
@@ -278,9 +278,9 @@ serve(async (req: Request) => {
         ticket.created_by_email,
         `Reply to your query: ${ticket.subject}`,
         shell({
-          heading: "JewlX Technical Team has replied",
+          heading: "Aurezo Technical Team has replied",
           intro: `Hi ${escape(firstName)}, our team has responded to your support query <strong>"${escape(ticket.subject)}"</strong>.`,
-          quoteLabel: "Reply from JewlX",
+          quoteLabel: "Reply from Aurezo",
           quoteBody: body.reply_body || "",
           ctaLabel: "View Full Conversation",
           ctaUrl: CLIENT_HELP_URL,

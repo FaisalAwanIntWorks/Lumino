@@ -20,7 +20,7 @@ import type { DttFormColors } from '@/hooks/useClientDttFormConfig';
 import { normalizeHex, withAlpha, getContrastText } from '@/lib/color-utils';
 
 /**
- * Sandbox account (JewlX): the only account with the V1 / V2 / V3 version lab
+ * Sandbox account (Aurezo): the only account with the V1 / V2 / V3 version lab
  * (separate storage per version, ?quoteVersion= test links). Its V2 is always
  * the glass skin. Every other account is a plain V2-storage account that
  * chooses its skin with the Theme setting instead.

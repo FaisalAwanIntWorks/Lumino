@@ -3,7 +3,7 @@
  *
  * Allowlisted accounts only for now: after Natural / Lab, shape and carat
  * size, the Quality step offers real stones with Colour / Clarity filters,
- * like the Ring OS Stone step. The stones always come from the complete JewlX
+ * like the Ring OS Stone step. The stones always come from the complete Aurezo
  * diamond pool — never from a client's Ring OS catalogue — narrowed by the
  * Quote Estimator's own "Diamond Configuration" (same options as the Ring OS
  * catalogue screen) and priced with its own Natural / Lab markup.
@@ -132,7 +132,7 @@ export function resolveQuoteDiamondPickerConfig(content?: DttFormContent | null)
  * changes — the Sandbox-lab versioning stays tied to isGlassQuoteEstimator.
  */
 export const QUOTE_DIAMOND_PICKER_CLIENTS: readonly string[] = [
-  'dcd952fc-783b-4a92-be7f-62751265c650', // Sandbox · JewlX
+  'dcd952fc-783b-4a92-be7f-62751265c650', // Sandbox · Aurezo
   '9d43af60-4e42-4b48-ac9a-b0fa9e608385', // fsl / fbe · faisal914awan@gmail.com
 ];
 

@@ -1,6 +1,6 @@
 import { supabase } from '@/integrations/supabase/client';
 
-const CACHE_PREFIX = 'jewelx_product_cache_';
+const CACHE_PREFIX = 'aurezo_product_cache_';
 const CACHE_TTL = 60 * 60 * 1000; // 1 hour in milliseconds
 
 interface CacheEntry<T> {

@@ -66,7 +66,7 @@ export default function Signup() {
 
       // Send verification email (non-blocking; account creation should still succeed)
       if (result?.userId) {
-        const verifyRedirectUrl = import.meta.env.PROD ? 'https://vault.jewlx.ai' : window.location.origin;
+        const verifyRedirectUrl = import.meta.env.PROD ? 'https://studio.aurezotech.com' : window.location.origin;
 
         const { error: verifyEmailError } = await supabase.functions.invoke('send-verification-email', {
           body: {
@@ -153,9 +153,9 @@ export default function Signup() {
           {/* Logo */}
           <div className="flex flex-col items-center mb-8">
             <div className="mb-4">
-              <img src={iconBlackBg} alt="JewlX" className="h-16 w-16 object-contain rounded-2xl" />
+              <img src={iconBlackBg} alt="Aurezo" className="h-16 w-16 object-contain rounded-2xl" />
             </div>
-            <h1 className="text-3xl font-bold text-foreground">JewlX</h1>
+            <h1 className="text-3xl font-bold text-foreground">Aurezo</h1>
             <p className="text-muted-foreground text-sm mt-2">Create your account</p>
           </div>
 

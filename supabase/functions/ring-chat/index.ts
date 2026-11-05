@@ -571,7 +571,7 @@ Deno.serve(async (req) => {
 
     // Fetch client catalog if clientId is provided (with 1-hour cache)
     let catalogContext = '';
-    let storeName = 'JewlX';
+    let storeName = 'Aurezo';
     let rawCatalogData: any = null;
     if (clientId) {
       const supabaseUrl = getRequiredSecret('SUPABASE_URL');

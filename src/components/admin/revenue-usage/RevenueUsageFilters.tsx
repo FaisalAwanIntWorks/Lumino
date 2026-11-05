@@ -91,7 +91,7 @@ export function RevenueUsageFilters({
             <Switch id="internal" checked={includeInternal} onCheckedChange={onIncludeInternalChange} />
             <Label htmlFor="internal" className="text-sm">Include internal / test accounts</Label>
             <InfoTip>
-              Accounts flagged as internal (JewlX, WAVES MVMNT and other test sub-accounts) are hidden by default,
+              Accounts flagged as internal (Aurezo, WAVES MVMNT and other test sub-accounts) are hidden by default,
               the same as on the admin dashboard revenue tiles.
             </InfoTip>
           </div>

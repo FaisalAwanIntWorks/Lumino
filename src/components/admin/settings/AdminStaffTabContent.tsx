@@ -151,7 +151,7 @@ export function AdminStaffTabContent() {
   const [csSaving, setCsSaving] = useState(false);
 
   const PERMISSION_KEYS: { key: string; label: string }[] = [
-    { key: 'catalog_access', label: 'Ring OS (Catalog, Widget, JewlX Agent)' },
+    { key: 'catalog_access', label: 'Ring OS (Catalog, Widget, Aurezo Agent)' },
     { key: 'custom_x_access', label: 'Custom X (Ring Builder, Grillz, Custom Enquiry)' },
     { key: 'metal_buying_access', label: 'Metal IQ (Widget + Leads)' },
     { key: 'leads_access', label: 'Leads & Bookings' },

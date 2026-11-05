@@ -15,7 +15,7 @@ const log = (step: string, details?: any) => {
 const PRODUCT_TO_PLAN: Record<string, string> = {
   "prod_UGgB0Tb65CLIxU": "Custom X",
   "prod_UGgC8yqQ2TOCDo": "RingOS",
-  "prod_UGgDWYC2ZhDSRc": "JewlX Suite",
+  "prod_UGgDWYC2ZhDSRc": "Aurezo Suite",
   "prod_U9aNbkeYJBargN": "RingOS",
 };
 

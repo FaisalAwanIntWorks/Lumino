@@ -670,7 +670,7 @@ export function NewCadRequestDialog({ open, onOpenChange, clientId, onCreated, p
               </div>
             </div>
             <div>
-              <Label className="text-xs">Extra Notes / Instructions for JewlX</Label>
+              <Label className="text-xs">Extra Notes / Instructions for Aurezo</Label>
               <Textarea placeholder="Any additional instructions for the CAD team..." value={clientNotes} onChange={e => setClientNotes(e.target.value)} className="mt-1.5 min-h-[50px] placeholder:text-muted-foreground text-sm" />
             </div>
           </>
@@ -682,7 +682,7 @@ export function NewCadRequestDialog({ open, onOpenChange, clientId, onCreated, p
             </div>
             {renderTechnicalSpecs()}
             <div>
-              <Label className="text-xs">Extra Notes / Instructions for JewlX</Label>
+              <Label className="text-xs">Extra Notes / Instructions for Aurezo</Label>
               <Textarea placeholder="Any additional instructions for the CAD team..." value={clientNotes} onChange={e => setClientNotes(e.target.value)} className="mt-1.5 min-h-[50px] placeholder:text-muted-foreground text-sm" />
             </div>
           </>
@@ -1153,7 +1153,7 @@ export function NewCadRequestDialog({ open, onOpenChange, clientId, onCreated, p
                 </div>
 
                 <div>
-                  <Label>Extra Notes / Instructions for JewlX</Label>
+                  <Label>Extra Notes / Instructions for Aurezo</Label>
                   <Textarea placeholder="Any additional instructions for the CAD team..." value={clientNotes} onChange={e => setClientNotes(e.target.value)} className="mt-1.5 min-h-[60px] placeholder:text-gray-400" />
                 </div>
               </>

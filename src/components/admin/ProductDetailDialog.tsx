@@ -5,6 +5,7 @@ import { Button } from '@/components/ui/button';
 import { ChevronLeft, ChevronRight, Package, Video, FileBox, Camera } from 'lucide-react';
 import { getProductCdnImageUrl, constructCdnImageUrl } from '@/lib/cdn-utils';
 import { fallbackToPngOnError, toWebpImageUrl } from '@/lib/webp-image-fallback';
+import { ASSET_CDN } from "@/lib/asset-cdn";
 
 interface MasterDbItem {
   id: string;
@@ -100,7 +101,7 @@ export function ProductDetailDialog({ item, open, onOpenChange }: ProductDetailD
       .replace(/\bhalo\b/g, 'Halo')
       .replace(/\bsolitaire\b/g, 'Solitaire');
     // Served as WebP; the <img> falls back to the .png twin on error.
-    const url = toWebpImageUrl(`https://do2z856wqq7wu.cloudfront.net/ring-description/${folderPathNoRings}/${image4Filename}`);
+    const url = toWebpImageUrl(`${ASSET_CDN.rings}/ring-description/${folderPathNoRings}/${image4Filename}`);
     mediaItems.push({ type: 'image', url, label: `Angle 5` });
   }
 

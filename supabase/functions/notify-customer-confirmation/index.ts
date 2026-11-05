@@ -5,7 +5,7 @@ import {
   loadCustomerBranding,
   renderEmailHeader,
   renderContactCta,
-  POWERED_BY_JEWLX_FOOTER,
+  POWERED_BY_AUREZO_FOOTER,
 } from "../_shared/customer-email-branding.ts";
 
 const Resend = (await import("https://esm.sh/resend@2.0.0")).Resend;
@@ -172,7 +172,7 @@ const handler = async (req: Request): Promise<Response> => {
     }
 
     // Client-controlled switch: jewelers whose CRM already emails the customer
-    // can turn the JewlX confirmation off. Default is ON when no row exists.
+    // can turn the Aurezo confirmation off. Default is ON when no row exists.
     if (client_id) {
       const { data: pref } = await supabase
         .from("client_notification_preferences")
@@ -284,7 +284,7 @@ const handler = async (req: Request): Promise<Response> => {
               <p style="margin:0;color:#999;font-size:12px;text-align:center;">
                 This is an automated confirmation from ${safeCompanyName}.<br>&copy; ${new Date().getFullYear()} ${safeCompanyName}. All rights reserved.
               </p>
-              ${POWERED_BY_JEWLX_FOOTER}
+              ${POWERED_BY_AUREZO_FOOTER}
 
             </td>
           </tr>
@@ -297,7 +297,7 @@ const handler = async (req: Request): Promise<Response> => {
     `;
 
     const subject = `Your ${formLabel} Request Has Been Received — ${companyName}`;
-    const fromEmail = `${companyName} via JewlX <onboarding@resend.dev>`;
+    const fromEmail = `${companyName} via Aurezo <onboarding@resend.dev>`;
 
     const emailResponse = await resend.emails.send({
       from: fromEmail,

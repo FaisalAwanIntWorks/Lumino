@@ -9,7 +9,7 @@ export default defineConfig(() => ({
     port: 8080,
     headers: {
       'X-Frame-Options': 'ALLOWALL',
-      'Content-Security-Policy': "frame-ancestors 'self' https://*.myshopify.com https://*.jewlx.ai"
+      'Content-Security-Policy': "frame-ancestors 'self' https://*.myshopify.com https://*.aurezotech.com"
     }
   },
   build: {

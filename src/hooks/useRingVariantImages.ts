@@ -3,6 +3,7 @@ import { useParams } from 'react-router-dom';
 import { supabase } from '@/integrations/supabase/client';
 import { RingConfiguration } from '@/types/ring-builder';
 import { toWebpRenderUrl, WEBP_TRANSPARENT_RENDER_STYLE_FOLDERS } from '@/lib/cdn-utils';
+import { ASSET_CDN } from "@/lib/asset-cdn";
 
 interface RingVariantImages {
   image_angle_0: string | null;
@@ -45,7 +46,7 @@ const slugifyVariantName = (value: string): string =>
   value.toLowerCase().trim().replace(/\s+/g, '-');
 
 // CloudFront CDN base URL for ring assets
-const CLOUDFRONT_CDN_BASE = 'https://do2z856wqq7wu.cloudfront.net';
+const CLOUDFRONT_CDN_BASE = `${ASSET_CDN.rings}`;
 
 // WebP-first render styles live in `WEBP_RENDER_STYLE_FOLDERS` (src/lib/cdn-utils.ts),
 // shared with the admin/catalog/saved-designs pages and the Shopify push.

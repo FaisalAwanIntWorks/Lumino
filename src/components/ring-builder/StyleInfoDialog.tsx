@@ -3,6 +3,7 @@ import { fallbackToPngOnError } from '@/lib/webp-image-fallback';
 import { Button } from '@/components/ui/button';
 import { StyleOption } from '@/types/ring-builder';
 import { X } from 'lucide-react';
+import { ASSET_CDN } from "@/lib/asset-cdn";
 
 interface StyleInfoDialogProps {
   open: boolean;
@@ -13,10 +14,10 @@ interface StyleInfoDialogProps {
 // Same image URLs as the option cards in steps/StyleStep.tsx
 // Sketches are served as WebP; every <img> showing one falls back to the .png twin on error.
 const STYLE_IMAGES: Record<string, string> = {
-  'solitaire': 'https://d2lo9ju43icaaa.cloudfront.net/JewlxRingsSketches/Solitaire.webp',
-  'three-stone': 'https://d2lo9ju43icaaa.cloudfront.net/JewlxRingsSketches/Three+stone.webp',
-  'halo': 'https://d2lo9ju43icaaa.cloudfront.net/JewlxRingsSketches/Halo.webp',
-  'pave-rail': 'https://d2lo9ju43icaaa.cloudfront.net/JewlxRingsSketches/Pave+Rail.webp',
+  'solitaire': `${ASSET_CDN.main}/JewlxRingsSketches/Solitaire.webp`,
+  'three-stone': `${ASSET_CDN.main}/JewlxRingsSketches/Three+stone.webp`,
+  'halo': `${ASSET_CDN.main}/JewlxRingsSketches/Halo.webp`,
+  'pave-rail': `${ASSET_CDN.main}/JewlxRingsSketches/Pave+Rail.webp`,
 };
 
 const STYLE_DETAILED_INFO: Record<string, string> = {
@@ -35,7 +36,7 @@ export const StyleInfoDialog = ({ open, onOpenChange, style }: StyleInfoDialogPr
   return createPortal(
     <div className="fixed inset-0 z-[60] animate-in fade-in-0 duration-200">
       {/* Backdrop */}
-      <div className="jewlx-info-backdrop fixed inset-0 bg-black/60" onClick={() => onOpenChange(false)} />
+      <div className="aurezo-info-backdrop fixed inset-0 bg-black/60" onClick={() => onOpenChange(false)} />
       
       {/* Full panel container */}
       <div className="fixed inset-0 md:left-[50%] flex items-stretch">

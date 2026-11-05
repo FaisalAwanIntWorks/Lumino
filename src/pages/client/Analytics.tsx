@@ -19,7 +19,7 @@ export default function ClientAnalyticsPage() {
   const [loading, setLoading] = useState(true);
 
   useEffect(() => {
-    document.title = 'Client • Analytics | Jewlx';
+    document.title = 'Client • Analytics | Aurezo';
     if (isImpersonating && !impersonatedClientId) return;
     loadAnalytics();
   }, [user, dateRange, isImpersonating, impersonatedClientId]);

@@ -68,7 +68,7 @@ const emailTemplates: Template[] = [
   // ===== Client Onboarding =====
   {
     id: '03', name: 'Client Welcome', group: 'Client Onboarding', icon: UserPlus,
-    description: 'Sent when a new client account is registered on JewlX.',
+    description: 'Sent when a new client account is registered on Aurezo.',
     trigger: 'Admin creates client', linkExpiry: '48 hours',
     content: 'Account details + features',
     edgeFunction: 'send-client-welcome-email',

@@ -11,7 +11,7 @@ const corsHeaders = {
   "Access-Control-Allow-Headers": "authorization, x-client-info, apikey, content-type",
 };
 
-const FROM_EMAIL = "JewlX <onboarding@resend.dev>";
+const FROM_EMAIL = "Aurezo <onboarding@resend.dev>";
 const REPLY_TO = Deno.env.get("SUPPORT_EMAIL") || undefined;
 
 // Generate a secure random token
@@ -286,7 +286,7 @@ serve(async (req: Request) => {
         // Don't fail the whole operation, just log
       } else {
         // Build setup URL - use vault for staff (client portal)
-        const baseUrl = "https://vault.jewlx.ai";
+        const baseUrl = "https://studio.aurezotech.com";
         const setupUrl = `${baseUrl}/reset-password?token=${token}`;
 
         // Send welcome email with setup link
@@ -296,7 +296,7 @@ serve(async (req: Request) => {
 <head>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Welcome to JewlX</title>
+  <title>Welcome to Aurezo</title>
 </head>
 <body style="margin: 0; padding: 0; background-color: #f5f5f5; font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, 'Helvetica Neue', Arial, sans-serif;">
   <table role="presentation" style="width: 100%; border-collapse: collapse;">
@@ -305,7 +305,7 @@ serve(async (req: Request) => {
         <table role="presentation" style="width: 100%; max-width: 560px; border-collapse: collapse; background-color: #ffffff; border-radius: 8px; overflow: hidden; box-shadow: 0 1px 3px rgba(0,0,0,0.08);">
           <tr>
             <td style="padding: 32px 40px 24px; text-align: center; background-color: #000000;">
-              <img src="https://vault.jewlx.ai/images/jewelx-email-logo.png" alt="JewlX" style="height: 56px;" />
+              <img src="https://studio.aurezotech.com/images/aurezo-email-logo.png" alt="Aurezo" style="height: 56px;" />
             </td>
           </tr>
           <tr>
@@ -346,8 +346,8 @@ serve(async (req: Request) => {
           <tr>
             <td style="padding: 20px 40px; background-color: #fafafa; border-top: 1px solid #eee;">
               <p style="margin: 0; color: #999; font-size: 12px; text-align: center;">
-                &copy; ${new Date().getFullYear()} JewlX. All rights reserved.<br>
-                <a href="https://jewlx.ai" style="color: #0b6e4f; text-decoration: none;">jewlx.ai</a>
+                &copy; ${new Date().getFullYear()} Aurezo. All rights reserved.<br>
+                <a href="https://aurezotech.com" style="color: #0b6e4f; text-decoration: none;">aurezotech.com</a>
               </p>
             </td>
           </tr>
@@ -362,7 +362,7 @@ serve(async (req: Request) => {
         const emailResponse = await resend.emails.send({
           from: FROM_EMAIL,
           to: [email],
-          subject: `Welcome to JewlX - ${clientData.company_name} has added you as a staff member`,
+          subject: `Welcome to Aurezo - ${clientData.company_name} has added you as a staff member`,
           html: emailHtml,
           reply_to: REPLY_TO,
         });
@@ -373,7 +373,7 @@ serve(async (req: Request) => {
         await supabaseAdmin.from("email_logs").insert({
           recipient_email: email,
           email_type: "staff_welcome",
-          subject: `Welcome to JewlX - ${clientData.company_name} has added you as a staff member`,
+          subject: `Welcome to Aurezo - ${clientData.company_name} has added you as a staff member`,
           status: "sent",
           resend_id: emailResponse.data?.id,
           metadata: { 

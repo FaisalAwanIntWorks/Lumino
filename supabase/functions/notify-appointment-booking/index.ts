@@ -10,7 +10,7 @@ const corsHeaders = {
   "Access-Control-Allow-Headers": "authorization, x-client-info, apikey, content-type, x-supabase-client-platform, x-supabase-client-platform-version, x-supabase-client-runtime, x-supabase-client-runtime-version",
 };
 
-const FROM_EMAIL = "JewlX <onboarding@resend.dev>";
+const FROM_EMAIL = "Aurezo <onboarding@resend.dev>";
 const REPLY_TO = Deno.env.get("SUPPORT_EMAIL") || undefined;
 
 interface BookingNotificationRequest {
@@ -104,7 +104,7 @@ const handler = async (req: Request): Promise<Response> => {
           <!-- Header -->
           <tr>
             <td style="background-color:#000000;padding:32px 40px 24px;text-align:center;">
-              <img src="https://vault.jewlx.ai/images/jewelx-email-logo.png" alt="JewlX" style="height:56px;" />
+              <img src="https://studio.aurezotech.com/images/aurezo-email-logo.png" alt="Aurezo" style="height:56px;" />
             </td>
           </tr>
           <!-- Body -->
@@ -131,7 +131,7 @@ const handler = async (req: Request): Promise<Response> => {
               <table role="presentation" style="width:100%;border-collapse:collapse;">
                 <tr>
                   <td align="center" style="padding:8px 0;">
-                    <a href="https://vault.jewlx.ai/leads" style="display:inline-block;padding:14px 28px;background-color:#0b6e4f;color:#ffffff;text-decoration:none;font-size:15px;font-weight:600;border-radius:6px;">
+                    <a href="https://studio.aurezotech.com/leads" style="display:inline-block;padding:14px 28px;background-color:#0b6e4f;color:#ffffff;text-decoration:none;font-size:15px;font-weight:600;border-radius:6px;">
                       View Appointments
                     </a>
                   </td>
@@ -142,7 +142,7 @@ const handler = async (req: Request): Promise<Response> => {
           <!-- Footer -->
           <tr>
             <td style="padding:20px 40px;background-color:#fafafa;border-top:1px solid #eee;text-align:center;">
-              <p style="color:#999;font-size:12px;margin:0;">Automated notification from JewlX.<br>&copy; ${new Date().getFullYear()} JewlX. All rights reserved.</p>
+              <p style="color:#999;font-size:12px;margin:0;">Automated notification from Aurezo.<br>&copy; ${new Date().getFullYear()} Aurezo. All rights reserved.</p>
             </td>
           </tr>
         </table>

@@ -1,12 +1,12 @@
 // Canonical CRM MVMNT (GoHighLevel) custom-field names per form answer.
 //
-// These names are a JewlX standard: identical in every client's CRM location so
+// These names are an Aurezo standard: identical in every client's CRM location so
 // merge tags like {{contact.what_diamond_shape_would_you_like}} behave the same
 // in every account and shared email templates keep working. A client renaming a
-// step heading inside JewlX never renames their CRM field.
+// step heading inside Aurezo never renames their CRM field.
 //
 // Every provisioned field is created as a Single Line text field on the Contact
-// object, inside a "JewlX" folder.
+// object, inside a "Aurezo" folder.
 //
 // The admin UI mirrors this file in src/lib/crm-field-catalog.ts — keep both in
 // sync (src/crm-field-catalog.test.ts fails if they drift).
@@ -23,7 +23,7 @@ export interface CrmFieldDef {
   optional?: boolean;
 }
 
-export const CRM_FIELD_FOLDER = 'JewlX';
+export const CRM_FIELD_FOLDER = 'Aurezo';
 
 export const CRM_FIELD_CATALOG: Record<string, CrmFieldDef[]> = {
   diamond: [

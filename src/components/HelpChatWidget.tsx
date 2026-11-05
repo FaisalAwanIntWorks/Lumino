@@ -26,7 +26,7 @@ interface Message {
 export function HelpChatWidget() {
   const [isOpen, setIsOpen] = useState(false);
   const [messages, setMessages] = useState<Message[]>([
-    { role: 'assistant', content: 'Hi! I\'m your JewelX assistant. How can I help you today?' }
+    { role: 'assistant', content: 'Hi! I\'m your Aurezo assistant. How can I help you today?' }
   ]);
   const [input, setInput] = useState('');
   const [loading, setLoading] = useState(false);
@@ -91,7 +91,7 @@ export function HelpChatWidget() {
     setLoading(true);
 
     try {
-      const doInvoke = () => supabase.functions.invoke('jewelx-help', {
+      const doInvoke = () => supabase.functions.invoke('aurezo-help', {
         body: {
           messages: [...messages, userMessage].map(m => ({ role: m.role, content: m.content })),
           context: location.pathname,
@@ -157,7 +157,7 @@ export function HelpChatWidget() {
           <div className="flex items-center justify-between p-3 sm:p-5 border-b-2 border-primary/20 gradient-emerald text-white rounded-t-xl">
             <div className="flex items-center gap-2">
               <MessageCircle className="h-4 w-4 sm:h-5 sm:w-5" />
-              <h3 className="font-semibold text-sm sm:text-base">JewelX Assistant</h3>
+              <h3 className="font-semibold text-sm sm:text-base">Aurezo Assistant</h3>
             </div>
             <Button
               variant="ghost"

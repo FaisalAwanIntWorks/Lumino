@@ -87,7 +87,7 @@ export function DiamondDetailInfoDialog({
 
   return createPortal(
     <div className="fixed inset-0 z-[60] flex items-start justify-center md:pl-[50%]" onClick={() => onOpenChange(false)}>
-      <div className="jewlx-info-backdrop absolute inset-0 bg-black/60" />
+      <div className="aurezo-info-backdrop absolute inset-0 bg-black/60" />
       <div
         className="relative w-full h-full overflow-y-auto bg-background"
         onClick={(e) => e.stopPropagation()}

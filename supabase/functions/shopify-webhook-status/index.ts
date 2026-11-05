@@ -55,7 +55,7 @@ async function checkClient(supabase: any, c: any): Promise<Row> {
       .filter((u: unknown): u is string => typeof u === "string" && u.includes(WEBHOOK_PATH));
 
     if (urls.length === 0) {
-      return { ...base, store, status: "missing", detail: "No ORDERS_CREATE webhook points at JewlX" };
+      return { ...base, store, status: "missing", detail: "No ORDERS_CREATE webhook points at Aurezo" };
     }
 
     // A webhook with ?client_id= for a different client would file orders under that client.

@@ -12,7 +12,7 @@ interface TrafficOverviewProps {
 export function TrafficOverview({ stats, features, isGlass, animDelay }: TrafficOverviewProps) {
   const trafficSources = useMemo(() => {
     const allSources = [
-      { key: 'jewlx_widget' as const, label: 'Ring OS', color: '#50c878', featureKey: 'product_catalogue' },
+      { key: 'aurezo_widget' as const, label: 'Ring OS', color: '#50c878', featureKey: 'product_catalogue' },
       { key: 'ring_builder' as const, label: 'Ring Builder', color: '#93c5fd', featureKey: 'diamond_form' },
       { key: 'grillz_builder' as const, label: 'Grillz Builder', color: '#fbbf24', featureKey: 'grillz_builder' },
       { key: 'custom_enquiry' as const, label: 'Custom Enquiry', color: '#d8b4fe', featureKey: 'custom_enquiry' },

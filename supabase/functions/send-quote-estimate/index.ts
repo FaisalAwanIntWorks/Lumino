@@ -4,7 +4,7 @@ import {
   loadCustomerBranding,
   renderEmailHeader,
   renderContactCta,
-  POWERED_BY_JEWLX_FOOTER,
+  POWERED_BY_AUREZO_FOOTER,
 } from "../_shared/customer-email-branding.ts";
 
 const Resend = (await import("https://esm.sh/resend@2.0.0")).Resend;
@@ -14,7 +14,7 @@ const corsHeaders = {
   "Access-Control-Allow-Headers": "authorization, x-client-info, apikey, content-type, x-supabase-client-platform, x-supabase-client-platform-version, x-supabase-client-runtime, x-supabase-client-runtime-version",
 };
 
-const FROM_EMAIL = "JewlX <onboarding@resend.dev>";
+const FROM_EMAIL = "Aurezo <onboarding@resend.dev>";
 const REPLY_TO = Deno.env.get("SUPPORT_EMAIL") || undefined;
 
 serve(async (req: Request) => {
@@ -143,7 +143,7 @@ serve(async (req: Request) => {
           <p style="color:#999;font-size:11px;margin:0;">
             This quote was sent by ${companyName}. This is an automated email — please do not reply directly to this address.
           </p>
-          ${POWERED_BY_JEWLX_FOOTER}
+          ${POWERED_BY_AUREZO_FOOTER}
         </td></tr>
       </table>
     </td></tr>

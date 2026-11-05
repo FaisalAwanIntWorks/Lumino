@@ -23,7 +23,7 @@ interface AdaptiveViewerOptions {
  *
  * `scrollRef` is the panel's scroll container and `contentRef` its single
  * content wrapper. The viewer wrapper is found via `[data-adaptive-viewer]`
- * inside `#jewlx-embed-root`, where the height is published as a CSS variable.
+ * inside `#aurezo-embed-root`, where the height is published as a CSS variable.
  */
 export const useAdaptiveViewerHeight = (
   scrollRef: RefObject<HTMLElement>,
@@ -33,7 +33,7 @@ export const useAdaptiveViewerHeight = (
   useEffect(() => {
     const scroll = scrollRef.current;
     const content = contentRef.current;
-    const root = scroll?.closest<HTMLElement>('#jewlx-embed-root');
+    const root = scroll?.closest<HTMLElement>('#aurezo-embed-root');
     const viewer = root?.querySelector<HTMLElement>('[data-adaptive-viewer]');
     if (!scroll || !content || !root || !viewer || typeof ResizeObserver === 'undefined') return;
 

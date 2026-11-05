@@ -59,7 +59,7 @@ export interface DashboardStats {
   leadSources: Record<string, number>;
   timezone: string;
   widgetViews: {
-    jewlx_widget: WidgetViewStats;
+    aurezo_widget: WidgetViewStats;
     ring_builder: WidgetViewStats;
     grillz_builder: WidgetViewStats;
     custom_enquiry: WidgetViewStats;

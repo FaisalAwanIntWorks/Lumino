@@ -51,7 +51,7 @@ export const TwentyFourKBottomBar = ({
   return (
     <div className="border-t border-[#E5E5E5]" style={{ background: '#FFFFFF' }}>
       <div className="flex flex-col md:grid md:grid-cols-2 md:items-stretch w-full">
-        {/* Left: product title only (no Powered by JewlX for 24k) */}
+        {/* Left: product title only (no Powered by Aurezo for 24k) */}
         <div className="hidden md:flex items-center justify-center px-5 lg:px-8 py-3 min-w-0">
           <span className="text-black text-sm lg:text-base font-serif tracking-wide truncate">
             {productTitle}

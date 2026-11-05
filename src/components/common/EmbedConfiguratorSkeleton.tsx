@@ -29,7 +29,7 @@ export function EmbedConfiguratorSkeleton({
             Initializing
           </p>
           <p className="text-lg tracking-[0.3em] uppercase font-semibold" style={{ color: text }}>
-            JewlX Ring Builder
+            Aurezo Ring Builder
           </p>
         </div>
 

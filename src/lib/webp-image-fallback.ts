@@ -1,4 +1,5 @@
 import type { SyntheticEvent } from 'react';
+import { ASSET_CDN } from "@/lib/asset-cdn";
 
 /**
  * WebP-first delivery for the stock widget imagery, with a PNG safety net.
@@ -7,7 +8,7 @@ import type { SyntheticEvent } from 'react';
  * Builder, Grillz Builder, Custom Enquiry, Metal IQ flags and the Ring OS
  * shape icons) is published on its CDN as both `.png` and `.webp` at the SAME
  * path — only the extension differs. See
- * `alljewlximagesurls/jewlx-form-cdn-image-urls-webp.md`.
+ * `alljewlximagesurls/aurezo-form-cdn-image-urls-webp.md`.
  *
  * The forms request the (much smaller) `.webp` file first. If a browser cannot
  * decode WebP, or a particular `.webp` twin is missing on the CDN, the `<img>`
@@ -17,15 +18,15 @@ import type { SyntheticEvent } from 'react';
 
 /** CDN bases whose files have a `.webp` twin next to every `.png`. */
 const WEBP_CDN_PREFIXES = [
-  'https://d2ybchbsrb165p.cloudfront.net/GenericDttFormImagesTransparent/',
-  'https://d3hry6a3ciae6y.cloudfront.net/DiamondsCatalog/',
-  'https://d3hry6a3ciae6y.cloudfront.net/DiamondCatalogZaiwar/',
-  'https://d2lo9ju43icaaa.cloudfront.net/GrillzBuilder/',
-  'https://d2lo9ju43icaaa.cloudfront.net/DTTRingBuilder/',
-  'https://dttringbuildersimages.s3.us-east-1.amazonaws.com/DTTRingBuilder/',
-  'https://d2lo9ju43icaaa.cloudfront.net/JewlxRingsSketches/',
-  'https://do2z856wqq7wu.cloudfront.net/ring-description/',
-  'https://do2z856wqq7wu.cloudfront.net/CaratSizeImages/',
+  `${ASSET_CDN.ringBuilder}/GenericDttFormImagesTransparent/`,
+  `${ASSET_CDN.diamondCatalog}/DiamondsCatalog/`,
+  `${ASSET_CDN.diamondCatalog}/DiamondCatalogZaiwar/`,
+  `${ASSET_CDN.main}/GrillzBuilder/`,
+  `${ASSET_CDN.main}/DTTRingBuilder/`,
+  `${ASSET_CDN.dttRingBuilderS3}/DTTRingBuilder/`,
+  `${ASSET_CDN.main}/JewlxRingsSketches/`,
+  `${ASSET_CDN.rings}/ring-description/`,
+  `${ASSET_CDN.rings}/CaratSizeImages/`,
   'https://flagcdn.com/',
 ];
 

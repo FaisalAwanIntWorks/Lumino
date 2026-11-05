@@ -1,10 +1,11 @@
 import { Diamond } from 'lucide-react';
 import { useIsDarkBackground } from '@/hooks/useIsDarkBackground';
 import { fallbackToPngOnError } from '@/lib/webp-image-fallback';
+import { ASSET_CDN } from "@/lib/asset-cdn";
 
 // Icons are requested as WebP; the <img> falls back to the .png twin on error.
 
-const CDN_TRANSPARENT_BASE = 'https://d3hry6a3ciae6y.cloudfront.net/DiamondsCatalog/TransparentDiamondIcons';
+const CDN_TRANSPARENT_BASE = `${ASSET_CDN.diamondCatalog}/DiamondsCatalog/TransparentDiamondIcons`;
 
 const transparentIconMap: Record<string, string> = {
   round: `${CDN_TRANSPARENT_BASE}/RounddiamondtransparentIcon.webp`,
@@ -17,7 +18,7 @@ const transparentIconMap: Record<string, string> = {
   marquise: `${CDN_TRANSPARENT_BASE}/MarquisediamondtransparentIcon.webp`,
 };
 
-const CDN_BASE = 'https://d3hry6a3ciae6y.cloudfront.net/DiamondsCatalog/DiamondWhiteBackgroundIcons';
+const CDN_BASE = `${ASSET_CDN.diamondCatalog}/DiamondsCatalog/DiamondWhiteBackgroundIcons`;
 
 const whiteBgIconMap: Record<string, string> = {
   round: `${CDN_BASE}/Rounddiamondicon.webp`,

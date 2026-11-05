@@ -70,7 +70,7 @@ export default function Settings() {
               <div className="space-y-3 sm:space-y-4">
                 <div>
                   <Label htmlFor="agency-name" className="text-sm">Agency Name</Label>
-                  <Input id="agency-name" defaultValue="Jewlx Agency" className="mt-1" />
+                  <Input id="agency-name" defaultValue="Aurezo Agency" className="mt-1" />
                 </div>
                 <div>
                   <Label htmlFor="agency-email" className="text-sm">Contact Email</Label>

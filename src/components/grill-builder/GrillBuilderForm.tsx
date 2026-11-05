@@ -32,7 +32,7 @@ import { buildQuestionSummaryItems } from '@/lib/question-answer-formatter';
 import { getEffectiveAiImageDelivery } from '@/lib/ai-image-delivery';
 
 // CDN-hosted grillz assets
-const GRILLZ_CDN = 'https://d2lo9ju43icaaa.cloudfront.net/GrillzBuilder';
+const GRILLZ_CDN = `${ASSET_CDN.main}/GrillzBuilder`;
 // Served as WebP; every <img> that shows these falls back to the .png twin on error.
 const extendedFangsImg = `${GRILLZ_CDN}/Extendedfagsgrillztransparentimage.webp`;
 const openFaceImg = `${GRILLZ_CDN}/open-face-jwa6P4oA.webp`;
@@ -54,6 +54,7 @@ import {
   resolveGrillEnabledOptions,
 } from '@/lib/grill-option-toggles';
 import { toWebpImageUrl, fallbackToPngOnError } from '@/lib/webp-image-fallback';
+import { ASSET_CDN } from "@/lib/asset-cdn";
 
 const grillzGold = toWebpImageUrl(BASIC_IMAGES.gold);
 const grillzGoldIced = toWebpImageUrl(ICED_IMAGES.gold);

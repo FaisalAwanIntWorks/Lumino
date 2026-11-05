@@ -10,7 +10,7 @@ import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@
 import { Skeleton } from "@/components/ui/skeleton";
 import { Search, Grid3x3, List } from "lucide-react";
 import { formatCurrency } from "@/lib/pricing-utils";
-import { JewlXLicenseBadge } from "@/components/common/JewlXLicenseBadge";
+import { AurezoLicenseBadge } from "@/components/common/AurezoLicenseBadge";
 
 interface Product {
   id: string;
@@ -169,7 +169,7 @@ export default function Shop() {
                       alt={product.name}
                     />
                     <div className="absolute top-2 right-2 z-10">
-                      <JewlXLicenseBadge size="xs" />
+                      <AurezoLicenseBadge size="xs" />
                     </div>
                   </div>
                   

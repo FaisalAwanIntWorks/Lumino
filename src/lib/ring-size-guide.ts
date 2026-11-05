@@ -1,5 +1,5 @@
 // Ring size conversion used by the Ring OS "Find your ring size" guide (eye icon
-// on the Ring Size section). Values match the printable Jewlx Ring Size Guide PDF
+// on the Ring Size section). Values match the printable Aurezo Ring Size Guide PDF
 // so the on-screen table and the printed chart never disagree.
 
 export interface RingSizeRow {
@@ -42,8 +42,8 @@ export const RING_SIZE_GUIDE: RingSizeRow[] = [
 export const RING_SIZE_OPTIONS_US: string[] = RING_SIZE_GUIDE.map((r) => r.us);
 
 /** Printable guide served from /public (Letter size, 2 pages). */
-export const RING_SIZE_GUIDE_PDF_URL = '/guides/Jewlx_Ring_Size_Guide.pdf';
-export const RING_SIZE_GUIDE_PDF_FILENAME = 'Jewlx_Ring_Size_Guide.pdf';
+export const RING_SIZE_GUIDE_PDF_URL = '/guides/Aurezo_Ring_Size_Guide.pdf';
+export const RING_SIZE_GUIDE_PDF_FILENAME = 'Aurezo_Ring_Size_Guide.pdf';
 
 /** '7.5' -> '7½' for display; whole sizes are returned unchanged. */
 export const formatUsRingSize = (us: string): string => us.replace(/\.5$/, '½');

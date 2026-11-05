@@ -3,7 +3,7 @@
 // Only these accounts can pick a Ring OS catalogue currency (USD / GBP / CAD).
 
 export const RING_OS_CURRENCY_CLIENT_IDS: ReadonlySet<string> = new Set([
-  'dcd952fc-783b-4a92-be7f-62751265c650', // Sandbox · JewlX
+  'dcd952fc-783b-4a92-be7f-62751265c650', // Sandbox · Aurezo
 ]);
 
 export const RING_OS_CURRENCIES = ['USD', 'GBP', 'CAD'] as const;

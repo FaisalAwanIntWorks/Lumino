@@ -313,7 +313,7 @@ Deno.serve(async (req) => {
     ].sort((a: any, b: any) => new Date(b.created_at).getTime() - new Date(a.created_at).getTime());
 
     // Lead sources
-    const ringOsDeposits = orders.filter((o: any) => o.order_source === 'jewlx-widget').length;
+    const ringOsDeposits = orders.filter((o: any) => o.order_source === 'aurezo-widget').length;
 
     const leadSources: Record<string, number> = {
       widget: savedDesigns.length,
@@ -332,7 +332,7 @@ Deno.serve(async (req) => {
     // get_product_revenue, which these sums back up when the RPC is missing).
     const revenueOrders = orders.filter((o: any) => !isVoidOrderStatus(o.status));
     const totalRevenue = revenueOrders.reduce((sum: number, o: any) => sum + Number(o.total_amount || 0), 0);
-    const ringOsOrders = revenueOrders.filter((o: any) => o.order_source === 'jewlx-widget');
+    const ringOsOrders = revenueOrders.filter((o: any) => o.order_source === 'aurezo-widget');
     // One row per product + currency (a store normally has exactly one
     // currency). Tiles show the largest currency; the rest ride along in the
     // *ByCurrency arrays. If the RPC is unavailable, keep the legacy
@@ -420,7 +420,7 @@ Deno.serve(async (req) => {
     if (viewStatsResult.error) {
       console.error('get_widget_view_stats failed:', viewStatsResult.error.message);
     }
-    const widgetViewSources = ['jewlx_widget', 'ring_builder', 'grillz_builder', 'custom_enquiry', 'metal_buying'] as const;
+    const widgetViewSources = ['aurezo_widget', 'ring_builder', 'grillz_builder', 'custom_enquiry', 'metal_buying'] as const;
     const widgetViews: Record<string, { total: number; unique: number }> = {};
     for (const source of widgetViewSources) {
       const row = (viewStatsResult.data as any[])?.find((r: any) => r.source === source);
@@ -555,7 +555,7 @@ async function handleAllClientsMode(supabase: any, startISO?: string, endISO?: s
   // Refunded / cancelled orders are excluded from every revenue figure.
   const revenueOrders = orders.filter((o: any) => !isVoidOrderStatus(o.status));
   const totalRevenue = revenueOrders.reduce((sum: number, o: any) => sum + Number(o.total_amount || 0), 0);
-  const ringOsOrders = revenueOrders.filter((o: any) => o.order_source === 'jewlx-widget');
+  const ringOsOrders = revenueOrders.filter((o: any) => o.order_source === 'aurezo-widget');
   const widgetRevenue = ringOsOrders.reduce((sum: number, o: any) => sum + Number(o.total_amount || 0), 0);
   const formSources = ['ring-builder', 'grillz-builder', 'custom-inquiry'];
   const formOrders = revenueOrders.filter((o: any) => formSources.includes(o.order_source));
@@ -658,7 +658,7 @@ async function handleAllClientsMode(supabase: any, startISO?: string, endISO?: s
   if (viewStatsResult.error) {
     console.error('get_widget_view_stats_all failed:', viewStatsResult.error.message);
   }
-  const widgetViewSources = ['jewlx_widget', 'ring_builder', 'grillz_builder', 'custom_enquiry', 'metal_buying'] as const;
+  const widgetViewSources = ['aurezo_widget', 'ring_builder', 'grillz_builder', 'custom_enquiry', 'metal_buying'] as const;
   const widgetViews: Record<string, { total: number; unique: number }> = {};
   for (const source of widgetViewSources) {
     const row = (viewStatsResult.data as any[])?.find((r: any) => r.source === source);

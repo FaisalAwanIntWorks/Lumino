@@ -4,7 +4,7 @@ import {
   loadCustomerBranding,
   renderEmailHeader,
   renderContactCta,
-  POWERED_BY_JEWLX_FOOTER,
+  POWERED_BY_AUREZO_FOOTER,
 } from "../_shared/customer-email-branding.ts";
 import { escapeHtml } from "../_shared/security-utils.ts";
 import { denyReadOnlyAdmin } from "../_shared/admin-access.ts";
@@ -155,7 +155,7 @@ serve(async (req: Request) => {
           <p style="color:#999;font-size:11px;margin:0;">
             This message was sent by ${safeCompany}. Replies go directly to ${safeReplyTo}.
           </p>
-          ${POWERED_BY_JEWLX_FOOTER}
+          ${POWERED_BY_AUREZO_FOOTER}
         </td></tr>
       </table>
     </td></tr>

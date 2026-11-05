@@ -1,9 +1,10 @@
+import { ASSET_CDN } from "@/lib/asset-cdn";
 /**
  * CloudFront CDN utility for ring assets.
  * All ring images are served from this CDN for optimal global delivery.
  */
 
-export const CLOUDFRONT_CDN_BASE = 'https://do2z856wqq7wu.cloudfront.net';
+export const CLOUDFRONT_CDN_BASE = `${ASSET_CDN.rings}`;
 
 /**
  * Ring styles whose angle renders are also published on the CDN as `.webp` at

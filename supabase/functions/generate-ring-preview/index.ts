@@ -9,6 +9,7 @@ import { shouldDeliverRenderByEmail } from '../_shared/ai-image-delivery.ts';
 import { loadPrompt } from '../_shared/prompt-loader.ts';
 import { urlsToBase64 } from '../_shared/image-to-base64.ts';
 import { logEdgeFunctionError } from '../_shared/error-logger.ts';
+import { ASSET_CDN } from "../_shared/asset-cdn.ts";
 
 const corsHeaders = {
   "Access-Control-Allow-Origin": "*",
@@ -47,7 +48,7 @@ const MODELS = [
 // the URL can now be overridden via the RING_FALLBACK_CDN_BASE secret without
 // a code deploy if the bucket is rotated or fails.
 const CLOUDFRONT_CDN_BASE =
-  Deno.env.get("RING_FALLBACK_CDN_BASE") || "https://do2z856wqq7wu.cloudfront.net";
+  Deno.env.get("RING_FALLBACK_CDN_BASE") || `${ASSET_CDN.rings}`;
 
 // Cap how many uploaded reference images we hydrate to base64 — the AI call
 // already slices to the first 4, so anything beyond is wasted bandwidth (B6).
@@ -244,12 +245,12 @@ function buildMultimodalContent(promptText: string, imageUrls: string[]): any {
 
 // tryGenerateWithFallback replaced by tryImageCall from ai-router.ts
 
-// G4: JewlX-internal origins are always trusted.
-const JEWLX_TRUSTED_HOSTS = [
-  "vault.jewlx.ai",
-  "admin.jewlx.ai",
-  "builder.jewlx.ai",
-  "jewlx.ai",
+// G4: Aurezo-internal origins are always trusted.
+const AUREZO_TRUSTED_HOSTS = [
+  "studio.aurezotech.com",
+  "studioadmin.aurezotech.com",
+  "widget.aurezotech.com",
+  "aurezotech.com",
   "localhost",
 ];
 
@@ -268,7 +269,7 @@ async function validateOrigin(
   let originHost = "";
   try { originHost = new URL(origin).hostname; } catch { return null; }
 
-  if (JEWLX_TRUSTED_HOSTS.some(h => originHost === h || originHost.endsWith(`.${h}`))) {
+  if (AUREZO_TRUSTED_HOSTS.some(h => originHost === h || originHost.endsWith(`.${h}`))) {
     return null;
   }
 

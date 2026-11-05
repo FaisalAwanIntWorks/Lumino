@@ -264,7 +264,7 @@ Deno.serve(async (req) => {
         firstName: lead.first_name || "Lead",
         email: lead.email || undefined,
         phone,
-        source: "JewlX Diamond Form",
+        source: "Aurezo Diamond Form",
         customFields: customFields.length ? customFields : undefined,
       };
 

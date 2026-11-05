@@ -126,7 +126,7 @@ export function CustomerEmailBrandingCard() {
           <Mail className="h-4 w-4" /> Customer Email Branding
         </CardTitle>
         <CardDescription>
-          These show up only in emails sent to your customers (form confirmations, AI previews, quotes, CAD delivery). Emails sent to you are unchanged. A "Powered by JewlX" line is always appended.
+          These show up only in emails sent to your customers (form confirmations, AI previews, quotes, CAD delivery). Emails sent to you are unchanged. A "Powered by Aurezo" line is always appended.
         </CardDescription>
       </CardHeader>
       <CardContent className="space-y-6">
@@ -154,7 +154,7 @@ export function CustomerEmailBrandingCard() {
               <input ref={fileRef} type="file" accept="image/png,image/jpeg,image/svg+xml" className="hidden" onChange={handleUpload} />
             </div>
           </div>
-          <p className="text-xs text-muted-foreground">PNG, JPG or SVG up to 2MB. Falls back to JewlX logo if empty.</p>
+          <p className="text-xs text-muted-foreground">PNG, JPG or SVG up to 2MB. Falls back to Aurezo logo if empty.</p>
         </div>
 
         <div className="space-y-3">

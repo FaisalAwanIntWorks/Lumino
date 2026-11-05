@@ -22,7 +22,7 @@ export default function Manufacturing() {
   const [loading, setLoading] = useState(true);
 
   useEffect(() => {
-    document.title = 'Manufacturing Requests | JewelX';
+    document.title = 'Manufacturing Requests | Aurezo';
     if (isImpersonating && !impersonatedClientId) return;
     loadManufacturingOrders();
   }, [user, isImpersonating, impersonatedClientId]);
@@ -88,7 +88,7 @@ export default function Manufacturing() {
     <div className="space-y-6">
       <div>
         <h1 className="text-3xl font-bold">Manufacturing Requests</h1>
-        <p className="text-muted-foreground mt-1">Track orders being manufactured by JewelX</p>
+        <p className="text-muted-foreground mt-1">Track orders being manufactured by Aurezo</p>
       </div>
 
       <div className="grid grid-cols-1 md:grid-cols-4 gap-4">
@@ -123,7 +123,7 @@ export default function Manufacturing() {
           <Factory className="h-12 w-12 mx-auto text-muted-foreground mb-4" />
           <h3 className="text-xl font-semibold mb-2">No Manufacturing Requests Yet</h3>
           <p className="text-muted-foreground">
-            When you request JewelX to manufacture orders, they'll appear here
+            When you request Aurezo to manufacture orders, they'll appear here
           </p>
         </Card>
       ) : (

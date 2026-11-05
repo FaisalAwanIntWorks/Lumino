@@ -11,7 +11,7 @@
  *   - `false` → treated as disabled
  *
  * Permission keys:
- *   - `catalog_access`       → Ring OS (Catalog, Widget, JewlX Agent)
+ *   - `catalog_access`       → Ring OS (Catalog, Widget, Aurezo Agent)
  *   - `custom_x_access`      → Custom X (Ring Builder, Grillz, Custom Enquiry)
  *   - `metal_buying_access`  → Metal IQ (Widget + Leads)
  *   - `leads_access`         → Leads & Bookings

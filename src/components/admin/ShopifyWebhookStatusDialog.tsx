@@ -26,7 +26,7 @@ const STATUS_LABEL: Record<WebhookStatus, { label: string; className: string }> 
   api_error: { label: 'Shopify error', className: 'bg-amber-500/15 text-amber-500 border-amber-500/30' },
 };
 
-/** Read-only check of which connected Shopify stores really send orders to JewlX. */
+/** Read-only check of which connected Shopify stores really send orders to Aurezo. */
 export function ShopifyWebhookStatusDialog() {
   const [open, setOpen] = useState(false);
   const [loading, setLoading] = useState(false);
@@ -65,7 +65,7 @@ export function ShopifyWebhookStatusDialog() {
         <DialogHeader>
           <DialogTitle>Shopify order webhooks</DialogTitle>
           <DialogDescription>
-            Asks each connected store whether an ORDERS_CREATE webhook points at JewlX. Without it, paid orders never
+            Asks each connected store whether an ORDERS_CREATE webhook points at Aurezo. Without it, paid orders never
             reach the dashboard revenue. Read-only — nothing is changed.
           </DialogDescription>
         </DialogHeader>

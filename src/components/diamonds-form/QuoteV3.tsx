@@ -86,7 +86,7 @@ export function QuoteV3({ clientId, config, currency }: { clientId: string; conf
   const claimTheme = useMemo(() => resolveQuoteEstimatorTheme(config.form_colors, config.form_content?.theme), [config.form_colors, config.form_content?.theme]);
   const testPreview = useQuoteTestPreview();
   const { data: options, isLoading, error: optionsError } = useAllDiamondFormOptions(clientId, 'v3', false);
-  const draftKey = `jewlx-quote-v3-draft:${clientId}`;
+  const draftKey = `aurezo-quote-v3-draft:${clientId}`;
   const draft = useMemo(() => { try { return JSON.parse(sessionStorage.getItem(draftKey) || 'null'); } catch { return null; } }, [draftKey]);
   const clearDraft = () => { try { sessionStorage.removeItem(draftKey); } catch { /* storage blocked */ } };
   const [data, setData] = useState<DiamondFormData>(() => draft?.data ? { ...EMPTY, ...draft.data, inspirationImages: [], contactInfo: null } : EMPTY);
@@ -178,7 +178,7 @@ export function QuoteV3({ clientId, config, currency }: { clientId: string; conf
     setError('');
     setNotice('');
     window.scrollTo({ top: 0, behavior: 'instant' });
-    window.parent?.postMessage(JSON.stringify({ type: 'jewlx-scroll-top' }), '*');
+    window.parent?.postMessage(JSON.stringify({ type: 'aurezo-scroll-top' }), '*');
   };
   const valid = (step: typeof STAGES[number]) => {
     if (step.key === 'review') return true;

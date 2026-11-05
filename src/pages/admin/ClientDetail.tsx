@@ -46,7 +46,7 @@ const FEATURE_GROUPS: { label: string; keys: string[] }[] = [
 ];
 
 const STATUS_OPTIONS = ['active', 'trial', 'paused', 'cancelled', 'archived', 'CRM - Active', 'CRM - Trial', 'CRM - Paused'];
-const ACCOUNT_TAG_OPTIONS = ['CustomX', 'JewlX Suite', 'RingOS', 'Metal IQ'];
+const ACCOUNT_TAG_OPTIONS = ['CustomX', 'Aurezo Suite', 'RingOS', 'Metal IQ'];
 
 function isGroupEnabled(features: Record<string, boolean>, keys: string[]): boolean {
   return keys.every(k => features[k] !== false);

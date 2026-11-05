@@ -41,7 +41,7 @@ export const Footer = () => {
           {/* Copyright */}
           <div className="text-center md:text-right">
             <p className="text-sm text-muted-foreground">
-              © 2024 JewlX. All rights reserved.
+              © 2024 Aurezo. All rights reserved.
             </p>
           </div>
         </div>
